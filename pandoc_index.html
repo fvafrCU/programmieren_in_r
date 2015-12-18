@@ -1,0 +1,884 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Dominik Cullmann, Elke Erhardt" />
+  <title>Programmieren in R</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">Programmieren in <strong>R</strong></h1>
+<h1 class="subtitle">Ein Einstieg an der Forstlichen Versuchs- und Forschungsanstalt Baden-Württemberg.</h1>
+<h2 class="author">Dominik Cullmann, Elke Erhardt</h2>
+</div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#!/usr/bin/Rscript --vanilla</span></code></pre></div>
+<h1 id="vorweg"><span class="header-section-number">1</span> Vorweg</h1>
+<h2 id="du"><span class="header-section-number">1.1</span> Du</h2>
+<p>... bist mir derzeit unbekannt. Aber ich gehe davon aus, dass Du</p>
+<ul>
+<li><strong>R</strong> nicht oder fast nicht kennst.<br />
+ Sollte dem nicht so sein: suche Dir eine <a href="http://d-nb.info/881127515">sinnvollere Lektüre</a>.</li>
+<li>nicht oder fast nicht programmieren kannst.<br />
+ Sollte dem nicht so sein, werden Dir einige meiner Ausführungen bekannt vorkommen.</li>
+<li>vor einem Standard-Arbeitsplatz-Desktop an der Forstlichen Versuchs- und Forschungsanstalt Baden-Württemberg sitzt.<br />
+ Sollte dem nicht so sein: Du wirst den meisten Links in diesem Dokument nicht folgen können, sie verweisen auf einen internen Server an der Forstlichen Versuchs- und Forschungsanstalt Baden-Württemberg. <a href="#anhang">Im Anhang</a> findest Du aber immerhin die Daten aus den Beispielen dieses Dokumentes.</li>
+</ul>
+<h2 id="r"><span class="header-section-number">1.2</span> <strong>R</strong></h2>
+<p>... ist</p>
+<ul>
+<li><code>nicht</code> eines der potentiellen Konkurrenzprodukte:<br />
+ <a href="http://www.sas.com">SAS</a>, <a href="http://www-01.ibm.com/software/analytics/spss/">SPSS</a>, ein <a href="https://de.wikipedia.org/wiki/Geoinformationssystem">Geographisches Informationssystem</a>, <a href="http://pydata.org/">pyData</a>, <a href="http://julialang.org/">Julia</a>.</li>
+<li>eigentlich <a href="http://www.r-project.org">GNU R</a>, ich nenne es aber einfach nur <strong>R</strong>.</li>
+<li>ein Datenanalysetool zur Erstellung von Graphiken, Karten, Statistiken und Modellen.</li>
+<li>Der <a href="https://de.wikipedia.org/wiki/Interpreter">Interpreter</a> für:</li>
+<li>eine <a href="https://en.wikipedia.org/wiki/Interpreted_language">(interpretierte) Programmiersprache</a>: ``` {.r} print(&quot;hello, world&quot;)</li>
+</ul>
+<p>```</p>
+<p>Der letzte Punkt ist meiner Meinung der wichtigste, denn:</p>
+<h2 id="diese-einführung"><span class="header-section-number">1.3</span> Diese Einführung</h2>
+<p>... soll Dir <strong>R</strong> als eine Programmiersprache nahebringen. Du wirst <strong>R</strong> hinterher nicht beherrschen. Aber vielleicht Lust bekommen haben, es näher kennenzulernen.</p>
+<p>Nicht kennenlernen wirst Du in dieser Einführung <strong>R</strong> als Datenanalysetool, insbesondere lernst Du hier nichts über <strong>R</strong> und Statistik. Allerdings will ich Dich ein wenig locken und verspreche Dir daher, dass Du <a href="#von-daten-zur-graphik">am Schluß</a> schöne Bilder machen kannst.</p>
+<h3 id="darstellung"><span class="header-section-number">1.3.1</span> Darstellung</h3>
+<p>Ich habe mich wenig um <a href="https://en.wikipedia.org/wiki/HTML">HTML</a> und <a href="https://en.wikipedia.org/wiki/Cascading_Style_Sheets">CSS</a> geschert, <a href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a> ergibt bei mir eine bessere Darstellung als der Internet Explorer. Andere Browser habe ich unter Windows nicht getestet.</p>
+<h3 id="r-code-und-output"><span class="header-section-number">1.3.2</span> <strong>R</strong>-Code und Output</h3>
+<p>Wie Du unter <a href="#r-ist">bereits</a> gesehen hast, setze ich in diesem Dokument Programmcode in leicht hinterlegten Kästen, den interpretierten Output in nicht hinterlegten Kästen mit zwei führenden #. Wobei ich den Output zuweilen, wo er mir länglich oder nicht hilfreich erscheint, unterdrücke. Ein hinterlegtes Textstück innerhalb einer normalen Textzeile zeigt an, dass das Textstück ebenfalls <strong>R</strong>-Code ist, dieser aber nicht dazu gedacht ist, in der dargestellten Form von Dir ausgeführt zu werden. <code>print</code> beispielsweise ist der Name einer Funktion, die wir <a href="#r">oben</a> bereits benuzt haben, die Eingabe von <code>print</code> allein in <strong>R</strong> ist aber nicht sinnvoll, die von <code>print()</code> erzeugt sogar einen Fehler. Dennoch sind beides <strong>R</strong>-Code-Stücke, weswegen ich sie durch Hinterlegung kennzeichne.</p>
+<p>Da dieses Dokument in <a href="https://cran.r-project.org/web/packages/rmarkdown">rmarkdown</a> geschrieben ist (Details findest Du <a href="#dieses-dokument">hinten</a>), wird der Output tatsächlich durch den <strong>R</strong>-Code erzeugt. Den gesamten <strong>R</strong>-Code in diesem Dokument findest Du <a href="index.R">hier</a>, einzelne Teile aber auch in <a href="src">diesen <strong>R</strong>-Codes</a>.</p>
+<h3 id="aufgaben"><span class="header-section-number">1.3.3</span> Aufgaben</h3>
+<p>Du findest eine Reihe von Aufgaben in den ersten vier Kapiteln dieses Dokuments. Sie sehen so aus:</p>
+<div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
+<p><strong>Aufgabe:</strong> Schreibe Code, der</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&quot;answers/example.r&quot;</span>)</code></pre></div>
+<p>ausgibt.</p>
+<p><a href="answers/example.r">Hier findest Du meine Lösung.</a></p>
+</div>
+<p>Versuche, sie zu lösen, vergleiche dann Deinen Versuch mit meiner Lösung (und schreibe mir, falls Dir Dein Versuch eleganter, schöner oder verständlicher als meine Lösung erscheint) und lies <em>erst dann</em> weiter.</p>
+<h1 id="grundlagen"><span class="header-section-number">2</span> Grundlagen</h1>
+<h2 id="r-benutzen"><span class="header-section-number">2.1</span> <strong>R</strong> benutzen</h2>
+<p>Um <strong>R</strong> zu nutzen, brauchst Du einen Interpreter. Den kannst Du über die Softwareverteilung des Benutzerservice installieren - wahrscheinlich nach C:\Program Files\R\R-3.1.2\bin\i386 oder so. In diesem Verzeichnis findest Du R.exe, einen <a href="https://en.wikipedia.org/wiki/List_of_command-line_interpreters">command line interpreter</a> und Rgui.exe, eine graphische Nutzeroberfläche für R.exe. In beiden kannst Du <strong>R</strong>-Code schreiben, Rgui.exe bietet Dir rudimentäre Editor-Funktionen, R.exe nicht.</p>
+<p>Beide sind nicht sehr komfortabel, daher benutzen Viele an der FVA hauptsächlich <a href="https://www.rstudio.com/">RStudio</a>, eine <a href="https://en.wikipedia.org/wiki/Integrated_development_environment">IDE</a>, mit der Du Code editieren und an den <strong>R</strong>-Interpreter übergeben kannst. Du kannst RStudio ebenfalls über die Softwareverteilung des Benutzerservice installieren. Aber auch andere Entwicklungsumgebungen oder Editoren sind gut.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## I turn off help. Restore it via
+<span class="co">#  options(list(pager = file.path(R.home(), &quot;bin/pager&quot;)))</span>
+<span class="kw">options</span>(<span class="kw">list</span>(<span class="dt">pager =</span> function(..., header,
+                     <span class="dt">title =</span> <span class="st">&quot;R Information&quot;</span>,
+               <span class="dt">delete.file =</span> <span class="ot">FALSE</span>){
+               <span class="kw">return</span>(<span class="ot">NULL</span>)
+               }
+               )
+               )</code></pre></div>
+<div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
+<p><strong>Aufgabe:</strong> Verändere den <a href="#r">obigen Code</a> so, dass er</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&quot;answers/hello.r&quot;</span>)</code></pre></div>
+<p>ausgibt.</p>
+<p><a href="answers/hello.r">Hier findest Du meine Lösung.</a></p>
+</div>
+<h3 id="r-im-batch-benutzen"><span class="header-section-number">2.1.1</span> <strong>R</strong> im Batch benutzen</h3>
+<p>Es gibt auch noch die Möglichkeit, <strong>R</strong> nicht interaktiv sondern im Batch-Modus zu nutzen. Das sehen wir aber erst <a href="#r-im-batch">später</a>.</p>
+<h2 id="hilfe-finden-mit-der-hilfefunktion"><span class="header-section-number">2.2</span> Hilfe finden mit der Hilfefunktion</h2>
+<p>Die Hilfefunktion hört auf den Namen <code>help()</code>, sie hat auch eine Kurzform:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="st">&quot;help&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;utils&quot;</span>)
+?help</code></pre></div>
+<p>Sie liefert eine Hilfeseite die, je nach Konfiguration Deiner Arbeitsumgebung und Optionen für die Hilfefunktion, als Text, html oder pdf erscheint. Sie kann beispielswiese <a href="examples/r_help.html">so</a> aussehen. Ich finde die Hinweise in der Rubrik <code>See Also:</code> oft hilfreich. Ein gutes Beispiel ist</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="st">&quot;Syntax&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;base&quot;</span>)
+?Syntax</code></pre></div>
+<p>Hier findest Du eine sehr technische Einführung in die Syntax von <strong>R</strong> und Verweise auf (unter anderen) die wichtigen Hilfeseiten <code>help(&quot;Comparison&quot;, package = &quot;base&quot;)</code> und <code>help(&quot;Logic&quot;, package = &quot;base&quot;)</code> , auf denen die Vergleichsoperatoren und die logischen Operatoren beschrieben werden.</p>
+<h2 id="zuweisungen"><span class="header-section-number">2.3</span> Zuweisungen</h2>
+<p>Alle Objekte (<a href="#datentypen-und-indizierung">Daten</a> und <a href="#funktionen">Funktionen</a>) in <strong>R</strong> werden durch Zuweisungen definiert.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a_number &lt;-<span class="st"> </span><span class="dv">3</span></code></pre></div>
+<p>Das ist schon recht technisch, denn in anderen Sprachen werden Objekte zunächst definiert (oder zumindest deklariert) und erst dann wird ihnen ein Wert zugewiesen. Das ist etwas umständlich, aber dafür funktioniert der folgende Code in <strong>R</strong> leider:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a_number &lt;-<span class="st"> &quot;this is no number, it&#39;s a string!&quot;</span></code></pre></div>
+<p>Ich kann also ein Objekt mit einem Objekt eines anderen Typs überschreiben.</p>
+<!---_(Manche Programmiersprachen verlangen die Deklaration eines
+Objektes (mit einem bestimmten Typ), in **R** erfolgt die Deklaration und die
+Typbestimmung automatisch aus der ersten Zuweisung.)_
+-->
+<p>Wie bei der Hilfe gibt es neben der Kurzform (bzw. den 5 verschiedenen Kurzformen, Genaueres findest Du mit <code>help(&quot;assignOps&quot;, package = &quot;base&quot;)</code>) eine flexiblere, ausführlichere Variante, die ich aber in &quot;normalen&quot; <strong>R</strong>-Skripten fast nie verwende:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">assign</span>(<span class="st">&quot;a_number&quot;</span>, <span class="dv">4</span>)</code></pre></div>
+<div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
+<p><strong>Aufgabe:</strong> Weise dem Objekt <code>my_name</code> Deinen Namen zu und gebe den Wert des Objektes aus. Bei mir sieht das Ergebnis dann so</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&quot;answers/name.r&quot;</span>)</code></pre></div>
+<p>aus.</p>
+<p><a href="answers/name.r">Hier findest Du meine Lösung.</a></p>
+</div>
+<h2 id="operatoren"><span class="header-section-number">2.4</span> Operatoren</h2>
+<p>Wenn wir zwei Dinge miteinander vergleichen wollen, nutzen wir die Vergleichsoperatoren, die wir gerade schon durch <code>help(&quot;Comparison&quot;, package = &quot;base&quot;)</code> kennengelernt haben:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a_number !=<span class="st"> </span><span class="dv">4</span> </code></pre></div>
+<p>Vergleiche (aber auch andere <strong>R</strong>-Anweisungen) können wir durch logische Operatoren verknüpfen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a_number !=<span class="st"> </span><span class="dv">4</span> ||<span class="st"> </span>a_number ==<span class="st"> </span><span class="dv">4</span></code></pre></div>
+<p><em>(Es gibt in <strong>R</strong> auch Funktionen, die komplexere &quot;Dinge&quot; miteinander vergleichen, beispielsweise <code>?identical</code> und <code>?all.equal</code>)</em></p>
+<h2 id="funktionen"><span class="header-section-number">2.5</span> Funktionen</h2>
+<p>Funktionen spielen in <strong>R</strong> eine große Rolle, weitaus die meisten <a href="https://de.wikipedia.org/wiki/Anweisung_%28Programmierung%29">Anweisungen</a> in <strong>R</strong> sind Funktionsaufrufe. Eine Liste der in Deiner Umgebung verfügbaren Funktionen erhältst Du durch</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for (pos in <span class="kw">seq</span>(<span class="dt">along =</span> <span class="kw">searchpaths</span>())) {
+    <span class="kw">print</span>(<span class="kw">lsf.str</span>(pos))
+}</code></pre></div>
+<p>Allerdings hängt diese Liste von den gerade geladenen <a href="#r-packages">Pakete</a> ab.</p>
+<h2 id="r-packages"><span class="header-section-number">2.6</span> <strong>R</strong>-Packages</h2>
+<p><strong>R</strong> ist in Packages, also Paketen, organisiert. Es gibt verschieden Stufen dieser Pakete:</p>
+<ol style="list-style-type: decimal">
+<li>Pakete, die zum Kern, <strong>R</strong>-base genannt, gehören, sie werden mit <strong>R</strong> installiert.</li>
+<li>Empfohlene Pakete, <strong>R</strong>-recommended genannt. Sie werden auf den <strong>R</strong>-Servern verwaltet und sind vorwiegend sehr guter Qualtität. Du kannst sie, bei funktionierender Internetverbindung, mit der Funktion <code>install.packages</code> installieren und mit der Funktion 'library` laden.</li>
+<li>Von Nutzern beigesteuerte Pakete, <strong>R</strong>-contributed genannt. Sie werden ebenfalls auf den <strong>R</strong>-Servern verwaltet und sind sehr unterschiedlicher Qualtität. Es gibt <a href="https://cran.r-project.org/web/packages/index.html">mehrere Tausend</a> von ihnen. Ihre Verwaltung ist identisch zu der der empfohlenen Pakete.</li>
+</ol>
+<p>Ein wenig Ordnung ins Chaos zu bringen versuchen die <a href="https://cran.r-project.org/web/views/"><strong>R</strong> Task Views</a>, eine Art kommentierte Linkliste, die von Freiwilligen gepflegt wird.</p>
+<p>Daneben gibt es noch &quot;wilde&quot; <strong>R</strong>-Pakete. Das Netz ist voll davon. Laß' besser die Finger von ihnen.</p>
+<h1 id="kontrollstrukturen"><span class="header-section-number">3</span> Kontrollstrukturen</h1>
+<p>Da <strong>R</strong> eine Programmiersprache ist, sehen wir uns zunächst ein paar klassische Dinge an, die jede Programmiersprache können sollte. Hilfe dazu erhältst Du durch <code>help(&quot;Control&quot;, package = &quot;base&quot;)</code>.</p>
+<h2 id="bedingte-anweisungen"><span class="header-section-number">3.1</span> Bedingte Anweisungen</h2>
+<h3 id="if-else"><span class="header-section-number">3.1.1</span> If-else</h3>
+<p>... prüft eine Kondition und führt, abhängig vom Ausgang der Prüfung, den konsekutiven Codeblock oder einen alternativen Codeblock aus:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">condition &lt;-<span class="st"> </span>a_number &lt;=<span class="st"> </span><span class="dv">3</span>
+if (condition) {
+  <span class="kw">print</span>(<span class="st">&quot;Consecution&quot;</span>)
+} else {
+  <span class="kw">print</span>(<span class="st">&quot;Alternative&quot;</span>)
+}</code></pre></div>
+<div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
+<p><strong>Aufgabe:</strong> Die <strong>R</strong>-Funktion <code>readline</code> liest eine Eingabe vom <strong>R</strong>-Prompt. Lies Dir ihre Hilfeseite durch und schreibe ein Programm, das mich auffordert, Deinen Namen zu raten und meine Eingabe in einem Objekt speichert. Den Wert dieses Objektes soll es dann mit Deinem Namen vergleichen und, je nach Ergebnis, entweder <em>You win!</em> oder <em>You loose!</em> ausgeben.</p>
+<p><a href="answers/guess_my_name.r">Hier findest Du meine Lösung.</a></p>
+</div>
+<p>Es gibt eine weitere Version dieser Answeisung, die Funktion <code>ifelse()</code>. Sie arbeitet mit Vektoren:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">randomly_true &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dt">size =</span> <span class="dv">10</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
+<span class="kw">print</span>(randomly_true)
+<span class="kw">ifelse</span>(randomly_true, <span class="st">&quot;Consecution&quot;</span>, <span class="st">&quot;Alternative&quot;</span>)</code></pre></div>
+<p><code>randomly_true</code> is bei jeder Ausführung pontentiell anders.</p>
+<p>Um eine Zufallsziehung reproduzierbar - also <code>nicht</code> zufällig - zu machen, nutze ich etwas wie:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">456432346</span>)
+not_randomly_true &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="dt">size =</span> <span class="dv">10</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>)
+<span class="kw">print</span>(not_randomly_true)</code></pre></div>
+<h3 id="switch"><span class="header-section-number">3.1.2</span> <code>switch()</code></h3>
+<p>... ist eine <em>Funktion</em>, die aus einer Liste das passende Element ausgibt:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">abbreviation &lt;-<span class="st"> &quot;sALN&quot;</span>
+switch(abbreviation, 
+       <span class="dt">FI =</span> <span class="st">&quot;Fichte&quot;</span>,
+       <span class="dt">TA =</span> <span class="st">&quot;Tanne&quot;</span>,   
+       <span class="dt">DGL =</span> <span class="st">&quot;Douglasie&quot;</span>, 
+       <span class="dt">KIE =</span> <span class="st">&quot;Kiefer&quot;</span>,  
+       <span class="dt">LAE =</span> <span class="st">&quot;Lärchen&quot;</span>, 
+       <span class="dt">sNB =</span> <span class="st">&quot;sonst. Nadelholz&quot;</span>,
+       <span class="dt">BU =</span> <span class="st">&quot;Buche&quot;</span>,
+       <span class="dt">EI =</span> <span class="st">&quot;Eichen&quot;</span>,
+       <span class="dt">REI =</span> <span class="st">&quot;Roteiche&quot;</span>,
+       <span class="dt">ES =</span> <span class="st">&quot;Esche&quot;</span>,
+       <span class="dt">BA =</span> <span class="st">&quot;Bergahorn&quot;</span>,
+       <span class="dt">HB =</span> <span class="st">&quot;Hainbuche&quot;</span>,
+       <span class="dt">sALH =</span> <span class="st">&quot;sonst. Hartholz&quot;</span>,
+       <span class="dt">BI =</span> <span class="st">&quot;Birken&quot;</span>,
+       <span class="dt">ER =</span> <span class="st">&quot;Erlen&quot;</span>,
+       <span class="dt">PA =</span> <span class="st">&quot;Pappeln&quot;</span>,
+       <span class="dt">sALN =</span> <span class="st">&quot;sonst. Weichholz&quot;</span>,
+       <span class="kw">stop</span>(<span class="st">&quot;Got unkown abbreviation </span><span class="ch">\&quot;</span><span class="st">&quot;</span>, abbreviation, <span class="st">&quot;</span><span class="ch">\&quot;</span><span class="st">!&quot;</span>)
+       )
+
+</code></pre></div>
+<p>Es kann aber komplizierter werden, denn <code>switch()</code> führt auch Codeblöcke aus:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_number &lt;-<span class="st"> </span><span class="ot">NULL</span>
+switch(<span class="dv">2</span>,
+       my_number &lt;-<span class="st"> </span><span class="dv">1</span>,
+       {
+           my_number &lt;-<span class="st"> </span><span class="dv">3</span>
+           <span class="kw">message</span>(<span class="st">&quot;This doesn&#39;t make any sense. It&#39;s just an example.&quot;</span>)
+       },
+       <span class="kw">stop</span>(<span class="st">&quot;works only for 1 or 2&quot;</span>)
+       )
+a_number *<span class="st"> </span>my_number
+
+</code></pre></div>
+<p>Das sollten wir allerdings vielleicht doch besser lassen. Denn der Code wird zurückgeben und ausgeführt, das heißt: er überschreibt eventuelle Zuweisungen im &quot;Mutterprogramm&quot;. Das sollten Funktionen eigentlich nicht tun. Allerdings ist <code>switch()</code> (in manchen Sprachen auch <code>case</code> genannt) in anderen Programmiersprachen auch keine Funktion, sondern, wie Schleifen und <code>if</code>, ein Sprachkonstrukt, in <strong>R</strong> hingegen ist fast alles eine Funktion...</p>
+<h2 id="schleifen"><span class="header-section-number">3.2</span> Schleifen</h2>
+<p>... führen Code wiederholt aus. Es gibt gute Schleifen und schlechte Schleifen und, eine Besonderheit in <strong>R</strong>, <code>apply()</code>s.</p>
+<h3 id="gute-schleifen"><span class="header-section-number">3.2.1</span> Gute Schleifen</h3>
+<p>Ich nutze in <strong>R</strong> fast nur die <code>for</code>-Schleife und die <code>while</code>-Schleife: die <code>for</code>-Schleife wiederholt ihren Code eine bestimmte Anzahl an Durchgängen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">indices &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
+for (index in indices) {
+    <span class="kw">print</span>(index)
+}</code></pre></div>
+<p>Das war die einfachste Variante, etwas ausgefeilter wird es so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">some_vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)
+for (index in <span class="kw">seq</span>(<span class="dt">along =</span> some_vector)) {
+    <span class="kw">cat</span>(<span class="st">&quot;Element &quot;</span>, index, <span class="st">&quot; contains &quot;</span>, some_vector[index], <span class="st">&quot;.</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)
+}</code></pre></div>
+<p>Die <code>while</code>-Schleife wiederholt ihren Code, solange ihre Bedingung wahr ist:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">some_vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)
+index &lt;-<span class="st"> </span><span class="dv">1</span>
+while (index &lt;=<span class="st"> </span><span class="kw">length</span>(some_vector)) {
+    <span class="kw">cat</span>(<span class="st">&quot;Element &quot;</span>, index, <span class="st">&quot; contains &quot;</span>, some_vector[index], <span class="st">&quot;.</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)
+    index &lt;-<span class="st"> </span>index +<span class="st"> </span><span class="dv">1</span>
+}</code></pre></div>
+<p>Beide Typen sind eng miteinander verwandt, fast jede <code>for</code>-Schleife läßt sich als <code>while</code>-Schleife umschreiben. Ich nutze <code>for</code>-Schleifen, wenn es ein Objekt gibt, über dessen Elemente ich die Schleife laufen lassen möchte (und das ist meistens so, da in <strong>R</strong> ja fast alles ein Objekt ist. Selbst Funktionen ...) - dann finde ich sie kompakter und dadurch weniger schreibfehleranfällig -, und sonst <code>while</code>-Schleifen.</p>
+<div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
+<p><strong>Aufgabe:</strong> Verändere Dein Namen-raten-Programm so, dass es solange fragt, bis ich Deinen Namen rate.</p>
+<p><a href="answers/guess_my_name_loop.r">Hier findest Du meine Lösung.</a></p>
+</div>
+<h3 id="apply-schleifen"><span class="header-section-number">3.2.2</span> <code>apply()</code>-&quot;Schleifen&quot;</h3>
+<p>Es gibt in <strong>R</strong> die Tradition, vektorwertig zu programmieren. Vektorwertiger Code läuft in <strong>R</strong> meist schneller, er nutzt die Familie der <code>apply()</code>-Funktionen. Für mich ist er aber deutlich schwerer zu schreiben und zu verstehen. Obige Schleifen siehst Du hier vektorwertig reimplementiert:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">some_vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>)
+<span class="kw">invisible</span>(<span class="kw">vapply</span>(some_vector, 
+       function(x) {
+           <span class="kw">cat</span>(<span class="st">&quot;An Element contains &quot;</span>, x, <span class="st">&quot;.</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)
+           <span class="kw">return</span>(<span class="kw">unlist</span>(x))
+       },
+       <span class="kw">character</span>(<span class="dv">1</span>)
+       )
+)
+</code></pre></div>
+<p>Ich musste eine <a href="Funktionen">Funktion</a> einbauen und ich verliere die Information über den Index. Vielleicht sollte ich in einer Einführung vektorwertiges Programmieren nicht erwähnen, aber dann findest Du irgendwo im Netz die Ausssage, das es viel besser und schneller sei als Schleifen. Schneller? Stimmt meist. Besser? Finde ich nicht. Falls Du Schleifen besser verstehst: programmiere Schleifen. Die Funktion <code>apply()</code> selbst ist in <strong>R</strong> geschrieben und führt in ihrem Kern (<a href="src/apply.r">den Zeilen 39 bis 53</a>) eine <code>for</code>-Schleife aus. Du kannst eine <strong>R</strong>-Funktionen betrachten, indem Du einfach ihren Namen ohne anschliessende Klammern aufruft (ich unterdrücke hier den output, der ist länglich):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">apply</code></pre></div>
+<p>Komfortabler wird's so<a name="tempfile"></a>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">temporary_file &lt;-<span class="st"> </span><span class="kw">tempfile</span>()
+connection &lt;-<span class="st"> </span><span class="kw">file</span>(temporary_file)
+<span class="kw">writeLines</span>(<span class="kw">capture.output</span>(apply), connection)
+<span class="kw">close</span>(connection)
+<span class="kw">file.show</span>(temporary_file)
+</code></pre></div>
+<h3 id="schlechte-schleifen"><span class="header-section-number">3.2.3</span> Schlechte Schleifen</h3>
+<p>Es gibt in <strong>R</strong> (<code>help(&quot;Control&quot;, package = &quot;base&quot;)</code> verrät es Dir) noch eine Schleifenart: Die <strong>repeat</strong>-Schleife führt ihre Anweisungen einfach immer weiter aus. Bis Du sie mit einem <code>break</code> beendest. Das ist Quatsch, das geht auch immer mit einer <strong>while</strong>-Schleife und führt nur dazu, dass Du Dir <code>break</code> angewöhnst, was Du tunlichst unterlassen solltest. Ebenfalls unterlassen solltest Du <code>next</code> (das Du eventuell aus anderen Programmiersprachen als <em>continue</em> kennst). Am besten vergisst Du einfach, dass es in <strong>R</strong> <code>repeat</code>, <code>break</code> und <code>next</code> gibt. Dennoch hier ein Beispiel: das Programm spielt das Namen-raten-Spiel bis entweder ich den richtigen Namen geraten habe oder ich die Anzahl der möglichen Versuche verbraucht habe.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_name  &lt;-<span class="st"> &quot;Dominik Cullmann&quot;</span>
+max_tries &lt;-<span class="st"> </span><span class="dv">3</span>
+
+guess &lt;-<span class="st"> </span><span class="kw">readline</span>(<span class="dt">prompt =</span> <span class="st">&quot;Guess my name: &quot;</span>)
+num_tries &lt;-<span class="st"> </span><span class="dv">1</span>
+repeat {
+    if (num_tries &gt;<span class="st"> </span>max_tries) {
+        <span class="kw">print</span>(<span class="st">&quot;Did I forget to tell you that you only had three tries?&quot;</span>)
+        break
+    } else {
+        num_tries &lt;-<span class="st"> </span>num_tries +<span class="st"> </span><span class="dv">1</span>
+    }
+    if (guess ==<span class="st"> </span>my_name) {
+        <span class="kw">print</span>(<span class="st">&quot;You win!&quot;</span>)
+        break
+    } else {
+        <span class="kw">print</span>(<span class="st">&quot;You loose!&quot;</span>)
+        guess &lt;-<span class="st"> </span><span class="kw">readline</span>(<span class="dt">prompt =</span> <span class="st">&quot;Try again: &quot;</span>)
+    }
+}
+</code></pre></div>
+<div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
+<p><strong>Aufgabe:</strong> Verändere Dein Namen-raten-Programm so, dass es das Gleiche kann wie die <code>repeat</code>-Version, bloß mit <code>while</code>.</p>
+<p><a href="answers/guess_my_name_loop_control.r">Hier findest Du meine Lösung.</a></p>
+<p>Beachte, dass ich in meiner Lösung nur eine Schleife und ein <code>if</code>, in der <code>repeat</code>-Version aber eine Schleife, zwei <code>if</code> und zwei <code>break</code> benötige.</p>
+</div>
+<h1 id="r-und-das-dateisystem"><span class="header-section-number">4</span> <strong>R</strong> und das Dateisystem</h1>
+<p>Wie Du vielleicht <a href="#tempfile">gerade schon</a> bemerkt hast, hat <strong>R</strong> eine (temporäre) Datei auf der Festplatte Deines Rechners erstellt. Da <strong>R</strong> eine Programmiersprache ist, kann sie mit Deinem Rechner interagieren.</p>
+<p>Die Dateisystem-Funktion, die ich am häufigsten nutze, <code>source()</code>, hat ein Gegenstück, <code>sink()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?source
+?sink</code></pre></div>
+<p><code>source()</code> liest eine Datei und interpretiert ihren Inhalt als <strong>R</strong>-Code. Ich nutze das oft, indem ich vielzeilige <strong>R</strong>-Code-Dateien in mehrere, kürzere zerteile und sie dann in einer Steuerdatei nacheinander einlese. Ich kann den in <a href="src/">diesen <strong>R</strong>-Codes</a> gespeicherten Code des &quot;hello, world&quot;-Beispiels nochmal lesen und interpretieren lassen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">file &lt;-<span class="st"> &quot;src/hello_world.r&quot;</span>
+if (<span class="kw">file.exists</span>(file)) {
+    <span class="kw">source</span>(file)
+} else {
+    <span class="kw">warning</span>(<span class="st">&quot;You don&#39;t have &quot;</span>, file, <span class="st">&quot; at hand!</span><span class="ch">\n</span><span class="st">&quot;</span>, 
+            <span class="st">&quot;This will crash!&quot;</span>)
+}
+</code></pre></div>
+<p><em>(Genaugenommen habe ich das <a href="#r-ist">oben</a> schon getan, nur nicht mit <strong>R</strong> und <code>source()</code>, sondern mit <a href="http://www.math.polytechnique.fr/cmat/auroux/prog/gpp.html">einen Präprozessor</a> und einer <code>include</code>-Anweisung, die für den Präprozessor in etwa das selbe gedeutet wie <code>source()</code> für <strong>R</strong>. Das kannst Du sehen, wenn Du Dir <a href="index.rmd">dieses markdown-Dokument</a> anschaust. Warum ich das mit dem Präprozessor mache? Damit Du <a href="#r-ist">oben</a> nicht die <code>source()</code>-Anweisung sondern den ge<code>source()</code>ten <strong>R</strong>-Code siehst.<br />
+<strong>Warum erkläre ich das?</strong> Weil Du, wenn Du einfach den <a href="index.R">gesamten <strong>R</strong>-Code dieser Seite</a> von <strong>R</strong> interpretieren lässt, auf eine Warnung stossen wirst - wenn <strong>R</strong> bei diesem Beispiel versucht, die Datei <em>src/hello_world.r</em> zu <code>source()</code>en und sie nicht findet. Es sei denn, Du hast Dir das Verzeichnis src/ samt Inhalt in Dein aktuelles <strong>R</strong>-Arbeitsverzeichnis kopiert...)</em></p>
+<p><code>sink()</code> leitet (fast) den gesamten Output von <strong>R</strong> in eine Datei um:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">temporary_file &lt;-<span class="st"> </span><span class="kw">tempfile</span>()
+{   <span class="co"># you don&#39;t need the braces in common R code, but I use rmarkdown::render()</span>
+    <span class="co">#  (which uses knitr::knit() which uses sink() to capture results. See </span>
+    <span class="co">#   https://groups.google.com/forum/#!topic/knitr/TCz9vNLlslY) </span>
+    <span class="co"># to parse an R/markdown file into this html file. </span>
+    <span class="co"># So I need the braces here. </span>
+    <span class="kw">sink</span>(temporary_file)
+    directory &lt;-<span class="st"> &quot;./src/&quot;</span>
+    <span class="kw">warning</span>(<span class="st">&quot;message()s, warning()s and stop()s are not sink()ed.&quot;</span>)
+    <span class="kw">cat</span>(<span class="st">&quot;I use cat() instead of print() here to get rid of the indeces&quot;</span>,
+        <span class="st">&quot;print()ed.</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>)
+    <span class="kw">cat</span>(<span class="st">&quot;This is the directory listing of &#39;&quot;</span>, directory, <span class="st">&quot;&#39;:&quot;</span>, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)
+    <span class="kw">cat</span>(<span class="kw">list.files</span>(directory), <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
+    <span class="kw">sink</span>()
+}
+</code></pre></div>
+<p>Das kann hilfreich sein, um Berechnungen dauerhaft zu speichern, diese html-Seite wird beispielsweise durch das <strong>R</strong>-Pagacke <code>knitr</code> gesetzt, indem es <code>sink()</code> einsetzt.</p>
+<p>Nur um zu zeigen, dass es funktioniert, lese ich nun die Zeilen der Datei wieder ein, normalerweise ist das sinnlos:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">readLines</span>(temporary_file)</code></pre></div>
+<p><strong>R</strong> kann auch Verzeichnisse erstellen und Dateien kopieren, umbennenen oder löschen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">not_so_temporary_directory &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="kw">dirname</span>(<span class="kw">tempdir</span>()) , <span class="st">&quot;R_intro&quot;</span>)
+<span class="kw">dir.create</span>(not_so_temporary_directory, <span class="dt">showWarnings =</span> <span class="ot">FALSE</span>)
+
+
+## Sometimes in April ...
+not_so_temporary_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(not_so_temporary_directory, <span class="st">&quot;readme.md&quot;</span>)
+<span class="kw">cat</span>(<span class="st">&quot;My first readme file.&quot;</span>, <span class="dt">file =</span> not_so_temporary_file, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
+
+## ... some days later
+if (<span class="kw">file.exists</span>(not_so_temporary_file)) {
+    <span class="kw">file.rename</span>(not_so_temporary_file, <span class="kw">paste0</span>(not_so_temporary_file, <span class="st">&quot;1&quot;</span>))
+}
+<span class="kw">cat</span>(<span class="st">&quot;This is a directory created by &#39;Programmieren in R&#39; .&quot;</span>,
+    <span class="dt">file =</span> not_so_temporary_file, <span class="dt">sep =</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
+
+</code></pre></div>
+<p>Du kannst das <code>not_so_temporary_directory</code> gerne andernorts anlegen, ich bin mir nur sicher, dass Du auf dem Rechner vor Dir unterhalb von <code>dirname(tempdir())</code> Schreibrechte hast. Mit</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?files</code></pre></div>
+<p>erhältst Du eine erste Übersicht. Zu <code>dirname()</code> gibt es auch noch</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?basename</code></pre></div>
+das Dir den Dateinamen eines Pfades zurückgibt.
+<div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
+<p><strong>Aufgabe:</strong> Schreibe ein Programm, dass Dir den <a href="src/hello_world.r">den &quot;hello, world&quot;-Code</a> in eine Datei schreibt.</p>
+<p><a href="answers/create_hello_world.r">Hier findest Du meine Lösung.</a></p>
+</div>
+<h2 id="r-im-batch"><span class="header-section-number">4.1</span> <strong>R</strong> im Batch</h2>
+<p><strong>R</strong> unter Windows im Batchmodus zu nutzen erscheint mir wenig attraktiv, da die <a href="https://en.wikipedia.org/wiki/Cmd.exe">Windows Eingabeaufforderung</a> noch weniger kompfortabel ist als selbst Rgui.exe. Dennoch zeige ich Dir kurz, dass Du eine <strong>R</strong>-Code-Datei auch - nunja: einfach? - dem <strong>R</strong> Interpreter übergeben kannst: <img src="./graphics/R_vanilla.jpg" title="R unter Windows" alt="R CMD BATCH unter Windows" /> Falls Du den gesamten Output in einer .Rout-Datei speichern willst, kannst Du R CMD BATCH nutzen: <img src="./graphics/R_CMD_BATCH.jpg" title="R CMD BATCH unter Windows" alt="R CMD BATCH unter Windows" /></p>
+<p>Es gibt noch einen weiteren <strong>R</strong>-Interpreter: Rscript.exe schreibt einen recht schlanken Output: <img src="./graphics/Rscript.jpg" title="Rscript unter Windows" alt="Rscript unter Windows" /> Ich nutze Rscript oft, allerdings nicht unter Windows.</p>
+<h1 id="daten"><span class="header-section-number">5</span> Daten</h1>
+<p>Du kannst Dir die Daten <a href="data/input">hier</a> herunterladen, oder sie durch folgendes Skript in das <code>input_directory</code> laden. <em>Falls Du nicht auf die Dateien zugreifen kannst, könnte das an Deiner Version von <strong>R</strong> liegen, ich habe es mit der 32-bit Version von <strong>R</strong> 3.2.2 erfolgreich getestet. Du kannst Dir in jedem Fall mit dem Code <a href="#baumarten-daten">im Anhang</a> die Daten erstellen.</em></p>
+<p>Im Weiteren werde ich jedenfalls davon ausgehen, dass sie im <code>input_directory</code> liegen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">input_directory &lt;-<span class="st"> </span><span class="kw">file.path</span>(not_so_temporary_directory, <span class="st">&quot;data&quot;</span>, <span class="st">&quot;input&quot;</span>)
+<span class="kw">dir.create</span>(input_directory, <span class="dt">recursive =</span> <span class="ot">TRUE</span>)
+if (<span class="kw">Sys.info</span>()[[<span class="st">&quot;nodename&quot;</span>]] %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;foobar&quot;</span>, <span class="st">&quot;h5&quot;</span>)) {
+    <span class="co"># local machines only</span>
+    <span class="kw">file.copy</span>(<span class="dt">from =</span> <span class="st">&quot;data/input&quot;</span>, <span class="dt">to =</span> <span class="kw">dirname</span>(input_directory),
+              <span class="dt">recursive =</span> <span class="ot">TRUE</span>)
+
+} else {
+    dependencies &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;XML&quot;</span>, <span class="st">&quot;RCurl&quot;</span>, <span class="st">&quot;httr&quot;</span>)
+    for (dependency in dependencies) {
+        if (!<span class="st"> </span><span class="kw">require</span>(dependency, <span class="dt">character.only =</span> <span class="ot">TRUE</span>)) {
+            <span class="kw">install.packages</span>(dependency)
+        }
+        <span class="kw">library</span>(dependency, <span class="dt">character.only =</span> <span class="ot">TRUE</span>)
+    }
+    input_url &lt;-<span class="st"> &quot;http://10.33.50.43/R_Intro/data/input/&quot;</span>
+    proxy &lt;-<span class="st"> </span><span class="kw">Sys.getenv</span>(<span class="st">&quot;http_proxy&quot;</span>)
+    <span class="kw">Sys.setenv</span>(<span class="st">&quot;http_proxy&quot;</span> =<span class="st"> &quot;&quot;</span>)
+    content &lt;-<span class="st"> </span><span class="kw">getURLContent</span>(input_url, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)
+    files &lt;-<span class="st"> </span><span class="kw">readHTMLTable</span>(content, <span class="dt">skip.rows =</span> <span class="dv">1</span>, 
+                           <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)[[<span class="dv">1</span>]][[<span class="st">&quot;Name&quot;</span>]]
+    for (file in files) {
+        file_url &lt;-<span class="st"> </span><span class="kw">file.path</span>(input_url, file)
+        file_path &lt;-<span class="st"> </span><span class="kw">file.path</span>(input_directory, file)
+        if (<span class="kw">Sys.info</span>()[<span class="st">&quot;sysname&quot;</span>] ==<span class="st"> &quot;Windows&quot;</span>) {
+            <span class="kw">download.file</span>(file_url, file_path, <span class="dt">method =</span> <span class="st">&quot;wininet&quot;</span>, <span class="dt">mode =</span> <span class="st">&quot;wb&quot;</span>)  
+        } else {
+            <span class="kw">download.file</span>(file_url, file_path, <span class="dt">method =</span> <span class="st">&quot;curl&quot;</span>)  
+        }
+    }
+
+    <span class="kw">Sys.setenv</span>(<span class="st">&quot;http_proxy&quot;</span> =<span class="st"> </span>proxy)
+}
+</code></pre></div>
+<h2 id="daten-lesen-und-schreiben"><span class="header-section-number">5.1</span> Daten lesen und schreiben</h2>
+<h3 id="textdateien"><span class="header-section-number">5.1.1</span> Textdateien</h3>
+<p>Um Dateien mit <a href="https://de.wikipedia.org/wiki/CSV_%28Dateiformat%29">Comma separated values</a> zu lesen und zu schreiben, nutze ich vor allem die beiden Funktionen <code>read.csv2()</code> und <code>write.csv2()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">species_shares_1987 &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="kw">file.path</span>(input_directory, 
+                                           <span class="st">&quot;species_shares_1987.csv&quot;</span>))
+species_shares_2002 &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="kw">file.path</span>(input_directory, 
+                                           <span class="st">&quot;species_shares_2002.csv&quot;</span>))
+species_shares_2012 &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="kw">file.path</span>(input_directory, 
+                                           <span class="st">&quot;species_shares_2012.csv&quot;</span>))
+
+</code></pre></div>
+<div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
+<p><strong>Aufgabe:</strong> Im Gegensatz zu <code>&lt;-</code> kann ich <code>assign</code> leicht in Schleifen nutzen, um Objektnamen im Schleifendurchlauf zu erzeugen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for (index in <span class="dv">1</span>:<span class="dv">3</span>) {
+    name &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;v_&quot;</span>, index)
+    <span class="kw">assign</span>(name, index)
+}
+<span class="kw">ls</span>(<span class="dt">pattern =</span> <span class="st">&quot;v_.&quot;</span>)
+<span class="kw">print</span>(v_2)</code></pre></div>
+<p>Schreibe die obigen drei Daten-Import-Anweisungen mit Hilfe einer Schleife. <a href="answers/csv_input.r">Hier findest Du meine Lösung.</a></p>
+</div>
+<div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
+<p><strong>Aufgabe:</strong> <code>list.files</code> zeigt die Dateien in einem Verzeichnis an, es kennt das Argument <code>pattern =</code>, mit dem Du die Dateien filtern kannst:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">list.files</span>(<span class="dt">path =</span> <span class="st">&quot;./src&quot;</span>)
+<span class="kw">list.files</span>(<span class="dt">path =</span> <span class="st">&quot;./src&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;^s.*</span><span class="ch">\\</span><span class="st">.r$&quot;</span>)</code></pre></div>
+<p>Die zweite Version filtern auf alle Dateinamen, die mit &quot;s&quot; anfangen (^s), dann beliebige Zeichen haben (.*) und auf &quot;.r&quot; enden (\.r$).)</p>
+<p>Schreibe Deine Schleife aus der letzten Aufgabe so um, dass Du Dateinamen mit <code>list.files</code> ermittelst. <a href="answers/csv_input_pattern.r">Hier findest Du meine Lösung.</a></p>
+<p>Jetzt stelle Dir vor, es wären nicht nur die Jahre 1987, 2002 und 2012, sondern alle Jahre seit 1960, für die Du eine csv-Datei einlesen wolltest.</p>
+</div>
+<h3 id="microsoft-access-datenbanken"><span class="header-section-number">5.1.2</span> Microsoft-Access-Datenbanken</h3>
+<p>Die selben Daten kann ich auch aus Tabellen in einer Microsoft-Access-Datenbank lesen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (.Platform$OS.type ==<span class="st"> &quot;windows&quot;</span>) {
+if (!<span class="st"> </span><span class="kw">require</span>(<span class="st">&quot;RODBC&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;RODBC&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;RODBC&quot;</span>)
+channel &lt;-<span class="st"> </span><span class="kw">odbcConnectAccess2007</span>(<span class="kw">file.path</span>(input_directory, 
+                                           <span class="st">&quot;species_shares.accdb&quot;</span>))
+species_shares_1987 &lt;-<span class="st"> </span><span class="kw">sqlFetch</span>(channel, <span class="st">&quot;Species_shares_1987&quot;</span>)
+species_shares_2002 &lt;-<span class="st"> </span><span class="kw">sqlFetch</span>(channel, <span class="st">&quot;Species_shares_2002&quot;</span>)
+species_shares_2012 &lt;-<span class="st"> </span><span class="kw">sqlFetch</span>(channel, <span class="st">&quot;Species_shares_2012&quot;</span>)
+<span class="kw">odbcClose</span>(channel)
+
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (!<span class="st"> </span><span class="kw">require</span>(<span class="st">&quot;RODBC&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;RODBC&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;RODBC&quot;</span>)
+channel &lt;-<span class="st"> </span><span class="kw">odbcConnectAccess2007</span>(<span class="kw">file.path</span>(input_directory, 
+                                           <span class="st">&quot;species_shares.accdb&quot;</span>))
+species_shares_1987 &lt;-<span class="st"> </span><span class="kw">sqlFetch</span>(channel, <span class="st">&quot;Species_shares_1987&quot;</span>)
+species_shares_2002 &lt;-<span class="st"> </span><span class="kw">sqlFetch</span>(channel, <span class="st">&quot;Species_shares_2002&quot;</span>)
+species_shares_2012 &lt;-<span class="st"> </span><span class="kw">sqlFetch</span>(channel, <span class="st">&quot;Species_shares_2012&quot;</span>)
+<span class="kw">odbcClose</span>(channel)</code></pre></div>
+<p><em>Falls das nicht funktioniert, liegt das eventuell daran, dass Du <strong>R</strong> in 64bit nutzt. Erhältst Du durch</em></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">R.version[<span class="st">&quot;arch&quot;</span>]</code></pre></div>
+<p><em><strong>arch x86_64</strong>, so läuft <strong>R</strong> in 64bit, erhältst Du <strong>arch i386</strong>, so sind es 32bit.<br />
+Falls Du 64bit nutzt: starte <strong>R</strong> in 32bit. Nutzt Du R.exe oder Rgui.exe, dann starte einfach die 32bit-Version (wahrscheinlich unter<br />
+C:\Program Files\R\R-3.1.2\bin\i386 oder so). Benutzt Du RStudio, so kannst Du über das Menü <strong>Tools/Global Options.../</strong> unter <strong>General</strong> die <strong>R Version:</strong> einstellen.</em></p>
+<p>Es gibt die Funktionen <code>sqlSave()</code> und <code>sqlUpdate()</code>, die ich nie benutze. Sie schreiben Daten aus <strong>R</strong> in Tabellen einer Microsoft-Access-Datenbank.</p>
+<p>Allerdings benötige ich, um Microsoft-Access-Datenbanken lesen und schreiben zu können, das <strong>R</strong>-Package RODBC, das ich separat installieren und mit dem Befehl <code>library(&quot;RODBC&quot;)</code> laden muss.</p>
+<h3 id="microsoft-excel-arbeitsmappen"><span class="header-section-number">5.1.3</span> Microsoft-Excel-Arbeitsmappen</h3>
+<p>Die selben Daten lassen sich auch aus Tabellen einer Microsoft-Excel-Arbeitsmappe importieren:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (.Platform$OS.type ==<span class="st"> &quot;windows&quot;</span>) {
+if (!<span class="st"> </span><span class="kw">require</span>(<span class="st">&quot;xlsx&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;xlsx&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;xlsx&quot;</span>)
+xlsx_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(input_directory, <span class="st">&quot;species_shares.xlsx&quot;</span>)
+species_shares_1987 &lt;-<span class="st"> </span><span class="kw">read.xlsx</span>(xlsx_file, <span class="dt">sheetName =</span> <span class="st">&quot;1987&quot;</span>)
+species_shares_2002 &lt;-<span class="st"> </span><span class="kw">read.xlsx</span>(xlsx_file, <span class="dt">sheetName =</span> <span class="st">&quot;2002&quot;</span>)
+species_shares_2012 &lt;-<span class="st"> </span><span class="kw">read.xlsx</span>(xlsx_file, <span class="dt">sheetName =</span> <span class="st">&quot;2012&quot;</span>)
+
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (!<span class="st"> </span><span class="kw">require</span>(<span class="st">&quot;xlsx&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;xlsx&quot;</span>)
+<span class="kw">library</span>(<span class="st">&quot;xlsx&quot;</span>)
+xlsx_file &lt;-<span class="st"> </span><span class="kw">file.path</span>(input_directory, <span class="st">&quot;species_shares.xlsx&quot;</span>)
+species_shares_1987 &lt;-<span class="st"> </span><span class="kw">read.xlsx</span>(xlsx_file, <span class="dt">sheetName =</span> <span class="st">&quot;1987&quot;</span>)
+species_shares_2002 &lt;-<span class="st"> </span><span class="kw">read.xlsx</span>(xlsx_file, <span class="dt">sheetName =</span> <span class="st">&quot;2002&quot;</span>)
+species_shares_2012 &lt;-<span class="st"> </span><span class="kw">read.xlsx</span>(xlsx_file, <span class="dt">sheetName =</span> <span class="st">&quot;2012&quot;</span>)</code></pre></div>
+<p>Auch hier gibt es eine Funktion, <code>write.xlsx()</code>, die Daten aus <strong>R</strong> in Tabellen einer Microsoft-Excel-Arbeitsmappe schreibt, und wieder benötige ich ein <strong>R</strong>-Package, das mir diese Funktionen bereitstellt.</p>
+<h2 id="datentypen-und-indizierung"><span class="header-section-number">5.2</span> Datentypen und Indizierung</h2>
+<h3 id="data.frames"><span class="header-section-number">5.2.1</span> data.frames</h3>
+<p>Die Daten, die wir nun gerade (mit welcher Funktion auch immer) eingelesen haben, besitzen einen Datentyp, der ihre Struktur bestimmt.</p>
+<p>Wir erfahren mit der Anweisung <a name="dataframe_is_list"></a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mode</span>(species_shares_1987)</code></pre></div>
+<p>dass es sich bei <code>species_shares_1987</code> um ein Object des Typs <code>list</code> handelt.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(species_shares_1987)</code></pre></div>
+<p>zeigt uns, dass <code>species_shares_1987</code> die Klasse <code>data.frame</code> besitzt. <code>data.frame</code>s sind die Datentypen, in denen Du wahrscheinlich den Großteil Deiner Daten speichern wirst. Da sie genau das sind, was wir uns so unter einer &quot;Tabelle&quot; vorstellen: Zweidimensional, rechteckig (wenn auch nicht in jeder Zelle ein Wert stehen muss), mit Spalten (die oft Merkmale repräsentieren) und Zeilen (in denen dann die Werte oder Beobachtungen stehen):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(species_shares_2002)</code></pre></div>
+<h4 id="numerischer-index"><span class="header-section-number">5.2.1.1</span> Numerischer Index</h4>
+<p>Die Hilfeseite zur Indizierung findest Du unter help(&quot;Extract&quot;).<br />
+Die Zeilen und Spalten eines <code>data.frame</code>s kann ich über ihren numerischen Index ansprechen, wobei die linke obere Zelle in Index [1,1], die rechte untere Zelle den Index [nrow(data_frame), ncol(data_frame)] besitzt:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">species_shares_2002[<span class="dv">3</span>, <span class="dv">2</span>]
+species_shares_2002[<span class="kw">nrow</span>(species_shares_1987), <span class="kw">ncol</span>(species_shares_1987)]</code></pre></div>
+<h4 id="namensindex"><span class="header-section-number">5.2.1.2</span> Namensindex</h4>
+<p>Ein <code>data.frame</code> besitzt für die Zeilen und Spalten immer auch Namen (die Zeilennamen sind - so wir sie nicht explizit anders vergeben - einfach der numerische Zeilenindex als string, also &quot;2&quot; stattt 2):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dimnames</span>(species_shares_2002)</code></pre></div>
+<p>und wir können nun die Zellen des <code>data.frame</code>s auch über Namen</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">species_shares_2002[<span class="st">&quot;3&quot;</span>, <span class="st">&quot;prediction&quot;</span>]</code></pre></div>
+<p>oder gemischt (numerischer und Namensindex) ansprechen</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">species_shares_2002[<span class="dv">3</span>, <span class="st">&quot;error&quot;</span>]</code></pre></div>
+<p>Ich halte Namensindices für deutlich besser als numerische, da sich die Namen nicht ändern, falls ich die Reihenfolge der Elemente des Objektes ändere!</p>
+<h4 id="logischer-index"><span class="header-section-number">5.2.1.3</span> Logischer Index</h4>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(random_logical_index &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>), <span class="kw">nrow</span>(species_shares_2002),
+<span class="dt">replace =</span> <span class="ot">TRUE</span>))
+species_shares_2002[random_logical_index, <span class="st">&quot;prediction&quot;</span>]</code></pre></div>
+<p>Einen logischen Index nutze ich oft, um Datenbereiche auszuwählen, wie Du gleich sehen wirst.</p>
+<h4 id="bereiche"><span class="header-section-number">5.2.1.4</span> Bereiche</h4>
+<p>Wir können über die Indices auch Bereiche des <code>data.frame</code>s ausschneiden:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">species_shares_2002[<span class="dv">3</span>:<span class="dv">6</span>, <span class="kw">c</span>(<span class="st">&quot;prediction&quot;</span>, <span class="st">&quot;error&quot;</span>)]</code></pre></div>
+<p>Wenn Du den Index in einer Dimension nicht angibst, gilt er als komplett <code>TRUE</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">species_shares_2002[<span class="dv">3</span>:<span class="dv">6</span>, ]</code></pre></div>
+<p>Einen logischen Index kann ich auch durch Operatorenanweisungen erstellen, um für mich interessante Datenbereiche ausschneiden.<br />
+Wenn ich mich für alle Laubbäume mit 5 oder mehr Anteilsprozenten oder 5% oder weniger relativem Fehler interessiere, und auf jeden Fall auch für Douglasie, ... dann klappt das so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logical_index &lt;-<span class="st"> </span>species_shares_2002[<span class="st">&quot;grouping&quot;</span>] ==<span class="st"> &quot;deciduous&quot;</span> &amp;
+<span class="st">  </span>(species_shares_2002 [<span class="st">&quot;prediction&quot;</span>] &gt;=<span class="st"> </span><span class="dv">5</span> |<span class="st"> </span>
+<span class="st">   </span>species_shares_2002 [<span class="st">&quot;error&quot;</span>] /<span class="st"> </span>species_shares_2002 [<span class="st">&quot;prediction&quot;</span>] 
+   &lt;=<span class="st"> </span><span class="fl">0.05</span> ) |<span class="st"> </span>
+<span class="st">  </span>species_shares_2002[<span class="st">&quot;species_group_label&quot;</span>] ==<span class="st"> &quot;DGL&quot;</span> 
+species_shares_2002[logical_index, ]</code></pre></div>
+<p>(Beachte bitte, dass ich bei den logischen Operatoren die vektorwertigen Formen <code>&amp;</code> und <code>|</code> benutzen muss.) Ich gebe zu, dass das ist nicht sehr komfortabel ist, daher gibt es die Funktion <code>subset</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">subset</span>(species_shares_2002, grouping ==<span class="st"> &quot;deciduous&quot;</span> &amp;<span class="st"> </span>
+<span class="st">       </span>(prediction &gt;<span class="st"> </span><span class="dv">5</span> |<span class="st"> </span>error /<span class="st"> </span>prediction &lt;<span class="st"> </span><span class="fl">0.05</span>) |<span class="st"> </span>
+<span class="st">       </span>species_group_label ==<span class="st"> &quot;DGL&quot;</span> )</code></pre></div>
+<p>Wenn wir Daten bedingt ändern wollen, brauchen wir meines Wissens allerdings die komplizierte Form mit der Indizierung:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">species_shares_2002[logical_index, <span class="st">&quot;flag&quot;</span>]  &lt;-<span class="st"> </span><span class="ot">TRUE</span>
+<span class="kw">print</span>(species_shares_2002)</code></pre></div>
+<p>Das ist übrigens ein Fall, den ich oft habe: ich will Fehlwerte - hier: <code>NA</code> - durch etwas anderes ersetzen. Klappt so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">species_shares_2002[<span class="kw">is.na</span>(species_shares_2002[<span class="st">&quot;flag&quot;</span>]), <span class="st">&quot;flag&quot;</span>]  &lt;-<span class="st"> </span><span class="ot">FALSE</span>
+species_shares_2002</code></pre></div>
+<h4 id="weitere-formen"><span class="header-section-number">5.2.1.5</span> Weitere Formen</h4>
+<p>Es gibt noch eine weitere Art der Indizierung, die keine Bereiche zulässt und das gewählte Element vereinfacht (falls das möglich ist - hier ist es das nicht):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">species_shares_2002[[<span class="dv">3</span>, <span class="dv">2</span>]]</code></pre></div>
+<p>Wenn ich eine ganze Spalte eines <code>data.frame</code>s will, benutze ich sie häufiger als die '['-Form da sie &quot;einfach nur die Werte&quot; zurückgibt:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">species_shares_2012[<span class="st">&quot;prediction&quot;</span>]
+(v3 &lt;-<span class="st"> </span>species_shares_2012[[<span class="st">&quot;prediction&quot;</span>]])</code></pre></div>
+<p>mit der ersten Form erhalten wir einen <code>data.frame</code>, mit der zweiten einen <a href="#vectors">Vektor</a>.</p>
+<p>Du wirst vielleicht oft die Form</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">species_shares_2012$prediction</code></pre></div>
+<p>sehen. Sie ist Kurzform und Spezialfall von <code>[[</code>, bietet aber, durch die partielle Namensvervollständigung, einige hässliche Fallstricke (falls Dich das wirklich interessiert, findest Du <a href="src/dollar.r">hier ein Beispiel</a>). Außerdem geht</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name  &lt;-<span class="st"> &quot;prediction&quot;</span>
+species_shares_2012[[name]]</code></pre></div>
+<p>wohingegen</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">name  &lt;-<span class="st"> &quot;prediction&quot;</span>
+species_shares_2012$name</code></pre></div>
+<p>im <code>data.frame</code> <code>species_shares_2012</code> nach einer Spalte namens <code>name</code> sucht, diese nicht findet und daher <code>NULL</code> zurückgibt, aber keinen Fehler auslöst. Falls das also nicht das war, was Du wolltest, sagt <strong>R</strong> Dir nicht einmal bescheid.</p>
+<p>Gewöhne Dir die <code>$</code>-Form daher lieber erst gar nicht an.</p>
+<h3 id="lists"><span class="header-section-number">5.2.2</span> <code>list</code>s</h3>
+<p>Wie Du <a href="#dataframe_is_list">vielleicht gemerkt hast</a>, ist ein Object der Klasse <code>data.frame</code> ein Objekt des Typs <code>list</code>. Genaugenommen: der Spezialfall, bei dem alle Elemente der <code>list</code> (die Spalten) die gleiche Länge haben (daher bekommt der <code>data.frame</code> seine Zeilenanzahl, die Du mit <code>nrow()</code> herausfindest). <code>list</code>s selbst sind sehr allgemein und sehr flexibel, sie sind einfach Listen aus ein oder mehreren Elementen, die selbst wiederum Objekte beliebigen Datentypes (ja, auch wiederum <code>list</code>s und sogar Funktionen, die in <strong>R</strong> eben auch Objekte - des Datentyps <code>function</code> - sind) sind. Du solltest Dich <em>vorerst</em> von <code>list</code>s fernhalten.</p>
+<h3 id="vectors"><span class="header-section-number">5.2.3</span> <code>vector</code>s</h3>
+<p><code>vector</code>s sind sehr einfache Datentypen, deren Elemente alle entweder numerisch oder Buchstaben(reihen) sein müssen. Wir indizieren sie numerisch</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">v3[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]</code></pre></div>
+<p>oder, nachdem wir sie benamst haben, über ihre Namen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(v3) &lt;-<span class="st"> </span>species_shares_2012[[<span class="st">&quot;species_group_label&quot;</span>]]
+v3[<span class="kw">c</span>(<span class="st">&quot;FI&quot;</span>, <span class="st">&quot;DGL&quot;</span>)]</code></pre></div>
+<p>Auch hier finde ich Namensindeces wieder robuster: stell' Dir vor, ich schiebe das erste Element des <code>vector</code>s <code>v3</code> aus Versehen an dessen letzte Stelle:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">v3 &lt;-<span class="st"> </span><span class="kw">c</span>(v3[<span class="dv">2</span>:<span class="kw">length</span>(v3)], v3[<span class="dv">1</span>])</code></pre></div>
+<p>Jetzt erhalte ich mit</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">v3[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]
+v3[<span class="kw">c</span>(<span class="st">&quot;FI&quot;</span>, <span class="st">&quot;DGL&quot;</span>)]</code></pre></div>
+<p>zwei unterschiedliche Ergebnisse. Bei der zweiten Variante erscheint es mir so, als erhielte ich, wonach ich fragen wollte, bei der ersten nur, wonach ich gefragt habe - was ich aber in Unkenntnis der Struktur von <code>v3</code> nicht wollte.</p>
+<h3 id="factors"><span class="header-section-number">5.2.4</span> <code>factor</code>s</h3>
+<p>Ein <code>factor</code> ist ein Spezialfall eines <code>vector</code>s. Seine Elemente dienen der Gruppierung (eines anderen <code>vector</code>s oder <code>data.frame</code>s) und sind numerisch, enthalten aber <em>levels</em>, die den Gruppierungsstufen verständliche Name zuweisen. Unsere Spalten <code>species_group_label</code> in den <code>data.frame</code>s sind solche Spezialvektoren:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">species_shares_1987[[<span class="st">&quot;species_group_label&quot;</span>]] 
+<span class="kw">mode</span>(species_shares_1987[[<span class="st">&quot;species_group_label&quot;</span>]])
+<span class="kw">class</span>(species_shares_1987[[<span class="st">&quot;species_group_label&quot;</span>]])</code></pre></div>
+<p><code>factor</code>s können nutzlich sein, da viele <strong>R</strong>-Funktionen sie erkennen und ihre Struktur berücksichtigen, aber ich stolpere oft über sie, weil ich bei einem <code>vector</code> vergesse, dass er <code>factor</code> ist und dann erstaunt bin, dass er sich im Zweifelsfall numerisch verhält. Falls Du Zahlen bekommst, wo Du Worte erwartest, könnte ein <code>factor</code> dahinterstecken: Wenn Du Daten mit <code>data.frame</code> erstellst, liest dieses die <strong>R</strong>-Option <em>stringsAsFactors</em>, deren Wert Du mit <code>getOption(&quot;stringsAsFactors&quot;)</code> abfragen und mit <code>options(stringsAsFactors = FALSE)</code> ändern kannst. Die meisten Funktionen zum Datenimport (z.B. <code>read.csv</code> und <code>read.xslx</code>) nutzen <code>data.frame</code>!</p>
+<h2 id="mehr-von-mir-zu-datentypen"><span class="header-section-number">5.3</span> Mehr von mir zu Datentypen</h2>
+<p>findest Du unter http://10.33.50.43/R_User_Group/data_types.html.</p>
+<h1 id="funktionen-1"><span class="header-section-number">6</span> Funktionen</h1>
+<p>Funktionen in <strong>R</strong> selbst zu schreiben ist sehr einfach und oft hilfreich. Wenn Du anfängst, einen Code-Block mehrfach zu kopieren, solltest Du aus ihm eine Funktion basteln (in Rstudio kannst Du markierte Codezeilen über die Menüs “Code”/“Extract Function” in eine Funktion umwandeln).</p>
+<p>Im <code>data.frame</code> <code>species_shares_1987</code> enthält die Spalte <code>species_group_label</code> eine kryptische Abkürzung. Ihre Werte können wir mit der <a href="src/switch_abbreviation.r">uns bekannten switch-Anweisung</a> verständlicher machen:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># we need to convert the factor&#39;s values to character!</span>
+(abbreviation &lt;-<span class="st"> </span><span class="kw">as.character</span>(species_shares_1987[<span class="st">&quot;1&quot;</span>, <span class="st">&quot;species_group_label&quot;</span>]))
+(text  &lt;-<span class="st"> </span>
+switch(abbreviation, 
+       <span class="dt">FI =</span> <span class="st">&quot;Fichte&quot;</span>,
+       <span class="dt">TA =</span> <span class="st">&quot;Tanne&quot;</span>,   
+       <span class="dt">DGL =</span> <span class="st">&quot;Douglasie&quot;</span>, 
+       <span class="dt">KIE =</span> <span class="st">&quot;Kiefer&quot;</span>,  
+       <span class="dt">LAE =</span> <span class="st">&quot;Lärchen&quot;</span>, 
+       <span class="dt">sNB =</span> <span class="st">&quot;sonst. Nadelholz&quot;</span>,
+       <span class="dt">BU =</span> <span class="st">&quot;Buche&quot;</span>,
+       <span class="dt">EI =</span> <span class="st">&quot;Eichen&quot;</span>,
+       <span class="dt">REI =</span> <span class="st">&quot;Roteiche&quot;</span>,
+       <span class="dt">ES =</span> <span class="st">&quot;Esche&quot;</span>,
+       <span class="dt">BA =</span> <span class="st">&quot;Bergahorn&quot;</span>,
+       <span class="dt">HB =</span> <span class="st">&quot;Hainbuche&quot;</span>,
+       <span class="dt">sALH =</span> <span class="st">&quot;sonst. Hartholz&quot;</span>,
+       <span class="dt">BI =</span> <span class="st">&quot;Birken&quot;</span>,
+       <span class="dt">ER =</span> <span class="st">&quot;Erlen&quot;</span>,
+       <span class="dt">PA =</span> <span class="st">&quot;Pappeln&quot;</span>,
+       <span class="dt">sALN =</span> <span class="st">&quot;sonst. Weichholz&quot;</span>,
+       <span class="kw">stop</span>(<span class="st">&quot;Got unkown abbreviation </span><span class="ch">\&quot;</span><span class="st">&quot;</span>, abbreviation, <span class="st">&quot;</span><span class="ch">\&quot;</span><span class="st">!&quot;</span>)
+       )
+
+
+)</code></pre></div>
+<p>Da <code>species_shares_1987[[&quot;species_group_label&quot;]]</code> ein <a href="#factors"><code>factor</code></a> ist, kann ich nicht einfach das Element <code>species_shares_1987[&quot;1&quot;, &quot;species_group_label&quot;]</code> mit <code>text</code> überschreiben, letzteres ist ja nicht numerisch.<br />
+Ich muss den entsprechenden Eintrag in den <em>levels</em> von <code>species_shares_1987[[&quot;species_group_label&quot;]]</code> ändern:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">abbreviations &lt;-<span class="st"> </span><span class="kw">levels</span>(species_shares_1987[[<span class="st">&quot;species_group_label&quot;</span>]])
+<span class="kw">levels</span>(species_shares_1987[[<span class="st">&quot;species_group_label&quot;</span>]])[abbreviations ==<span class="st"> </span>abbreviation] &lt;-
+<span class="st">    </span>text
+</code></pre></div>
+<p>Das Prozedere erscheint hinreichend kompliziert. Und das muss ich nun entweder von Hand siebzehnmal kopieren und für jede Baumart anpassen, oder ich muss um die letzten drei Code-Blöcke eine Schleife basteln, aber dann werde ich den Code in drei Wochen kaum noch verstehen. Da helfen Funktionen weiter.</p>
+<p>Verstecken wir zuerst die <code>switch()</code>-Funktion in einer eignen, kleinen Funktion:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">get_species_group_text &lt;-<span class="st"> </span>function (abbreviation) {
+    text &lt;-<span class="st">  </span>switch(abbreviation, 
+                    <span class="dt">FI =</span> <span class="st">&quot;Fichte&quot;</span>,
+                    <span class="dt">TA =</span> <span class="st">&quot;Tanne&quot;</span>,   
+                    <span class="dt">DGL =</span> <span class="st">&quot;Douglasie&quot;</span>, 
+                    <span class="dt">KIE =</span> <span class="st">&quot;Kiefer&quot;</span>,  
+                    <span class="dt">LAE =</span> <span class="st">&quot;Lärchen&quot;</span>, 
+                    <span class="dt">sNB =</span> <span class="st">&quot;sonst. Nadelholz&quot;</span>,
+                    <span class="dt">BU =</span> <span class="st">&quot;Buche&quot;</span>,
+                    <span class="dt">EI =</span> <span class="st">&quot;Eichen&quot;</span>,
+                    <span class="dt">REI =</span> <span class="st">&quot;Roteiche&quot;</span>,
+                    <span class="dt">ES =</span> <span class="st">&quot;Esche&quot;</span>,
+                    <span class="dt">BA =</span> <span class="st">&quot;Bergahorn&quot;</span>,
+                    <span class="dt">HB =</span> <span class="st">&quot;Hainbuche&quot;</span>,
+                    <span class="dt">sALH =</span> <span class="st">&quot;sonst. Hartholz&quot;</span>,
+                    <span class="dt">BI =</span> <span class="st">&quot;Birken&quot;</span>,
+                    <span class="dt">ER =</span> <span class="st">&quot;Erlen&quot;</span>,
+                    <span class="dt">PA =</span> <span class="st">&quot;Pappeln&quot;</span>,
+                    <span class="dt">sALN =</span> <span class="st">&quot;sonst. Weichholz&quot;</span>,
+                    abbreviation
+                    )
+    <span class="kw">return</span>(text)
+}
+
+</code></pre></div>
+<p>Die Funktion ist ein reiner <a href="https://en.wikipedia.org/wiki/Aliasing_%28computing%29">Alias</a>, sie führt ja ausschliesslich den <code>switch()</code> aus <em>(und streng genommen sollte es sie nicht geben. Sie dient nur dazu, dass ich den <code>switch()</code> im folgenden <code>vapply()</code> nicht ausschreiben muss. Ich finde dadurch das <code>vapply()</code> immerhin ein wenig verständlicher)</em>.</p>
+<p>Nun definieren wir uns noch eine wrapper-Funktion um <code>vapply()</code>, die den Aufruf des <code>switch()</code> in <code>get_species_group_text</code> versteckt:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">get_species_group_factor &lt;-<span class="st"> </span>function(x) {
+    <span class="kw">levels</span>(x) &lt;-<span class="st"> </span><span class="kw">vapply</span>(<span class="kw">levels</span>(x), 
+                        get_species_group_text,
+                        <span class="kw">character</span>(<span class="dt">length =</span> <span class="dv">1</span>)
+                        )
+    <span class="kw">return</span>(x)
+
+}
+</code></pre></div>
+<p><em>(In diesem Fall würde ich normalerweise statt des <code>vapply()</code> sicher eine <code>for</code>-Schleife nehmen: der Rückgabewert von levels() ist meist nicht besonders lang. Der Didaktik halber haben ich es anders gemacht.)</em><br />
+Klappt:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">get_species_group_factor</span>(species_shares_1987[[<span class="st">&quot;species_group_label&quot;</span>]])</code></pre></div>
+<p>Jetzt kann ich bequem drei alle &quot;species_group_label&quot;-Spalten ersetzen.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">species_shares_1987[[<span class="st">&quot;species_group_label&quot;</span>]] &lt;-<span class="st"> </span>
+<span class="st">    </span><span class="kw">get_species_group_factor</span>(species_shares_1987[[<span class="st">&quot;species_group_label&quot;</span>]])
+species_shares_2002[[<span class="st">&quot;species_group_label&quot;</span>]] &lt;-<span class="st"> </span>
+<span class="st">    </span><span class="kw">get_species_group_factor</span>(species_shares_2002[[<span class="st">&quot;species_group_label&quot;</span>]])
+species_shares_2012[[<span class="st">&quot;species_group_label&quot;</span>]] &lt;-<span class="st"> </span>
+<span class="st">    </span><span class="kw">get_species_group_factor</span>(species_shares_2012[[<span class="st">&quot;species_group_label&quot;</span>]])
+</code></pre></div>
+<p>Der ganze technische Kram ist in zwei Funktionen verschwunden, die sich hinter den Aufrufen von <code>get_species_group_factor()</code> verstecken. Falls ich die Funktionen richtig implementiert habe, interessieren mich ihre Details nur noch wenig und ich bin froh, wenn ich nur noch die drei Funktionsaufrufe sehe.</p>
+<h1 id="von-daten-zur-graphik"><span class="header-section-number">7</span> Von Daten zur Graphik</h1>
+<p>Ich habe Dir bunte Bildchen versprochen, nun sollst Du sie haben. Wir werden uns aus den Baumarten-Daten Balkengraphiken erstellen. Da wir drei <code>data.frame</code>s darstellen wollen, nutzen wir eine Funktion.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plot_species_shares &lt;-<span class="st"> </span>function(df, <span class="dt">error_bars =</span> <span class="ot">TRUE</span>) {
+    <span class="co">#% prepare data</span>
+    year &lt;-<span class="st"> </span><span class="kw">strsplit</span>(<span class="kw">deparse</span>(<span class="kw">substitute</span>(df)), <span class="st">&quot;_&quot;</span>)[[<span class="dv">1</span>]][[<span class="dv">3</span>]]
+    ##% sort data by prediction
+    sorted_data &lt;-<span class="st"> </span>df[<span class="kw">order</span>(df[[<span class="st">&quot;prediction&quot;</span>]]), ]
+    <span class="co">#% prepare plot</span>
+    ##% set up common colors
+    greens &lt;-<span class="st">  </span><span class="kw">c</span>(<span class="st">&quot;deciduous&quot;</span> =<span class="st"> </span><span class="kw">rgb</span>(<span class="dv">124</span>, <span class="dv">252</span>, <span class="dv">0</span>, <span class="dt">maxColorValue =</span> <span class="dv">255</span>), 
+                 <span class="st">&quot;conifers&quot;</span> =<span class="st"> </span><span class="kw">rgb</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">0</span>, <span class="dt">maxColorValue =</span> <span class="dv">255</span>))
+    ##% set the limits of the abscissa
+    x_width &lt;-<span class="st">  </span><span class="dv">5</span>
+    x_max  &lt;-<span class="st"> </span><span class="kw">ceiling</span>(<span class="kw">max</span>(sorted_data[[<span class="st">&quot;prediction&quot;</span>]]) /<span class="st"> </span>x_width) *<span class="st"> </span>x_width
+    x_min  &lt;-<span class="st"> </span><span class="dv">0</span>
+    <span class="kw">par</span>(<span class="dt">omi =</span> <span class="kw">c</span>(<span class="fl">0.65</span>, <span class="fl">0.95</span>, <span class="fl">0.75</span>, <span class="fl">0.75</span>), <span class="dt">mai =</span> <span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">2.2</span>, <span class="fl">0.35</span>, <span class="dv">0</span>), 
+        <span class="dt">mgp =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">0</span>), <span class="dt">las =</span> <span class="dv">1</span>)  
+    <span class="co">#% create plot</span>
+    ##% plot deciduous
+    deciduous &lt;-<span class="st"> </span>sorted_data[[<span class="st">&quot;prediction&quot;</span>]]
+    deciduous[<span class="kw">which</span>(sorted_data[[<span class="st">&quot;grouping&quot;</span>]] !=<span class="st"> &quot;deciduous&quot;</span>)] &lt;-<span class="st"> </span><span class="dv">0</span>
+    x1 &lt;-<span class="st"> </span><span class="kw">barplot</span>(deciduous, <span class="dt">names.arg =</span> <span class="ot">FALSE</span>, <span class="dt">horiz =</span> <span class="ot">TRUE</span>, <span class="dt">border =</span> <span class="ot">NA</span>, 
+                  <span class="dt">xlim =</span> <span class="kw">c</span>(x_min, x_max), <span class="dt">col =</span> greens[<span class="st">&quot;deciduous&quot;</span>],
+                  <span class="dt">cex.names =</span> <span class="fl">0.85</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>)
+    ##% plot conifers in different color
+    conifers &lt;-<span class="st"> </span>sorted_data[[<span class="st">&quot;prediction&quot;</span>]]
+    conifers[<span class="kw">which</span>(sorted_data[[<span class="st">&quot;grouping&quot;</span>]] !=<span class="st"> &quot;conifer&quot;</span>)] &lt;-<span class="st"> </span><span class="dv">0</span>
+    x2 &lt;-<span class="st"> </span><span class="kw">barplot</span>(conifers, <span class="dt">names.arg =</span> <span class="ot">FALSE</span>, <span class="dt">horiz =</span> <span class="ot">TRUE</span>, <span class="dt">border =</span> <span class="ot">NA</span>, 
+                  <span class="dt">xlim =</span> <span class="kw">c</span>(x_min, x_max), <span class="dt">col =</span> greens[<span class="st">&quot;conifers&quot;</span>],
+                  <span class="dt">cex.names =</span> <span class="fl">0.85</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, <span class="dt">add =</span> <span class="ot">TRUE</span>)
+    ##% add error bars
+    if (error_bars) {
+        error &lt;-<span class="st"> </span><span class="fl">1.96</span> *<span class="st"> </span><span class="kw">sqrt</span>(df[[<span class="st">&quot;error&quot;</span>]])
+        <span class="kw">arrows</span>(sorted_data[[<span class="st">&quot;prediction&quot;</span>]] -<span class="st"> </span>error, x1, 
+               sorted_data[[<span class="st">&quot;prediction&quot;</span>]] +<span class="st"> </span>error, x1, 
+               <span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">code =</span> <span class="dv">3</span>, <span class="dt">length =</span> <span class="fl">0.03</span>)
+        <span class="kw">text</span>(x_max, <span class="fl">22.5</span>, <span class="st">&quot;Fehlerbalken: 1.96 Standardabweichungen&quot;</span>, <span class="dt">adj =</span> <span class="dv">1</span>, 
+             <span class="dt">xpd =</span> <span class="ot">TRUE</span>, <span class="dt">cex =</span> <span class="fl">0.65</span>, <span class="dt">font =</span> <span class="dv">3</span>)
+    }
+    ##% add title and note
+    <span class="kw">mtext</span>(<span class="kw">paste0</span>(year, <span class="st">&quot;: Baumartenflächen im Gesamtwald&quot;</span>),  <span class="dv">3</span>,  <span class="dt">line =</span> <span class="fl">1.3</span>,  
+          <span class="dt">adj =</span> <span class="dv">0</span>,  <span class="dt">cex =</span> <span class="fl">1.2</span>, 
+          <span class="dt">outer =</span> <span class="ot">TRUE</span>)
+    <span class="kw">text</span>(x_max, <span class="fl">21.5</span>, <span class="st">&quot;Alle Angaben in Prozent&quot;</span>, <span class="dt">adj =</span> <span class="dv">1</span>, <span class="dt">xpd =</span> <span class="ot">TRUE</span>,
+         <span class="dt">cex =</span> <span class="fl">0.65</span>, <span class="dt">font =</span> <span class="dv">3</span>)
+    ##% create ordinate labels
+    for (i in <span class="dv">1</span>:<span class="kw">length</span>(sorted_data[[<span class="st">&quot;species_group_label&quot;</span>]])) {
+        if (sorted_data[[i, <span class="st">&quot;grouping&quot;</span>]] %in%<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;conifer&quot;</span>)) {
+            font_type &lt;-<span class="st"> </span><span class="dv">2</span> <span class="co">#&quot;bold&quot;</span>
+        } else {
+            font_type &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co">#&quot;plain&quot;</span>
+        }
+        <span class="kw">text</span>(-<span class="dv">9</span>, x1[i], sorted_data[i, <span class="st">&quot;species_group_label&quot;</span>], <span class="dt">xpd =</span> <span class="ot">TRUE</span>, 
+             <span class="dt">adj =</span> <span class="dv">1</span>, <span class="dt">cex =</span> <span class="fl">0.85</span>, <span class="dt">font =</span> font_type)
+        <span class="kw">text</span>(-<span class="fl">3.5</span>, x1[i], <span class="kw">round</span>(sorted_data[[i, <span class="st">&quot;prediction&quot;</span>]], <span class="dv">1</span>), <span class="dt">xpd =</span> <span class="ot">TRUE</span>, 
+             <span class="dt">adj =</span> <span class="dv">1</span>, <span class="dt">cex =</span> <span class="fl">0.85</span>, <span class="dt">font =</span> font_type)
+    }
+    ##% create shading rectangles
+    steps &lt;-<span class="st"> </span>(x_max -<span class="st"> </span>x_min) /<span class="st"> </span>x_width
+    for (i in (<span class="dv">1</span>:steps) -<span class="st"> </span><span class="dv">1</span>) {
+        if (i %%<span class="st"> </span><span class="dv">2</span> ==<span class="st"> </span><span class="dv">0</span>) {
+            <span class="kw">rect</span>(i *<span class="st"> </span>x_width, -<span class="fl">0.5</span>, (i +<span class="st"> </span><span class="dv">1</span>) *<span class="st"> </span>x_width, <span class="dv">28</span>, 
+                 <span class="dt">col =</span> <span class="kw">rgb</span>(<span class="dv">191</span>, <span class="dv">239</span>, <span class="dv">255</span>, <span class="dv">120</span>, <span class="dt">maxColorValue =</span> <span class="dv">255</span>), 
+                 <span class="dt">border =</span> <span class="ot">NA</span>
+                 )
+        } else {
+            <span class="kw">rect</span>(i *<span class="st"> </span>x_width, -<span class="fl">0.5</span>, (i +<span class="st"> </span><span class="dv">1</span>) *<span class="st"> </span>x_width, <span class="dv">28</span>, 
+                 <span class="dt">col =</span> <span class="kw">rgb</span>(<span class="dv">191</span>, <span class="dv">239</span>, <span class="dv">255</span>, <span class="dv">80</span>, <span class="dt">maxColorValue =</span> <span class="dv">255</span>), 
+                 <span class="dt">border =</span> <span class="ot">NA</span>
+                 )
+        }
+    }
+    ##% create abscissa labels
+    width &lt;-<span class="st">  </span><span class="dv">10</span>
+    x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> x_min, <span class="dt">to =</span> x_max, <span class="dt">by =</span> width)
+    <span class="kw">mtext</span>(x, <span class="dt">at =</span> x, <span class="dv">1</span>, <span class="dt">line =</span> <span class="dv">0</span>, <span class="dt">cex =</span> <span class="fl">0.8</span>)
+}
+
+
+</code></pre></div>
+<p>Diese Funktion ist kein gutes Beispiel einer Funktion. Sie hat zu viele Zeilen und ist nicht allgemein gehalten, sondern auf eine sehr spezielle Art von Baumarten-Daten-<code>data.frame</code>s angepaßt. Sie dient nur dazu, dass ich den Code nicht dreimal tippen muss. Und falls Du jetzt die Farbe für die Nadelbaum-Balken ändern willst, musst Du das nur an einer Stelle statt drei Stellen im Code tun. Ist einfach weniger fehleranfällig.<br />
+Funktionieren tut sie so:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">plot_species_shares</span>(species_shares_1987)
+<span class="kw">plot_species_shares</span>(species_shares_2002, <span class="dt">error_bars =</span> <span class="ot">FALSE</span>)
+<span class="kw">plot_species_shares</span>(species_shares_2012)</code></pre></div>
+<h1 id="hintan"><span class="header-section-number">8</span> Hintan</h1>
+<h2 id="dieses-dokument-..."><span class="header-section-number">8.1</span> Dieses Dokument ...</h2>
+<p>ist in <a href="https://cran.r-project.org/web/packages/rmarkdown">rmarkdown</a>, einer Mischung aus <strong>R</strong> und <a href="http://daringfireball.net/projects/markdown/">markdown</a> geschrieben. Genaugenommen besteht sie aus <a href="index.rmd">diesem rmarkdown-Dokument</a> und <a href="src">diesen <strong>R</strong>-Codes</a>, die durch <a href="http://www.math.polytechnique.fr/cmat/auroux/prog/gpp.html">einen Präprozessor</a> in <a href="index.Rmd">dieses rmarkdown-Dokument</a> gesetzt werden, das wiederum durch <a href="https://github.com/yihui/knitr">knitr</a> und <a href="http://pandoc.org/">pandoc</a> in die html-Seite verwandelt wird, die Du gerade liest. Alles klar?</p>
+<h2 id="weiterlesen"><span class="header-section-number">8.2</span> Weiterlesen</h2>
+<p>Wir haben einen <a href="file://H:/FVA-Projekte/Methodenforum/programmierleitfaden/programmierleitfaden.pdf">Programmierleitfaden</a> an der Forstlichen Versuchs- und Forschungsanstalt Baden-Württemberg, den zu befolgen ich bei der Erstellung der Beispielcodes versucht habe. <em>Du solltest ihn Dir demnächst durchlesen.</em> Außer Regeln bietet er noch einige Tipps rund um <strong>R</strong>. Vor allem aber findest Du dort im Unterkapitel &quot;Anleitungen&quot; weitere Dokumente zu <strong>R</strong>, die Dich jetzt vielleicht interessieren könnten.</p>
+<p>Falls Du obigen Link nicht öffnen kannst, etwa weil Du ihn nicht mit dem Internetexplorer eines Standard-FVA-PC zu öffnen versuchst (das liegt an den Passwörtern auf der internen Homepage ...), findest Du <a href="https://raw.githubusercontent.com/fvafrCU/programmierleitfaden/master/programmierleitfaden.ps">hier</a> eine Version in <a href="http://de.wikipedia.org/wiki/PostScript">PostScript</a>. Lade sie herunter und konvertiere sie gegebenenfalls in pdf.</p>
+<h2 id="weiterschreiben"><span class="header-section-number">8.3</span> Weiterschreiben</h2>
+<p>Falls Du diese Einführung bis hierher gelesen hast, ist Dir sicher etwas aufgefallen, von dem Du weisst, wie es besser geht. Bitte hilf mir, diese Einführung zu verbessern: schreibe mir an dominik.cullmann@forst.bwl.de, was Dir an Verbesserungswürdigem aufgefallen ist.</p>
+<h1 id="anhang"><span class="header-section-number">9</span> Anhang</h1>
+<h2 id="baumarten-daten"><span class="header-section-number">9.1</span> Baumarten-Daten</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">species_areas_1987 &lt;-
+<span class="st">    </span><span class="kw">structure</span>(<span class="kw">list</span>(<span class="dt">species_group_label =</span> <span class="kw">structure</span>(<span class="kw">c</span>(8L, 17L, 4L, 
+                                                     10L, 11L, 16L, 3L, 5L, 13L,
+                                                     7L, 1L, 9L, 14L, 2L, 6L, 
+                                                     12L, 15L), 
+                                                   <span class="dt">.Label =</span> <span class="kw">c</span>(<span class="st">&quot;BA&quot;</span>, <span class="st">&quot;BI&quot;</span>, <span class="st">&quot;BU&quot;</span>, 
+                                                              <span class="st">&quot;DGL&quot;</span>, <span class="st">&quot;EI&quot;</span>, <span class="st">&quot;ER&quot;</span>, 
+                                                              <span class="st">&quot;ES&quot;</span>, <span class="st">&quot;FI&quot;</span>, <span class="st">&quot;HB&quot;</span>, 
+                                                              <span class="st">&quot;KIE&quot;</span>, <span class="st">&quot;LAE&quot;</span>, 
+                                                              <span class="st">&quot;PA&quot;</span>, <span class="st">&quot;REI&quot;</span>, 
+                                                              <span class="st">&quot;sALH&quot;</span>, <span class="st">&quot;sALN&quot;</span>, 
+                                                              <span class="st">&quot;sNB&quot;</span>, <span class="st">&quot;TA&quot;</span>),
+                                                   <span class="dt">class =</span> <span class="st">&quot;factor&quot;</span>), 
+                   <span class="dt">prediction =</span> <span class="kw">c</span>(<span class="fl">43.4629284667027</span>, <span class="fl">7.86415232656841</span>, 
+                                  <span class="fl">2.26216297553824</span>, <span class="fl">8.06265606914114</span>, 
+                                  <span class="fl">1.98345551354271</span>, <span class="fl">0.258119453661548</span>, 
+                                  <span class="fl">18.6633590554827</span>, <span class="fl">6.44221004707153</span>, 
+                                  <span class="fl">0.35059803997222</span>, <span class="fl">3.10977158731384</span>, 
+                                  <span class="fl">1.97088355582993</span>, <span class="fl">0.869602592792654</span>, 
+                                  <span class="fl">1.42365460297862</span>, <span class="fl">0.718482907631762</span>, 
+                                  <span class="fl">0.830511613550428</span>, <span class="fl">0.835781310286287</span>,
+                                  <span class="fl">0.891669881935334</span>), 
+                   <span class="dt">error =</span> <span class="kw">c</span>(<span class="fl">0.536743142764836</span>, <span class="fl">0.262752386955493</span>, 
+                             <span class="fl">0.129393158401086</span>, <span class="fl">0.281028879558596</span>, 
+                             <span class="fl">0.0957647501950789</span>, <span class="fl">0.0400083812731542</span>, 
+                             <span class="fl">0.389178612482042</span>, <span class="fl">0.226936220859848</span>, 
+                             <span class="fl">0.0488116148358875</span>, <span class="fl">0.137538118708037</span>, 
+                             <span class="fl">0.097771346923237</span>, <span class="fl">0.0594793138895747</span>, 
+                             <span class="fl">0.0904682635067747</span>, <span class="fl">0.055752264926238</span>, 
+                             <span class="fl">0.0736516611206084</span>, <span class="fl">0.0868833933034175</span>, 
+                             <span class="fl">0.0604548633623663</span>), 
+                   <span class="dt">grouping =</span> <span class="kw">structure</span>(<span class="kw">c</span>(1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 
+                                          2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L), 
+                                        <span class="dt">.Label =</span> <span class="kw">c</span>(<span class="st">&quot;conifer&quot;</span>, <span class="st">&quot;deciduous&quot;</span>), 
+                                        <span class="dt">class =</span> <span class="st">&quot;factor&quot;</span>)
+                   ), 
+              <span class="dt">.Names =</span> <span class="kw">c</span>(<span class="st">&quot;species_group_label&quot;</span>, <span class="st">&quot;prediction&quot;</span>, <span class="st">&quot;error&quot;</span>, 
+                         <span class="st">&quot;grouping&quot;</span>), 
+              <span class="dt">class =</span> <span class="st">&quot;data.frame&quot;</span>, <span class="dt">row.names =</span> <span class="kw">c</span>(<span class="ot">NA</span>, -17L)
+              )
+
+species_areas_2002 &lt;-
+<span class="st">    </span><span class="kw">structure</span>(<span class="kw">list</span>(<span class="dt">species_group_label =</span> <span class="kw">structure</span>(<span class="kw">c</span>(8L, 17L, 4L, 10L, 11L, 16L,
+                                                     3L, 5L, 13L, 7L, 1L, 9L, 
+                                                     14L, 2L, 6L, 12L, 15L), 
+                                                   <span class="dt">.Label =</span> <span class="kw">c</span>(<span class="st">&quot;BA&quot;</span>, <span class="st">&quot;BI&quot;</span>, <span class="st">&quot;BU&quot;</span>,
+                                                              <span class="st">&quot;DGL&quot;</span>, <span class="st">&quot;EI&quot;</span>, <span class="st">&quot;ER&quot;</span>,
+                                                              <span class="st">&quot;ES&quot;</span>, <span class="st">&quot;FI&quot;</span>, <span class="st">&quot;HB&quot;</span>,
+                                                              <span class="st">&quot;KIE&quot;</span>, <span class="st">&quot;LAE&quot;</span>, 
+                                                              <span class="st">&quot;PA&quot;</span>, <span class="st">&quot;REI&quot;</span>, 
+                                                              <span class="st">&quot;sALH&quot;</span>, <span class="st">&quot;sALN&quot;</span>, 
+                                                              <span class="st">&quot;sNB&quot;</span>, <span class="st">&quot;TA&quot;</span>),
+                                                   <span class="dt">class =</span> <span class="st">&quot;factor&quot;</span>), 
+                   <span class="dt">prediction =</span> <span class="kw">c</span>(<span class="fl">37.6541737569276</span>, <span class="fl">7.7972024041839</span>, 
+                                  <span class="fl">2.84416204823979</span>, <span class="fl">6.50871828897042</span>, 
+                                  <span class="fl">1.89646865974553</span>, <span class="fl">0.445212707829209</span>, 
+                                  <span class="fl">21.2065514011396</span>, <span class="fl">6.91947701194286</span>, 
+                                  <span class="fl">0.427773788150808</span>, <span class="fl">4.21173366638045</span>, 
+                                  <span class="fl">2.83784794317384</span>, <span class="fl">1.18034501600187</span>, 
+                                  <span class="fl">1.92995628756537</span>, <span class="fl">0.837975958160955</span>, 
+                                  <span class="fl">0.983188665990165</span>, <span class="fl">0.705704472718757</span>, 
+                                  <span class="fl">1.61350792287878</span>),
+                   <span class="dt">error =</span> <span class="kw">c</span>(<span class="fl">0.516872726399891</span>, <span class="fl">0.256407272426103</span>, 
+                             <span class="fl">0.148641313940045</span>, <span class="fl">0.24019309828729</span>, 
+                             <span class="fl">0.0923020697386302</span>, <span class="fl">0.0596218555415915</span>, 
+                             <span class="fl">0.394877125787159</span>, <span class="fl">0.231660735729548</span>, 
+                             <span class="fl">0.0542174195188222</span>, <span class="fl">0.161229780433931</span>, 
+                             <span class="fl">0.122025049342518</span>, <span class="fl">0.0719240232167699</span>, 
+                             <span class="fl">0.105193197027116</span>, <span class="fl">0.0620204258221561</span>, 
+                             <span class="fl">0.0798713826799925</span>, <span class="fl">0.0719370996103648</span>, 
+                             <span class="fl">0.0886195995701987</span>), 
+                   <span class="dt">grouping =</span> <span class="kw">structure</span>(<span class="kw">c</span>(1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 
+                                          2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 2L),
+                                        <span class="dt">.Label =</span> <span class="kw">c</span>(<span class="st">&quot;conifer&quot;</span>, <span class="st">&quot;deciduous&quot;</span>),
+                                        <span class="dt">class =</span> <span class="st">&quot;factor&quot;</span>)
+                   ),
+              <span class="dt">.Names =</span> <span class="kw">c</span>(<span class="st">&quot;species_group_label&quot;</span>, <span class="st">&quot;prediction&quot;</span>, <span class="st">&quot;error&quot;</span>, 
+                         <span class="st">&quot;grouping&quot;</span>),
+              <span class="dt">class =</span> <span class="st">&quot;data.frame&quot;</span>, <span class="dt">row.names =</span> <span class="kw">c</span>(<span class="ot">NA</span>, -17L)
+              )
+
+
+species_areas_2012 &lt;-
+<span class="st">    </span><span class="kw">structure</span>(<span class="kw">list</span>(<span class="dt">species_group_label =</span> <span class="kw">structure</span>(<span class="kw">c</span>(8L, 17L, 4L, 10L, 11L, 16L,
+                                                     3L, 5L, 13L, 7L, 1L, 9L, 
+                                                     14L, 2L, 6L, 12L, 15L),
+                                                   <span class="dt">.Label =</span> <span class="kw">c</span>(<span class="st">&quot;BA&quot;</span>, <span class="st">&quot;BI&quot;</span>, <span class="st">&quot;BU&quot;</span>, 
+                                                              <span class="st">&quot;DGL&quot;</span>, <span class="st">&quot;EI&quot;</span>, <span class="st">&quot;ER&quot;</span>, 
+                                                              <span class="st">&quot;ES&quot;</span>, <span class="st">&quot;FI&quot;</span>, <span class="st">&quot;HB&quot;</span>, 
+                                                              <span class="st">&quot;KIE&quot;</span>, <span class="st">&quot;LAE&quot;</span>, 
+                                                              <span class="st">&quot;PA&quot;</span>, <span class="st">&quot;REI&quot;</span>, 
+                                                              <span class="st">&quot;sALH&quot;</span>, <span class="st">&quot;sALN&quot;</span>, 
+                                                              <span class="st">&quot;sNB&quot;</span>, <span class="st">&quot;TA&quot;</span>),
+                                                   <span class="dt">class =</span> <span class="st">&quot;factor&quot;</span>), 
+                   <span class="dt">prediction =</span> <span class="kw">c</span>(<span class="fl">33.9691456012294</span>, <span class="fl">7.99971033422974</span>, 
+                                  <span class="fl">3.37185094122167</span>, <span class="fl">5.58481905493661</span>, 
+                                  <span class="fl">1.76833653476758</span>, <span class="fl">0.469877064925086</span>, 
+                                  <span class="fl">21.8136258163657</span>, <span class="fl">7.05250096043027</span>, 
+                                  <span class="fl">0.538397233960815</span>, <span class="fl">4.91372646945832</span>,
+                                  <span class="fl">3.65022666154437</span>, <span class="fl">1.43595082597003</span>, 
+                                  <span class="fl">2.17737610449481</span>, <span class="fl">1.24868228966577</span>, 
+                                  <span class="fl">1.08279677295428</span>, <span class="fl">0.724697656550135</span>, 
+                                  <span class="fl">2.19827967729543</span>),
+                   <span class="dt">error =</span> <span class="kw">c</span>(<span class="fl">0.497512506586033</span>, <span class="fl">0.253156122081137</span>, 
+                             <span class="fl">0.157245423563603</span>, <span class="fl">0.218553145335019</span>, 
+                             <span class="fl">0.0865678202466183</span>, <span class="fl">0.0572587889177698</span>,
+                             <span class="fl">0.392239679332439</span>, <span class="fl">0.226761402556839</span>, 
+                             <span class="fl">0.059160429882746</span>, <span class="fl">0.169849882166813</span>, 
+                             <span class="fl">0.137906630574863</span>, <span class="fl">0.0806802789826653</span>, 
+                             <span class="fl">0.109612521393389</span>, <span class="fl">0.0805661157918473</span>, 
+                             <span class="fl">0.0852946611195881</span>, <span class="fl">0.0765991333570295</span>, 
+                             <span class="fl">0.104578534434981</span>),
+                   <span class="dt">grouping =</span> <span class="kw">structure</span>(<span class="kw">c</span>(1L, 1L, 1L, 1L, 
+                                          1L, 1L, 2L, 2L, 2L, 2L, 2L, 2L, 2L, 
+                                          2L, 2L, 2L, 2L),
+                                        <span class="dt">.Label =</span> <span class="kw">c</span>(<span class="st">&quot;conifer&quot;</span>, <span class="st">&quot;deciduous&quot;</span>), 
+                                        <span class="dt">class =</span> <span class="st">&quot;factor&quot;</span>)
+                   ),
+              <span class="dt">.Names =</span> <span class="kw">c</span>(<span class="st">&quot;species_group_label&quot;</span>, <span class="st">&quot;prediction&quot;</span>, <span class="st">&quot;error&quot;</span>, 
+                         <span class="st">&quot;grouping&quot;</span>), 
+              <span class="dt">class =</span> <span class="st">&quot;data.frame&quot;</span>, <span class="dt">row.names =</span> <span class="kw">c</span>(<span class="ot">NA</span>, -17L)
+              )
+
+</code></pre></div>
+<hr />
+<p><strong>Copyright:</strong><br />
+© Forstliche Versuchs- und Forschungsanstalt Baden-Württemberg Wonnhaldestraße 4, 79100 Freiburg, <a href="www.fva-bw.de" class="uri">www.fva-bw.de</a>.</p>
+To the extent possible under law, Forstliche Versuchs- und Forschungsanstalt Baden-Württemberg has waived all copyright and related or neighboring rights to Programmieren in <strong>R</strong>. This work is published from: Germany. To view a copy of this license, visit <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode" class="uri">https://creativecommons.org/publicdomain/zero/1.0/legalcode</a> .
+<hr style="height:3px;border:none;color:#333;background-color:#333;" />
+<p align="right">
+<strong>Last modified:</strong> 2015-12-01, 10:45
+</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># I turn help back on.</span>
+<span class="kw">options</span>(<span class="kw">list</span>(<span class="dt">pager =</span> <span class="kw">file.path</span>(<span class="kw">R.home</span>(), <span class="st">&quot;bin/pager&quot;</span>)))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># I turn help back on.</span>
+<span class="kw">options</span>(<span class="kw">list</span>(<span class="dt">pager =</span> <span class="kw">file.path</span>(<span class="kw">R.home</span>(), <span class="st">&quot;bin/pager&quot;</span>)))</code></pre></div>
+</body>
+</html>

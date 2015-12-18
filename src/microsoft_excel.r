@@ -1,0 +1,6 @@
+if (! require("xlsx")) install.packages("xlsx")
+library("xlsx")
+xlsx_file <- file.path(input_directory, "species_shares.xlsx")
+species_shares_1987 <- read.xlsx(xlsx_file, sheetName = "1987")
+species_shares_2002 <- read.xlsx(xlsx_file, sheetName = "2002")
+species_shares_2012 <- read.xlsx(xlsx_file, sheetName = "2012")
