@@ -256,6 +256,16 @@ Vergleichsoperatoren, die wir gerade schon durch
 ``` {.r}
 a_number != 4 
 ``` 
+*Es gibt in **R** die Funktionen `identical()` und `all.equal()`, die,
+wie `==` auf Gleichheit testen. 
+Die Hilfeseite `?Comparison` empfiehlt `identical` (beziehungsweise `!
+identical`) f&uuml;r Tests in Kontrollstrukturen. 
+Um zu testen, ob zwei Zahlen gleich sind, empfiehlt sie
+`identical(all.equal(n1, n2), TRUE)` 
+oder die Kurzform 
+`isTRUE(all.equal(n1, n2))`. 
+*
+
 Vergleiche (aber auch andere **R**-Anweisungen) k&ouml;nnen wir durch logische
 Operatoren, 
 die wir gerade schon durch `help("Logic", package = "base")` kennengelernt 
@@ -264,8 +274,6 @@ verkn&uuml;pfen:
 ``` {.r}
 a_number != 4 || a_number == 4
 ``` 
-*(Es gibt in **R** auch Funktionen, die komplexere "Dinge" miteinander 
-vergleichen, beispielsweise `?identical` und `?all.equal`)*
 
 <div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
 **Aufgabe:**
@@ -1048,7 +1056,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:**                                  2016-01-10, 11:13
+**Last modified:**                                          2016-01-10, 21:44
 </p>
 
 ``` {.r}

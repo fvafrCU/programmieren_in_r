@@ -132,9 +132,9 @@ Typbestimmung automatisch aus der ersten Zuweisung.)_
 <h2 id="operatoren"><span class="header-section-number">2.5</span> Operatoren</h2>
 <p>Wenn wir zwei Dinge miteinander vergleichen wollen, nutzen wir die Vergleichsoperatoren, die wir gerade schon durch <code>help(&quot;Comparison&quot;, package = &quot;base&quot;)</code> kennengelernt haben:</p>
 <pre class="sourceCode r"><code class="sourceCode r">a_number !=<span class="st"> </span><span class="dv">4</span> </code></pre>
+<p><em>Es gibt in <strong>R</strong> die Funktionen <code>identical()</code> und <code>all.equal()</code>, die, wie <code>==</code> auf Gleichheit testen. Die Hilfeseite <code>?Comparison</code> empfiehlt <code>identical</code> (beziehungsweise <code>! identical</code>) für Tests in Kontrollstrukturen. Um zu testen, ob zwei Zahlen gleich sind, empfiehlt sie <code>identical(all.equal(n1, n2), TRUE)</code> oder die Kurzform <code>isTRUE(all.equal(n1, n2))</code>. </em></p>
 <p>Vergleiche (aber auch andere <strong>R</strong>-Anweisungen) können wir durch logische Operatoren, die wir gerade schon durch <code>help(&quot;Logic&quot;, package = &quot;base&quot;)</code> kennengelernt haben, verknüpfen:</p>
 <pre class="sourceCode r"><code class="sourceCode r">a_number !=<span class="st"> </span><span class="dv">4</span> ||<span class="st"> </span>a_number ==<span class="st"> </span><span class="dv">4</span></code></pre>
-<p><em>(Es gibt in <strong>R</strong> auch Funktionen, die komplexere &quot;Dinge&quot; miteinander vergleichen, beispielsweise <code>?identical</code> und <code>?all.equal</code>)</em></p>
 <div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
 <p><strong>Aufgabe:</strong> Die <strong>R</strong>-Funktion <code>readline()</code> liest eine Eingabe vom <strong>R</strong>-Prompt. Lies Dir ihre Hilfeseite durch und schreibe ein Programm, das mich auffordert, Deinen Namen zu raten und meine Eingabe im Objekt <code>guess</code> speichert. Weise dem Objekt <code>my_name</code> Deinen Namen und laß Dein Programm prüfen, ob ich richtig geraten habe.</p>
 <a href="answers/readline_test.r">Hier findest Du meine Lösung.</a>
@@ -853,7 +853,7 @@ species_areas_2012 &lt;-
 To the extent possible under law, Forstliche Versuchs- und Forschungsanstalt Baden-Württemberg has waived all copyright and related or neighboring rights to Programmieren in <strong>R</strong>. This work is published from: Germany. To view a copy of this license, visit <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode">https://creativecommons.org/publicdomain/zero/1.0/legalcode</a> .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-<strong>Last modified:</strong> 2016-01-10, 11:13
+<strong>Last modified:</strong> 2016-01-10, 21:44
 </p>
 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># I turn help back on.</span>
