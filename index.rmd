@@ -221,25 +221,24 @@ aus.
 [Hier findest Du meine L&ouml;sung.](answers/name.r)
 </div>
 
-## Operatoren
-Wenn wir zwei Dinge miteinander vergleichen wollen, nutzen wir die
-Vergleichsoperatoren, die wir gerade schon durch 
-`help("Comparison", package = "base")` kennengelernt haben:
-``` {r}
-a_number != 4 
-``` 
-Vergleiche (aber auch andere **R**-Anweisungen) k&ouml;nnen wir durch logische
-Operatoren verkn&uuml;pfen:
-``` {r}
-a_number != 4 || a_number == 4
-``` 
-*(Es gibt in **R** auch Funktionen, die komplexere "Dinge" miteinander 
-vergleichen, beispielsweise `?identical` und `?all.equal`)*
-
 ## Funktionen 
 Funktionen spielen in **R** eine gro&szlig;e Rolle, weitaus die meisten
 [Anweisungen](https://de.wikipedia.org/wiki/Anweisung_%28Programmierung%29) in
-**R** sind Funktionsaufrufe. Eine Liste der in Deiner Umgebung verf&uuml;gbaren
+**R** sind Funktionsaufrufe. 
+
+<div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
+**Aufgabe:**
+Die **R**-Funktion `readline()` liest eine Eingabe vom **R**-Prompt.
+Lies Dir ihre Hilfeseite durch und schreibe ein Programm, das mich auffordert, 
+Deinen Namen zu raten und meine Eingabe im Objekt `guess` speichert.
+Dann soll es meine Eingabe drucken.
+
+[Hier findest Du meine L&ouml;sung.](answers/readline.r)
+</div>
+
+
+
+Eine Liste der in Deiner Umgebung verf&uuml;gbaren
 Funktionen erh&auml;ltst Du durch
 ``` {r, results = "hide"}
 for (pos in seq(along = searchpaths())) {
@@ -249,6 +248,35 @@ for (pos in seq(along = searchpaths())) {
 
 Allerdings h&auml;ngt diese Liste von den gerade geladenen [Pakete](#r-packages)
 ab.
+
+## Operatoren
+Wenn wir zwei Dinge miteinander vergleichen wollen, nutzen wir die
+Vergleichsoperatoren, die wir gerade schon durch 
+`help("Comparison", package = "base")` kennengelernt haben:
+``` {r}
+a_number != 4 
+``` 
+Vergleiche (aber auch andere **R**-Anweisungen) k&ouml;nnen wir durch logische
+Operatoren, 
+die wir gerade schon durch `help("Logic", package = "base")` kennengelernt 
+haben,
+verkn&uuml;pfen:
+``` {r}
+a_number != 4 || a_number == 4
+``` 
+*(Es gibt in **R** auch Funktionen, die komplexere "Dinge" miteinander 
+vergleichen, beispielsweise `?identical` und `?all.equal`)*
+
+<div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
+**Aufgabe:**
+Die **R**-Funktion `readline()` liest eine Eingabe vom **R**-Prompt.
+Lies Dir ihre Hilfeseite durch und schreibe ein Programm, das mich auffordert, 
+Deinen Namen zu raten und meine Eingabe im Objekt `guess` speichert.
+Weise dem Objekt `my_name` Deinen Namen und la&szlig; Dein Programm
+pr&uuml;fen, ob ich richtig geraten habe.
+
+[Hier findest Du meine L&ouml;sung.](answers/readline_test.r)
+</div>
 
 ## **R**-Packages
 **R** ist in Packages, also Paketen, organisiert. 
@@ -281,6 +309,10 @@ Hilfe dazu erh&auml;ltst Du durch `help("Control", package = "base")`.
 
 
 ## Bedingte Anweisungen
+Ich benutze haupts&auml;chlich das gew&ouml;hnliche If-else, habe aber der
+Vollst&auml;ndigkeit halber noch zwei weitere bedingte Anweisungen
+aufgef&uuml;hrt. 
+Lies im Zweifelsfall nur den ersten Abschnitt.
 ### If-else
 ... pr&uuml;ft eine Kondition und f&uuml;hrt, abh&auml;ngig vom Ausgang der
 Pr&uuml;fung, den konsekutiven Codeblock oder einen alternativen Codeblock aus:
@@ -294,7 +326,7 @@ if (condition) {
 ``` 
 <div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
 **Aufgabe:**
-Die **R**-Funktion `readline` liest eine Eingabe vom **R**-Prompt.
+Die **R**-Funktion `readline()` liest eine Eingabe vom **R**-Prompt.
 Lies Dir ihre Hilfeseite durch und schreibe ein Programm, das mich auffordert, 
 Deinen Namen zu raten und meine Eingabe in einem Objekt speichert.
 Den Wert dieses Objektes soll es dann mit Deinem Namen vergleichen und, je nach
@@ -303,7 +335,7 @@ Ergebnis, entweder *You win!* oder *You loose!* ausgeben.
 [Hier findest Du meine L&ouml;sung.](answers/guess_my_name.r)
 </div>
 
-
+### `ifelse()`
 Es gibt eine weitere  Version dieser Answeisung, die Funktion `ifelse()`.
 Sie arbeitet mit Vektoren:
 ``` {r}
@@ -344,11 +376,11 @@ Funktion...
 ## Schleifen 
 ... f&uuml;hren Code wiederholt aus. Es gibt gute Schleifen und schlechte
 Schleifen und, eine Besonderheit in **R**, `apply()`s.
+Ich nutze in **R** fast nur die `for`-Schleife und die `while`-Schleife.
+Lies im Zweifelsfall nur den ersten Abschnitt.
 
 ### Gute Schleifen
-Ich nutze in **R** fast nur die 
-`for`-Schleife und die `while`-Schleife:
-die `for`-Schleife wiederholt ihren Code eine bestimmte Anzahl an 
+Die `for`-Schleife wiederholt ihren Code eine bestimmte Anzahl an 
 Durchg&auml;ngen:
 ``` {r}
 indices <- c(1, 2, 3)
@@ -1016,7 +1048,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:**                      2015-12-01, 10:45
+**Last modified:**                                  2016-01-10, 11:13
 </p>
 
 ``` {r, echo = FALSE}

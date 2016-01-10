@@ -20,11 +20,11 @@ a_number <- 3
 a_number <- "this is no number, it's a string!"
 assign("a_number", 4)
 source("answers/name.r")
-a_number != 4 
-a_number != 4 || a_number == 4
 for (pos in seq(along = searchpaths())) {
     print(lsf.str(pos))
 }
+a_number != 4 
+a_number != 4 || a_number == 4
 condition <- a_number <= 3
 if (condition) {
   print("Consecution")
