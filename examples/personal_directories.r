@@ -2,6 +2,8 @@
 root <- file.path(dirname(tempdir()), "personal_directories")
 lines <- readLines("names.txt")
 
+#% make sure root does not exist
+if(file.exists(root) && file.info(root)$isdir) unlink(root)
 #% create root directory
 dir.create(root)
 #% extract names, order them in FIRSTNAME_LASTNAME
