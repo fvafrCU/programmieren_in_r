@@ -165,7 +165,7 @@ help("help", package = "utils")
 Sie liefert eine Hilfeseite die, je nach Konfiguration Deiner Arbeitsumgebung
 und Optionen f&uuml;r die Hilfefunktion, als Text, html oder pdf erscheint. 
 Sie kann beispielswiese 
-[so](examples/r_help.html)
+[so](files/r_help.html)
 aussehen.
 Ich finde die Hinweise in der Rubrik ``See Also:`` oft hilfreich.
 Ein gutes Beispiel ist 
@@ -776,6 +776,52 @@ in eine Datei schreibt.
 [Hier findest Du meine L&ouml;sung.](answers/create_hello_world.r)
 </div>
 
+<div style="background-color:#98E2A9; border:3px #C4DCFB solid;">
+**Beispiel:**
+Stelle Dir vor, Du g&auml;best **R**-Kurse und m&ouml;chtest f&uuml;r die
+Teilnehmenden pers&ouml;nliche Verzeichnisse erstellen. 
+Die Namen der Teilnehmenden eines Kurstermines l&auml;gen Dir in der Datei
+[files/names.txt](files/names.txt) vor.
+
+Jetzt kannst Du entweder die Verzeichnisse (per copy & paste) von Hand
+erstellen, oder Dir die M&uuml;he machen, das folgende **R**-Programm zu
+entwickeln:
+``` {r}
+#% set the root directory and read the file containing the names
+root <- file.path(dirname(tempdir()), "personal_directories")
+lines <- readLines("files/names.txt")
+
+#% make sure root does not exist
+if(file.exists(root) && file.info(root)$isdir) {
+    unlink(root, recursive = TRUE, force = TRUE)
+}
+#% create root directory
+dir.create(root)
+#% extract names, order them in FIRSTNAME_LASTNAME
+non_empty_lines <- lines[which(lines != "")]
+tmp <- sub("^ *", "", non_empty_lines)
+names <- sub(" *", "", tmp)
+last_names <- sapply(strsplit(names, ","), "[", 1)
+first_names <-  gsub(" ", "_", 
+                     sub(" *$", "", 
+                         sub("^ *", "", 
+                             sapply(strsplit(names, ","), "[", 2)
+                                   )
+                         )
+)
+directories <- paste(first_names, last_names, sep = "_")
+#% create those personal directories
+for (directory in directories) {
+    path <- file.path(root, directory)
+    dir.create(path)
+}
+
+
+``` 
+Zugegeben, das dauert erstmal l&auml;nger. Aber nachdem auch die
+Bundesau&szlig;en-, Bundesinnen- und Bundesverteidigungsminister und
+-ministerinnen Deinen Kurs besucht haben, hast Du die Zeit allemal wieder raus.
+</div>
 
 ## **R** im Batch
 **R** unter Windows im Batchmodus zu nutzen erscheint mir wenig attraktiv, da
@@ -1603,7 +1649,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:**   2016-01-11, 14:10
+**Last modified:**          2016-01-11, 21:58
 </p>
 
 ``` {r, echo = FALSE}

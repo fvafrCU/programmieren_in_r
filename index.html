@@ -201,7 +201,7 @@ img {
 <p>Die Hilfefunktion hört auf den Namen <code>help()</code>, sie hat auch eine Kurzform:</p>
 <pre class="r"><code>help(&quot;help&quot;, package = &quot;utils&quot;)
 ?help</code></pre>
-<p>Sie liefert eine Hilfeseite die, je nach Konfiguration Deiner Arbeitsumgebung und Optionen für die Hilfefunktion, als Text, html oder pdf erscheint. Sie kann beispielswiese <a href="examples/r_help.html">so</a> aussehen. Ich finde die Hinweise in der Rubrik <code>See Also:</code> oft hilfreich. Ein gutes Beispiel ist</p>
+<p>Sie liefert eine Hilfeseite die, je nach Konfiguration Deiner Arbeitsumgebung und Optionen für die Hilfefunktion, als Text, html oder pdf erscheint. Sie kann beispielswiese <a href="files/r_help.html">so</a> aussehen. Ich finde die Hinweise in der Rubrik <code>See Also:</code> oft hilfreich. Ein gutes Beispiel ist</p>
 <pre class="r"><code>help(&quot;Syntax&quot;, package = &quot;base&quot;)
 ?Syntax</code></pre>
 <p>Hier findest Du eine sehr technische Einführung in die Syntax von <strong>R</strong> und Verweise auf (unter anderen) die wichtigen Hilfeseiten <code>help(&quot;Comparison&quot;, package = &quot;base&quot;)</code> und <code>help(&quot;Logic&quot;, package = &quot;base&quot;)</code> , auf denen die Vergleichsoperatoren und die logischen Operatoren beschrieben werden.</p>
@@ -288,10 +288,10 @@ if (condition) {
 <p>Es gibt eine weitere Version dieser Answeisung, die Funktion <code>ifelse()</code>. Sie arbeitet mit Vektoren:</p>
 <pre class="r"><code>randomly_true &lt;- sample(x = c(TRUE, FALSE), size = 10, replace = TRUE)
 print(randomly_true)</code></pre>
-<pre><code>##  [1]  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
+<pre><code>##  [1] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE</code></pre>
 <pre class="r"><code>ifelse(randomly_true, &quot;Consecution&quot;, &quot;Alternative&quot;)</code></pre>
-<pre><code>##  [1] &quot;Consecution&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Consecution&quot; &quot;Alternative&quot;
-##  [6] &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot;</code></pre>
+<pre><code>##  [1] &quot;Alternative&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Consecution&quot;
+##  [6] &quot;Consecution&quot; &quot;Consecution&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Alternative&quot;</code></pre>
 <p><code>randomly_true</code> is bei jeder Ausführung pontentiell anders.</p>
 <p>Um eine Zufallsziehung reproduzierbar - also <code>nicht</code> zufällig - zu machen, nutze ich etwas wie:</p>
 <pre class="r"><code>set.seed(456432346)
@@ -513,19 +513,20 @@ if (file.exists(file)) {
 ## [14] &quot;levels.r&quot;                                                                
 ## [15] &quot;microsoft_access.r&quot;                                                      
 ## [16] &quot;microsoft_excel.r&quot;                                                       
-## [17] &quot;repeat_loop.r&quot;                                                           
-## [18] &quot;replace_species_groups.r&quot;                                                
-## [19] &quot;show_function.r&quot;                                                         
-## [20] &quot;sink.r&quot;                                                                  
-## [21] &quot;source.r&quot;                                                                
-## [22] &quot;sum_loop_along.r&quot;                                                        
-## [23] &quot;sum_loop_index.r&quot;                                                        
-## [24] &quot;sum_loop.r&quot;                                                              
-## [25] &quot;switch_abbreviation.r&quot;                                                   
-## [26] &quot;switch_block_of_code.r&quot;                                                  
-## [27] &quot;vapply.r&quot;                                                                
-## [28] &quot;while_loop.r&quot;                                                            
-## [29] &quot;write_readme.r&quot;</code></pre>
+## [17] &quot;personal_directories.r&quot;                                                  
+## [18] &quot;repeat_loop.r&quot;                                                           
+## [19] &quot;replace_species_groups.r&quot;                                                
+## [20] &quot;show_function.r&quot;                                                         
+## [21] &quot;sink.r&quot;                                                                  
+## [22] &quot;source.r&quot;                                                                
+## [23] &quot;sum_loop_along.r&quot;                                                        
+## [24] &quot;sum_loop_index.r&quot;                                                        
+## [25] &quot;sum_loop.r&quot;                                                              
+## [26] &quot;switch_abbreviation.r&quot;                                                   
+## [27] &quot;switch_block_of_code.r&quot;                                                  
+## [28] &quot;vapply.r&quot;                                                                
+## [29] &quot;while_loop.r&quot;                                                            
+## [30] &quot;write_readme.r&quot;</code></pre>
 <p><strong>R</strong> kann auch Verzeichnisse erstellen und Dateien kopieren, umbennenen oder löschen:</p>
 <pre class="r"><code>not_so_temporary_directory &lt;- file.path(dirname(tempdir()) , &quot;R_intro&quot;)
 dir.create(not_so_temporary_directory, showWarnings = FALSE)
@@ -549,6 +550,39 @@ das Dir den Dateinamen eines Pfades zurückgibt.
 <div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
 <p><strong>Aufgabe:</strong> Schreibe ein Programm, dass Dir den <a href="src/hello_world.r">den “hello, world”-Code</a> in eine Datei schreibt.</p>
 <a href="answers/create_hello_world.r">Hier findest Du meine Lösung.</a>
+</div>
+<div style="background-color:#98E2A9; border:3px #C4DCFB solid;">
+<p><strong>Beispiel:</strong> Stelle Dir vor, Du gäbest <strong>R</strong>-Kurse und möchtest für die Teilnehmenden persönliche Verzeichnisse erstellen. Die Namen der Teilnehmenden eines Kurstermines lägen Dir in der Datei <a href="files/names.txt">files/names.txt</a> vor.</p>
+<p>Jetzt kannst Du entweder die Verzeichnisse (per copy &amp; paste) von Hand erstellen, oder Dir die Mühe machen, das folgende <strong>R</strong>-Programm zu entwickeln:</p>
+<pre class="r"><code>#% set the root directory and read the file containing the names
+root &lt;- file.path(dirname(tempdir()), &quot;personal_directories&quot;)
+lines &lt;- readLines(&quot;files/names.txt&quot;)
+
+#% make sure root does not exist
+if(file.exists(root) &amp;&amp; file.info(root)$isdir) {
+    unlink(root, recursive = TRUE, force = TRUE)
+}
+#% create root directory
+dir.create(root)
+#% extract names, order them in FIRSTNAME_LASTNAME
+non_empty_lines &lt;- lines[which(lines != &quot;&quot;)]
+tmp &lt;- sub(&quot;^ *&quot;, &quot;&quot;, non_empty_lines)
+names &lt;- sub(&quot; *&quot;, &quot;&quot;, tmp)
+last_names &lt;- sapply(strsplit(names, &quot;,&quot;), &quot;[&quot;, 1)
+first_names &lt;-  gsub(&quot; &quot;, &quot;_&quot;, 
+                     sub(&quot; *$&quot;, &quot;&quot;, 
+                         sub(&quot;^ *&quot;, &quot;&quot;, 
+                             sapply(strsplit(names, &quot;,&quot;), &quot;[&quot;, 2)
+                                   )
+                         )
+)
+directories &lt;- paste(first_names, last_names, sep = &quot;_&quot;)
+#% create those personal directories
+for (directory in directories) {
+    path &lt;- file.path(root, directory)
+    dir.create(path)
+}</code></pre>
+Zugegeben, das dauert erstmal länger. Aber nachdem auch die Bundesaußen-, Bundesinnen- und Bundesverteidigungsminister und -ministerinnen Deinen Kurs besucht haben, hast Du die Zeit allemal wieder raus.
 </div>
 <div id="r-im-batch" class="section level2">
 <h2><span class="header-section-number">4.1</span> <strong>R</strong> im Batch</h2>
@@ -626,13 +660,13 @@ Schreibe die obigen drei Daten-Import-Anweisungen mit Hilfe einer Schleife. <a h
 ##  [9] &quot;get_species_group_text.r&quot;   &quot;graphics.r&quot;                
 ## [11] &quot;hello_world.r&quot;              &quot;levels.r&quot;                  
 ## [13] &quot;microsoft_access.r&quot;         &quot;microsoft_excel.r&quot;         
-## [15] &quot;repeat_loop.r&quot;              &quot;replace_species_groups.r&quot;  
-## [17] &quot;show_function.r&quot;            &quot;sink.r&quot;                    
-## [19] &quot;source.r&quot;                   &quot;sum_loop_along.r&quot;          
-## [21] &quot;sum_loop_index.r&quot;           &quot;sum_loop.r&quot;                
-## [23] &quot;switch_abbreviation.r&quot;      &quot;switch_block_of_code.r&quot;    
-## [25] &quot;vapply.r&quot;                   &quot;while_loop.r&quot;              
-## [27] &quot;write_readme.r&quot;</code></pre>
+## [15] &quot;personal_directories.r&quot;     &quot;repeat_loop.r&quot;             
+## [17] &quot;replace_species_groups.r&quot;   &quot;show_function.r&quot;           
+## [19] &quot;sink.r&quot;                     &quot;source.r&quot;                  
+## [21] &quot;sum_loop_along.r&quot;           &quot;sum_loop_index.r&quot;          
+## [23] &quot;sum_loop.r&quot;                 &quot;switch_abbreviation.r&quot;     
+## [25] &quot;switch_block_of_code.r&quot;     &quot;vapply.r&quot;                  
+## [27] &quot;while_loop.r&quot;               &quot;write_readme.r&quot;</code></pre>
 <pre class="r"><code>list.files(path = &quot;./src&quot;, pattern = &quot;^s.*\\.r$&quot;)</code></pre>
 <pre><code>## [1] &quot;show_function.r&quot;        &quot;sink.r&quot;                
 ## [3] &quot;source.r&quot;               &quot;sum_loop_along.r&quot;      
@@ -735,11 +769,11 @@ species_shares_2012 &lt;- read.xlsx(xlsx_file, sheetName = &quot;2012&quot;)</co
 <h4><span class="header-section-number">5.2.1.3</span> Logischer Index</h4>
 <pre class="r"><code>(random_logical_index &lt;- sample(c(TRUE, FALSE), nrow(species_shares_2002),
 replace = TRUE))</code></pre>
-<pre><code>##  [1]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE
-## [12] FALSE FALSE FALSE FALSE  TRUE FALSE</code></pre>
+<pre><code>##  [1]  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE
+## [12]  TRUE  TRUE FALSE  TRUE FALSE  TRUE</code></pre>
 <pre class="r"><code>species_shares_2002[random_logical_index, &quot;prediction&quot;]</code></pre>
-<pre><code>## [1] 37.6541738  7.7972024  6.5087183  1.8964687  0.4452127  6.9194770
-## [7]  0.7057045</code></pre>
+<pre><code>## [1] 37.6541738  6.5087183  1.8964687  2.8378479  1.1803450  1.9299563
+## [7]  0.9831887  1.6135079</code></pre>
 <p>Einen logischen Index nutze ich oft, um Datenbereiche auszuwählen, wie Du gleich sehen wirst.</p>
 </div>
 <div id="bereiche" class="section level4">
@@ -1235,7 +1269,7 @@ species_areas_2012 &lt;-
 To the extent possible under law, Forstliche Versuchs- und Forschungsanstalt Baden-Württemberg has waived all copyright and related or neighboring rights to Programmieren in <strong>R</strong>. This work is published from: Germany. To view a copy of this license, visit <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode"><a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode">https://creativecommons.org/publicdomain/zero/1.0/legalcode</a></a> .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-<strong>Last modified:</strong> 2016-01-11, 14:10
+<strong>Last modified:</strong> 2016-01-11, 21:58
 </p>
 
 

@@ -1,6 +1,6 @@
 #% set the root directory and read the file containing the names
 root <- file.path(dirname(tempdir()), "personal_directories")
-lines <- readLines("names.txt")
+lines <- readLines("files/names.txt")
 
 #% make sure root does not exist
 if(file.exists(root) && file.info(root)$isdir) {
@@ -10,7 +10,7 @@ if(file.exists(root) && file.info(root)$isdir) {
 dir.create(root)
 #% extract names, order them in FIRSTNAME_LASTNAME
 non_empty_lines <- lines[which(lines != "")]
-names <- sub("^ *", "", non_empty_lines)
+tmp <- sub("^ *", "", non_empty_lines)
 names <- sub(" *", "", tmp)
 last_names <- sapply(strsplit(names, ","), "[", 1)
 first_names <-  gsub(" ", "_", 
