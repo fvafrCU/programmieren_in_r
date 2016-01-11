@@ -430,7 +430,101 @@ for (index in indices) {
     print(index)
 }
 ``` 
-Das war die einfachste Variante, etwas ausgefeilter wird es so:
+Um zu verstehen, was hier passiert 
+*- und nur dazu, es gibt in **R** die Funktion `sum()`, die Du verwenden
+solltest, um Vektorelemente zu summieren! -*, 
+nehmen wir mal das Summenzeichen aus der Mathematik: 
+<math> <mstyle displaystyle="true"><mo>&sum;</mo></mstyle> </math>.
+
+Nehmen wir an, da&szlig; 
+<math> <mstyle displaystyle="true"> <mi>n</mi> <mo>=</mo> <mn>3</mn> </mstyle>
+</math>
+sei, dann ist 
+<math> <mstyle displaystyle="true"> 
+<munderover> <mo>&sum;</mo> 
+<mrow><mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> 
+<mi>n</mi> </munderover>
+<mfenced separators=""><mi>i</mi><mo>-</mo> <mn>1</mn> </mfenced>
+<mo>=</mo> <mn>3</mn>
+</mstyle> </math>.
+Das Summenzeichen ist ein Speziallfall einer Schleife, wir k&ouml;nnen es in
+**R** nachbauen:
+``` {r}
+value <- 0
+n <- 3
+for (i in seq(1, n)) {
+    value <- value + i - 1
+}
+print(value)
+
+
+``` 
+`for` verh&auml;lt sich wie 
+<math> <mstyle displaystyle="true"><mo>&sum;</mo></mstyle> </math>: in der
+runden Klammer nach `for` schreiben wir das "i gleich 1 bis n" auf, in der
+geschweiften das, was in der runden Klammer nach dem Summenzeichen kommt.
+Dazu brauchen wir allerdings ein Object, hier `value`, dem wir die
+Werte von i zuaddieren k&ouml;nnen. 
+Da 0 neutral zur Addition ist, bef&uuml;llen wir `value` mit dem Wert 0.
+
+Nehmen wir jetzt an, da&szlig;
+<math> <mstyle displaystyle="true"> 
+<mi>a</mi> <mo>=</mo> 
+<mfenced><mn>2</mn><mn>3</mn><mn>4</mn><mn>10</mn></mfenced> 
+</mstyle> </math>
+sei, dann ist 
+<math> <mstyle displaystyle="true">
+<munderover> <mo>&sum;</mo> 
+<mrow> <mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>n</mi> </munderover>
+<mfenced separators=""> <msub><mi>a</mi><mi>i</mi></msub><mo>-</mo> <mn>1</mn> 
+</mfenced>
+<mo>=</mo> <mn>6</mn> 
+</mstyle> </math>
+(<math> <mstyle displaystyle="true"> <mi>n</mi> </math> </mstyle> 
+ist ja immer noch gleich 
+<math> <mstyle displaystyle="true"> <mn>3</mn> </math> </mstyle> ).
+
+Auch das ist eine Schleife:
+``` {r}
+a  <- c(2, 3, 4, 10)
+value <- 0
+n <- 3
+for (i in seq(1, n)) {
+    value <- value + a[i] - 1
+}
+print(value)
+
+
+``` 
+Die Indizierung von
+<math> <mstyle displaystyle="true"> <mi>a</mi> </math> </mstyle> 
+durch 
+<math> <mstyle displaystyle="true"> <mi>i</mi> </math> </mstyle> 
+ist von einer tiefgestellten Zahl in der mathematischen Notation zu einer Zahl
+in eckigen Klammern in **R** geworden, der Rest war ja eher absehbar.
+Indizierungen in **R** schauen wir uns 
+[sp&auml;ter](#datentypen-und-indizierung) an.
+
+Wenn Du die Schleife nicht nur bis zum dritten, sondern &uuml;ber alle Elemente
+von 
+<math> <mstyle displaystyle="true"> <mi>a</mi> </math> </mstyle> 
+laufen lassen m&ouml;chtest (Entsprechendes will ich bei fast allen meiner
+Schleifen), dann ist
+``` {r}
+a  <- c(2, 3, 4, 10)
+value <- 0
+for (i in seq(along = a)) {
+    value <- value + a[i] - 1
+}
+print(value)
+
+
+``` 
+die am wenigsten fehleranf&auml;llige Variante.
+
+
+Allgemein kannst Du das Verhalten einer Schleifen an diesem Code erkennen:
+
 ``` {r}
 some_vector <- c("a", "b", "c")
 for (index in seq(along = some_vector)) {
@@ -1509,7 +1603,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:**                                          2016-01-10, 21:44
+**Last modified:**   2016-01-11, 14:10
 </p>
 
 ``` {r, echo = FALSE}

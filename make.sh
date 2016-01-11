@@ -1,7 +1,6 @@
-render.r -k -r -p index.rmd
+render.r -k index.rmd
 chmod 644 index.*
 chmod 744 index.R
-chmod 644 *pdf
 find . -type d -exec chmod 755 {} \;
 find src/ -type f -exec chmod 644 {} \;
 find data/ -type f -exec chmod 644 {} \;

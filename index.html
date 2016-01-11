@@ -288,10 +288,10 @@ if (condition) {
 <p>Es gibt eine weitere Version dieser Answeisung, die Funktion <code>ifelse()</code>. Sie arbeitet mit Vektoren:</p>
 <pre class="r"><code>randomly_true &lt;- sample(x = c(TRUE, FALSE), size = 10, replace = TRUE)
 print(randomly_true)</code></pre>
-<pre><code>##  [1]  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE</code></pre>
+<pre><code>##  [1]  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
 <pre class="r"><code>ifelse(randomly_true, &quot;Consecution&quot;, &quot;Alternative&quot;)</code></pre>
-<pre><code>##  [1] &quot;Consecution&quot; &quot;Consecution&quot; &quot;Alternative&quot; &quot;Consecution&quot; &quot;Alternative&quot;
-##  [6] &quot;Alternative&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Consecution&quot;</code></pre>
+<pre><code>##  [1] &quot;Consecution&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Consecution&quot; &quot;Alternative&quot;
+##  [6] &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot;</code></pre>
 <p><code>randomly_true</code> is bei jeder Ausführung pontentiell anders.</p>
 <p>Um eine Zufallsziehung reproduzierbar - also <code>nicht</code> zufällig - zu machen, nutze ich etwas wie:</p>
 <pre class="r"><code>set.seed(456432346)
@@ -352,7 +352,37 @@ for (index in indices) {
 <pre><code>## [1] 1
 ## [1] 2
 ## [1] 3</code></pre>
-<p>Das war die einfachste Variante, etwas ausgefeilter wird es so:</p>
+<p>Um zu verstehen, was hier passiert <em>- und nur dazu, es gibt in <strong>R</strong> die Funktion <code>sum()</code>, die Du verwenden solltest, um Vektorelemente zu summieren! -</em>, nehmen wir mal das Summenzeichen aus der Mathematik: <math> <mstyle displaystyle="true"><mo>∑</mo></mstyle> </math>.</p>
+<p>Nehmen wir an, daß <math> <mstyle displaystyle="true"> <mi>n</mi> <mo>=</mo> <mn>3</mn> </mstyle> </math> sei, dann ist <math> <mstyle displaystyle="true"> <munderover> <mo>∑</mo> <mrow><mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>n</mi> </munderover> <mfenced separators><mi>i</mi><mo>-</mo> <mn>1</mn> </mfenced> <mo>=</mo> <mn>3</mn> </mstyle> </math>. Das Summenzeichen ist ein Speziallfall einer Schleife, wir können es in <strong>R</strong> nachbauen:</p>
+<pre class="r"><code>value &lt;- 0
+n &lt;- 3
+for (i in seq(1, n)) {
+    value &lt;- value + i - 1
+}
+print(value)</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p><code>for</code> verhält sich wie <math> <mstyle displaystyle="true"><mo>∑</mo></mstyle> </math>: in der runden Klammer nach <code>for</code> schreiben wir das “i gleich 1 bis n” auf, in der geschweiften das, was in der runden Klammer nach dem Summenzeichen kommt. Dazu brauchen wir allerdings ein Object, hier <code>value</code>, dem wir die Werte von i zuaddieren können. Da 0 neutral zur Addition ist, befüllen wir <code>value</code> mit dem Wert 0.</p>
+<p>Nehmen wir jetzt an, daß <math> <mstyle displaystyle="true"> <mi>a</mi> <mo>=</mo> <mfenced><mn>2</mn><mn>3</mn><mn>4</mn><mn>10</mn></mfenced> </mstyle> </math> sei, dann ist <math> <mstyle displaystyle="true"> <munderover> <mo>∑</mo> <mrow> <mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>n</mi> </munderover> <mfenced separators> <msub><mi>a</mi><mi>i</mi></msub><mo>-</mo> <mn>1</mn> </mfenced> <mo>=</mo> <mn>6</mn> </mstyle> </math> (<math> <mstyle displaystyle="true"> <mi>n</mi> </math> </mstyle> ist ja immer noch gleich <math> <mstyle displaystyle="true"> <mn>3</mn> </math> </mstyle> ).</p>
+<p>Auch das ist eine Schleife:</p>
+<pre class="r"><code>a  &lt;- c(2, 3, 4, 10)
+value &lt;- 0
+n &lt;- 3
+for (i in seq(1, n)) {
+    value &lt;- value + a[i] - 1
+}
+print(value)</code></pre>
+<pre><code>## [1] 6</code></pre>
+<p>Die Indizierung von <math> <mstyle displaystyle="true"> <mi>a</mi> </math> </mstyle> durch <math> <mstyle displaystyle="true"> <mi>i</mi> </math> </mstyle> ist von einer tiefgestellten Zahl in der mathematischen Notation zu einer Zahl in eckigen Klammern in <strong>R</strong> geworden, der Rest war ja eher absehbar. Indizierungen in <strong>R</strong> schauen wir uns <a href="#datentypen-und-indizierung">später</a> an.</p>
+<p>Wenn Du die Schleife nicht nur bis zum dritten, sondern über alle Elemente von <math> <mstyle displaystyle="true"> <mi>a</mi> </math> </mstyle> laufen lassen möchtest (Entsprechendes will ich bei fast allen meiner Schleifen), dann ist</p>
+<pre class="r"><code>a  &lt;- c(2, 3, 4, 10)
+value &lt;- 0
+for (i in seq(along = a)) {
+    value &lt;- value + a[i] - 1
+}
+print(value)</code></pre>
+<pre><code>## [1] 15</code></pre>
+<p>die am wenigsten fehleranfällige Variante.</p>
+<p>Allgemein kannst Du das Verhalten einer Schleifen an diesem Code erkennen:</p>
 <pre class="r"><code>some_vector &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)
 for (index in seq(along = some_vector)) {
     cat(&quot;Element &quot;, index, &quot; contains &quot;, some_vector[index], &quot;.\n&quot;, sep = &quot;&quot;)
@@ -488,11 +518,14 @@ if (file.exists(file)) {
 ## [19] &quot;show_function.r&quot;                                                         
 ## [20] &quot;sink.r&quot;                                                                  
 ## [21] &quot;source.r&quot;                                                                
-## [22] &quot;switch_abbreviation.r&quot;                                                   
-## [23] &quot;switch_block_of_code.r&quot;                                                  
-## [24] &quot;vapply.r&quot;                                                                
-## [25] &quot;while_loop.r&quot;                                                            
-## [26] &quot;write_readme.r&quot;</code></pre>
+## [22] &quot;sum_loop_along.r&quot;                                                        
+## [23] &quot;sum_loop_index.r&quot;                                                        
+## [24] &quot;sum_loop.r&quot;                                                              
+## [25] &quot;switch_abbreviation.r&quot;                                                   
+## [26] &quot;switch_block_of_code.r&quot;                                                  
+## [27] &quot;vapply.r&quot;                                                                
+## [28] &quot;while_loop.r&quot;                                                            
+## [29] &quot;write_readme.r&quot;</code></pre>
 <p><strong>R</strong> kann auch Verzeichnisse erstellen und Dateien kopieren, umbennenen oder löschen:</p>
 <pre class="r"><code>not_so_temporary_directory &lt;- file.path(dirname(tempdir()) , &quot;R_intro&quot;)
 dir.create(not_so_temporary_directory, showWarnings = FALSE)
@@ -595,13 +628,16 @@ Schreibe die obigen drei Daten-Import-Anweisungen mit Hilfe einer Schleife. <a h
 ## [13] &quot;microsoft_access.r&quot;         &quot;microsoft_excel.r&quot;         
 ## [15] &quot;repeat_loop.r&quot;              &quot;replace_species_groups.r&quot;  
 ## [17] &quot;show_function.r&quot;            &quot;sink.r&quot;                    
-## [19] &quot;source.r&quot;                   &quot;switch_abbreviation.r&quot;     
-## [21] &quot;switch_block_of_code.r&quot;     &quot;vapply.r&quot;                  
-## [23] &quot;while_loop.r&quot;               &quot;write_readme.r&quot;</code></pre>
+## [19] &quot;source.r&quot;                   &quot;sum_loop_along.r&quot;          
+## [21] &quot;sum_loop_index.r&quot;           &quot;sum_loop.r&quot;                
+## [23] &quot;switch_abbreviation.r&quot;      &quot;switch_block_of_code.r&quot;    
+## [25] &quot;vapply.r&quot;                   &quot;while_loop.r&quot;              
+## [27] &quot;write_readme.r&quot;</code></pre>
 <pre class="r"><code>list.files(path = &quot;./src&quot;, pattern = &quot;^s.*\\.r$&quot;)</code></pre>
 <pre><code>## [1] &quot;show_function.r&quot;        &quot;sink.r&quot;                
-## [3] &quot;source.r&quot;               &quot;switch_abbreviation.r&quot; 
-## [5] &quot;switch_block_of_code.r&quot;</code></pre>
+## [3] &quot;source.r&quot;               &quot;sum_loop_along.r&quot;      
+## [5] &quot;sum_loop_index.r&quot;       &quot;sum_loop.r&quot;            
+## [7] &quot;switch_abbreviation.r&quot;  &quot;switch_block_of_code.r&quot;</code></pre>
 <p>Die zweite Version filtern auf alle Dateinamen, die mit “s” anfangen (^s), dann beliebige Zeichen haben (.*) und auf “.r” enden (\.r$).)</p>
 <p>Schreibe Deine Schleife aus der letzten Aufgabe so um, dass Du Dateinamen mit <code>list.files</code> ermittelst. <a href="answers/csv_input_pattern.r">Hier findest Du meine Lösung.</a></p>
 Jetzt stelle Dir vor, es wären nicht nur die Jahre 1987, 2002 und 2012, sondern alle Jahre seit 1960, für die Du eine csv-Datei einlesen wolltest.
@@ -699,12 +735,11 @@ species_shares_2012 &lt;- read.xlsx(xlsx_file, sheetName = &quot;2012&quot;)</co
 <h4><span class="header-section-number">5.2.1.3</span> Logischer Index</h4>
 <pre class="r"><code>(random_logical_index &lt;- sample(c(TRUE, FALSE), nrow(species_shares_2002),
 replace = TRUE))</code></pre>
-<pre><code>##  [1] FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE
-## [12]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
+<pre><code>##  [1]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE
+## [12] FALSE FALSE FALSE FALSE  TRUE FALSE</code></pre>
 <pre class="r"><code>species_shares_2002[random_logical_index, &quot;prediction&quot;]</code></pre>
-<pre><code>##  [1]  2.8441620  6.5087183  1.8964687  0.4452127 21.2065514  0.4277738
-##  [7]  4.2117337  1.1803450  1.9299563  0.8379760  0.9831887  0.7057045
-## [13]  1.6135079</code></pre>
+<pre><code>## [1] 37.6541738  7.7972024  6.5087183  1.8964687  0.4452127  6.9194770
+## [7]  0.7057045</code></pre>
 <p>Einen logischen Index nutze ich oft, um Datenbereiche auszuwählen, wie Du gleich sehen wirst.</p>
 </div>
 <div id="bereiche" class="section level4">
@@ -1200,7 +1235,7 @@ species_areas_2012 &lt;-
 To the extent possible under law, Forstliche Versuchs- und Forschungsanstalt Baden-Württemberg has waived all copyright and related or neighboring rights to Programmieren in <strong>R</strong>. This work is published from: Germany. To view a copy of this license, visit <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode"><a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode">https://creativecommons.org/publicdomain/zero/1.0/legalcode</a></a> .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-<strong>Last modified:</strong> 2016-01-10, 21:44
+<strong>Last modified:</strong> 2016-01-11, 14:10
 </p>
 
 

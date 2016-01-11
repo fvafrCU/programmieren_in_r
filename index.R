@@ -78,6 +78,31 @@ indices <- c(1, 2, 3)
 for (index in indices) {
     print(index)
 }
+value <- 0
+n <- 3
+for (i in seq(1, n)) {
+    value <- value + i - 1
+}
+print(value)
+
+
+a  <- c(2, 3, 4, 10)
+value <- 0
+n <- 3
+for (i in seq(1, n)) {
+    value <- value + a[i] - 1
+}
+print(value)
+
+
+a  <- c(2, 3, 4, 10)
+value <- 0
+for (i in seq(along = a)) {
+    value <- value + a[i] - 1
+}
+print(value)
+
+
 some_vector <- c("a", "b", "c")
 for (index in seq(along = some_vector)) {
     cat("Element ", index, " contains ", some_vector[index], ".\n", sep = "")
