@@ -293,10 +293,10 @@ if (condition) {
 <p>Es gibt eine weitere Version dieser Answeisung, die Funktion <code>ifelse()</code>. Sie arbeitet mit Vektoren:</p>
 <pre class="r"><code>randomly_true &lt;- sample(x = c(TRUE, FALSE), size = 10, replace = TRUE)
 print(randomly_true)</code></pre>
-<pre><code>##  [1] FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
+<pre><code>##  [1] FALSE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE</code></pre>
 <pre class="r"><code>ifelse(randomly_true, &quot;Consecution&quot;, &quot;Alternative&quot;)</code></pre>
-<pre><code>##  [1] &quot;Alternative&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Alternative&quot;
-##  [6] &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot;</code></pre>
+<pre><code>##  [1] &quot;Alternative&quot; &quot;Consecution&quot; &quot;Alternative&quot; &quot;Consecution&quot; &quot;Consecution&quot;
+##  [6] &quot;Consecution&quot; &quot;Alternative&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot;</code></pre>
 <p><code>randomly_true</code> is bei jeder Ausführung pontentiell anders.</p>
 <p>Um eine Zufallsziehung reproduzierbar - also <code>nicht</code> zufällig - zu machen, nutze ich etwas wie:</p>
 <pre class="r"><code>set.seed(456432346)
@@ -777,11 +777,10 @@ species_shares_2012 &lt;- read.xlsx(xlsx_file, sheetName = &quot;2012&quot;)</co
 <h4><span class="header-section-number">5.2.1.3</span> Logischer Index</h4>
 <pre class="r"><code>(random_logical_index &lt;- sample(c(TRUE, FALSE), nrow(species_shares_2002),
 replace = TRUE))</code></pre>
-<pre><code>##  [1] FALSE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE
-## [12] FALSE FALSE FALSE  TRUE  TRUE  TRUE</code></pre>
+<pre><code>##  [1] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE  TRUE
+## [12] FALSE FALSE FALSE FALSE  TRUE FALSE</code></pre>
 <pre class="r"><code>species_shares_2002[random_logical_index, &quot;prediction&quot;]</code></pre>
-<pre><code>## [1]  7.7972024  6.5087183  0.4452127 21.2065514  2.8378479  0.9831887
-## [7]  0.7057045  1.6135079</code></pre>
+<pre><code>## [1] 2.8441620 6.9194770 0.4277738 2.8378479 0.7057045</code></pre>
 <p>Einen logischen Index nutze ich oft, um Datenbereiche auszuwählen, wie Du gleich sehen wirst.</p>
 </div>
 <div id="bereiche" class="section level4">
@@ -953,7 +952,7 @@ v3[c(&quot;FI&quot;, &quot;DGL&quot;)]</code></pre>
 </div>
 <div id="mehr-von-mir-zu-datentypen" class="section level2">
 <h2><span class="header-section-number">5.3</span> Mehr von mir zu Datentypen</h2>
-<p>findest Du unter <a href="http://10.33.50.43/R_User_Group/data_types.html">http://10.33.50.43/R_User_Group/data_types.html</a>.</p>
+<p>findest Du unter <a href="data_types.html">hier</a>.</p>
 </div>
 </div>
 <div id="funktionen-1" class="section level1">
@@ -1277,7 +1276,7 @@ species_areas_2012 &lt;-
 To the extent possible under law, Forstliche Versuchs- und Forschungsanstalt Baden-Württemberg has waived all copyright and related or neighboring rights to Programmieren in <strong>R</strong>. This work is published from: Germany. To view a copy of this license, visit <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode"><a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode">https://creativecommons.org/publicdomain/zero/1.0/legalcode</a></a> .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-<strong>Last modified:</strong> 2016-01-13, 17:06
+<strong>Last modified:</strong> 2016-01-13, 20:55
 </p>
 
 

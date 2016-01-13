@@ -1,0 +1,215 @@
+---
+title: Datentypen in R
+author: Dominik Cullmann
+---
+
+# Basistypen
+Es gibt zwei Basisdatentypen in R: arrays und lists.
+
+## arrays
+Alle Vektoren sind (dimensionslose) Arrays. Sie unterscheiden sich durch ihren
+*mode*.
+``` {r}
+boolean_vector <- sample(c(TRUE, FALSE), 12, replace = TRUE)
+mode(boolean_vector)
+
+integer_vector <- 1:12
+mode(integer_vector)
+
+character_vector <- letters[1:12]
+mode(character_vector)
+dim(character_vector)
+``` 
+Wir können die Dimension verändern... 
+
+``` {r}
+attributes(character_vector) <- list(dim = c(1,length(character_vector)))
+``` 
+und schon ist unser `character_vector` kein dimensionsloser Vector mehr, sondern
+ein Array:
+``` {r}
+is.vector(character_vector)
+is.array(character_vector)
+``` 
+
+
+Auch Matrizen sind Arrays.
+``` {r}
+(character_matrix <- matrix(character_vector, nrow = 2))
+mode(character_matrix)
+dim(character_matrix)
+
+``` 
+Selbst Zeichenketten und Zahlen sind (vorerst dimensionslose Spezialfälle von) 
+Arrays:
+``` {r}
+mode("Hello, world!")
+mode(3)
+
+``` 
+
+
+**Aber was genau ist ein Array?**
+
+Ich schneide die Matrix zwischen der dritten und vierten Spalte durch und staple
+die Scheiben hintereinander:
+
+``` {r}
+(character_array <- array(character_vector, c(2,3,2)))
+mode(character_array)
+dim(character_array)
+``` 
+Ein Array ist die mehrdimensionale Verallgemeinerung einer Matrix: eine
+rechteckige Untermenge eines n-dimensionalen Kartesischen Raumes. 
+
+### Die L&auml;nge eines `array`s
+Alle `array`s besitzen eine L&auml;nge, die dem Produkt ihrer `dim`ensionen
+entspricht (ich nehme hier eine `matrix` - den anschaulicheren Spezialfall - 
+als Beispiel):
+``` {r}
+dim(character_matrix)
+length(character_matrix)
+``` 
+Wenn wir ein Element eines `array`s numerisch indizieren, tun wir das meist so:
+``` {r}
+character_matrix[1, 3]
+```
+Nehmen wir aber nur einen einzelnen numerischen Index, so iteriert die
+Indizierung durch die Dimensionen in der Reihenfolge ihrer Ausgabe per `dim()`.
+Die erste Dimension ist 2, die ersten beiden Element sind daher [1, 1] und [1,
+2]. Und das f&uuml;nfte ist
+``` {r}
+character_matrix[5]
+``` 
+Wenn ich also ein Element eines `array`s mit nur einem numerischen Index
+anspreche, erhalte ich eventuell ein Ergebnis, obwohl ein Denk- oder
+Schreibfehler vorliegt. 
+Dagegen ergibt
+``` {r}
+tryCatch(character_array[2, 3], error = function(e) print(e))
+``` 
+wie erwartet einen Fehler, den ich hier abfange, damit ich diese Seite setzen
+kann.
+
+## lists
+Listen sind weder rechteckig, noch haben sie einen einheitlichen *mode*:
+``` {r}
+things <- list(alphabet = letters,
+               digits = 0:9,
+               me = "I")
+str(things)
+```
+Listen besitzen keine Dimension, sondern nur eine Länge - die Anzahl ihrer
+Elemente (das ist jetzt wieder so wie bei Vektoren... naja!):
+``` {r}
+length(things)
+```
+
+
+Listen können als Elemente Arrays (Vektoren, Zeichenketten, Matrizen), aber auch
+Listen haben:
+``` {r}
+things_and_more <- list(things = things, an_array = character_array)
+str(things_and_more)
+```
+Diese Liste ist kürzer als die erste, auch wenn sie diese enthält!
+
+Auf die Elemente einer List greifen wir per '[[', '[' oder '$' zu (siehe
+`help("Extract", package = "base")`:
+``` {r}
+str(things_and_more[1])
+str(things_and_more[[1]])
+things_and_more[[1]][[1]][[3]]
+```
+Dabei unterscheiden sich '[[', '[' oder '$' nur leicht:
+bei Listen erhalten wir durch '[[' das gefragt Element, durch '[' eine Liste:
+die erste Form schmeisst den Namen fort, dafür kann die zweite Form Untermengen
+zurückgeben:
+``` {r}
+things_and_more[[1]][c(2,3)]
+```
+(Für Arrays ist mir kein guter Grund zur Nutzung der doppelten Form bekannt.
+Außer vielleicht: um bei benannten Vektoren nur ein Element ohne seinen Namen zu
+erhalten...)
+
+# Zusammengesetzte Typen
+Data.frames, also das klassische Datenblatt, sind einfach rechteckige Listen.
+Also Listen, deren Element alle gleich lang sind. 
+
+## data.frames
+``` {r}
+data(cars)
+head(cars)
+dim(cars)
+names(cars)[1]
+all.equal(cars[[1]], cars$speed) 
+
+all.equal(cars[[2]][2], cars[2, "dist"])
+```
+
+## factors
+Faktoren sind Vektoren, die Gruppierungen enthalten.
+Es gibt  geordnete und ungeordnete Faktoren: 
+``` {r}
+(a <- factor(substring("statistics", 1:10, 1:10), levels = letters, 
+                                                  ordered = TRUE))
+(b <- factor(substring("statistics", 1:10, 1:10), levels = letters, 
+                                                  ordered = FALSE))
+```
+Wenn die levels nicht selbst explizit angegeben werden, vergibt R sie einfach
+alphabetisch sortiert, nicht aber in der Reihenfolge des Auftretens:
+``` {r}
+factor(c("s", "t", "a", "t", "i", "s", "t", "i", "c", "s")) 
+```
+Das kann nerven. Abhilfe:
+``` {r}
+v <- c("s", "t", "a", "t", "i", "s", "t", "i", "c", "s")
+factor(v, levels = unique(v))
+```
+Da data.frames Vektoren vom *mode* "character", wenn nicht anders gefordert,
+automatisch in Faktoren (mit alphabetischer Sortierung der Level) umwandelt,
+erhalte ich oft nicht das erwartete Ergebnis:
+``` {r}
+trials <- c(paste(c("Erste", "Zweite", "Dritte"), "Aufnahme"))
+repetitions <- c(40, 30, 20)
+
+set.seed(1234); mortality <- data.frame(trial = rep(trials, repetitions),
+                        percent = sample(1:100, sum(repetitions), 
+                                         replace = TRUE)
+                        ) 
+tapply(mortality$percent, mortality$trial, mean) 
+```
+Die levels umzudefinieren hilft nicht:
+``` {r}
+levels(mortality$trial) <- trials
+tapply(mortality$percent, mortality$trial, mean) 
+
+```
+Jetzt stimmt zwar die Reihenfolge, aber die Statistiken sind nicht umsortiert,
+also falsch. Richtig ist:
+
+``` {r}
+set.seed(1234); mortality <- data.frame(trial = rep(trials, repetitions),
+                        percent = sample(1:100, sum(repetitions), 
+                                         replace = TRUE)
+                        ) 
+mortality$trial <- factor(mortality$trial, levels = trials)
+tapply(mortality$percent, mortality$trial, mean) 
+
+```
+---
+**Copyright:**  
+&copy; Forstliche Versuchs- und Forschungsanstalt Baden-Württemberg
+Wonnhaldestraße 4, 79100 Freiburg, [www.fva-bw.de](www.fva-bw.de).  
+
+To the extent possible under law, Forstliche Versuchs- und Forschungsanstalt 
+Baden-Württemberg has waived all copyright and related or neighboring rights to
+Datentypen in **R**. This work is published from: Germany. 
+To view a copy of this license, visit 
+[https://creativecommons.org/publicdomain/zero/1.0/legalcode](https://creativecommons.org/publicdomain/zero/1.0/legalcode) 
+.
+<hr style="height:3px;border:none;color:#333;background-color:#333;" />
+<p align="right">
+**Last modified:** 2016-01-13, 20:58
+</p>
+

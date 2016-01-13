@@ -1236,7 +1236,7 @@ Die meisten Funktionen zum Datenimport (z.B. `read.csv` und `read.xslx`) nutzen
 
 
 ## Mehr von mir zu Datentypen 
-findest Du unter http://10.33.50.43/R_User_Group/data_types.html.
+findest Du unter [hier](data_types.html).
 
 # Funktionen
 Funktionen in **R** selbst zu schreiben ist sehr einfach und oft hilfreich. 
@@ -1651,7 +1651,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:**            2016-01-13, 17:06
+**Last modified:** 2016-01-13, 20:55
 </p>
 
 ``` {r, echo = FALSE}

@@ -1,3 +1,4 @@
+render.r -k data_types.rmd
 render.r -k index.rmd
 chmod 644 index.*
 chmod 744 index.R
