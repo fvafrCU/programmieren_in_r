@@ -230,7 +230,7 @@ Funktionen spielen in **R** eine gro&szlig;e Rolle, weitaus die meisten
 **Aufgabe:**
 Die **R**-Funktion `readline()` liest eine Eingabe vom **R**-Prompt.
 Lies Dir ihre Hilfeseite durch und schreibe ein Programm, das mich auffordert, 
-Deinen Namen zu raten und meine Eingabe im Objekt `guess` speichert.
+Deinen Namen zu raten und meine Eingabe einem Objekt des Namens `guess` zuweist.
 Dann soll es meine Eingabe drucken.
 
 [Hier findest Du meine L&ouml;sung.](answers/readline.r)
@@ -279,7 +279,7 @@ a_number != 4 || a_number == 4
 **Aufgabe:**
 Die **R**-Funktion `readline()` liest eine Eingabe vom **R**-Prompt.
 Lies Dir ihre Hilfeseite durch und schreibe ein Programm, das mich auffordert, 
-Deinen Namen zu raten und meine Eingabe im Objekt `guess` speichert.
+Deinen Namen zu raten und meine Eingabe einem Objekt des Namens `guess` zuweist.
 Weise dem Objekt `my_name` Deinen Namen und la&szlig; Dein Programm
 pr&uuml;fen, ob ich richtig geraten habe.
 
@@ -321,6 +321,7 @@ Ich benutze haupts&auml;chlich das gew&ouml;hnliche If-else, habe aber der
 Vollst&auml;ndigkeit halber noch zwei weitere bedingte Anweisungen
 aufgef&uuml;hrt. 
 Lies im Zweifelsfall nur den ersten Abschnitt.
+
 ### If-else
 ... pr&uuml;ft eine Kondition und f&uuml;hrt, abh&auml;ngig vom Ausgang der
 Pr&uuml;fung, den konsekutiven Codeblock oder einen alternativen Codeblock aus:
@@ -336,7 +337,7 @@ if (condition) {
 **Aufgabe:**
 Die **R**-Funktion `readline()` liest eine Eingabe vom **R**-Prompt.
 Lies Dir ihre Hilfeseite durch und schreibe ein Programm, das mich auffordert, 
-Deinen Namen zu raten und meine Eingabe in einem Objekt speichert.
+Deinen Namen zu raten und meine Eingabe einem Objekt des Namens `guess` zuweist.
 Den Wert dieses Objektes soll es dann mit Deinem Namen vergleichen und, je nach
 Ergebnis, entweder *You win!* oder *You loose!* ausgeben.
 
@@ -1145,7 +1146,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:**          2016-01-11, 21:58
+**Last modified:**            2016-01-13, 17:06
 </p>
 
 ``` {r, echo = FALSE}

@@ -89,8 +89,9 @@ img {
 </ul></li>
 <li><a href="#kontrollstrukturen"><span class="toc-section-number">3</span> Kontrollstrukturen</a><ul>
 <li><a href="#bedingte-anweisungen"><span class="toc-section-number">3.1</span> Bedingte Anweisungen</a><ul>
-<li><a href="#ifelse"><span class="toc-section-number">3.1.1</span> <code>ifelse()</code></a></li>
-<li><a href="#switch"><span class="toc-section-number">3.1.2</span> <code>switch()</code></a></li>
+<li><a href="#if-else"><span class="toc-section-number">3.1.1</span> If-else</a></li>
+<li><a href="#ifelse"><span class="toc-section-number">3.1.2</span> <code>ifelse()</code></a></li>
+<li><a href="#switch"><span class="toc-section-number">3.1.3</span> <code>switch()</code></a></li>
 </ul></li>
 <li><a href="#schleifen"><span class="toc-section-number">3.2</span> Schleifen</a><ul>
 <li><a href="#gute-schleifen"><span class="toc-section-number">3.2.1</span> Gute Schleifen</a></li>
@@ -231,7 +232,7 @@ Typbestimmung automatisch aus der ersten Zuweisung.)_
 <h2><span class="header-section-number">2.4</span> Funktionen</h2>
 <p>Funktionen spielen in <strong>R</strong> eine große Rolle, weitaus die meisten <a href="https://de.wikipedia.org/wiki/Anweisung_%28Programmierung%29">Anweisungen</a> in <strong>R</strong> sind Funktionsaufrufe.</p>
 <div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
-<p><strong>Aufgabe:</strong> Die <strong>R</strong>-Funktion <code>readline()</code> liest eine Eingabe vom <strong>R</strong>-Prompt. Lies Dir ihre Hilfeseite durch und schreibe ein Programm, das mich auffordert, Deinen Namen zu raten und meine Eingabe im Objekt <code>guess</code> speichert. Dann soll es meine Eingabe drucken.</p>
+<p><strong>Aufgabe:</strong> Die <strong>R</strong>-Funktion <code>readline()</code> liest eine Eingabe vom <strong>R</strong>-Prompt. Lies Dir ihre Hilfeseite durch und schreibe ein Programm, das mich auffordert, Deinen Namen zu raten und meine Eingabe einem Objekt des Namens <code>guess</code> zuweist. Dann soll es meine Eingabe drucken.</p>
 <a href="answers/readline.r">Hier findest Du meine Lösung.</a>
 </div>
 <p>Eine Liste der in Deiner Umgebung verfügbaren Funktionen erhältst Du durch</p>
@@ -250,7 +251,7 @@ Typbestimmung automatisch aus der ersten Zuweisung.)_
 <pre class="r"><code>a_number != 4 || a_number == 4</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
-<p><strong>Aufgabe:</strong> Die <strong>R</strong>-Funktion <code>readline()</code> liest eine Eingabe vom <strong>R</strong>-Prompt. Lies Dir ihre Hilfeseite durch und schreibe ein Programm, das mich auffordert, Deinen Namen zu raten und meine Eingabe im Objekt <code>guess</code> speichert. Weise dem Objekt <code>my_name</code> Deinen Namen und laß Dein Programm prüfen, ob ich richtig geraten habe.</p>
+<p><strong>Aufgabe:</strong> Die <strong>R</strong>-Funktion <code>readline()</code> liest eine Eingabe vom <strong>R</strong>-Prompt. Lies Dir ihre Hilfeseite durch und schreibe ein Programm, das mich auffordert, Deinen Namen zu raten und meine Eingabe einem Objekt des Namens <code>guess</code> zuweist. Weise dem Objekt <code>my_name</code> Deinen Namen und laß Dein Programm prüfen, ob ich richtig geraten habe.</p>
 <a href="answers/readline_test.r">Hier findest Du meine Lösung.</a>
 </div>
 </div>
@@ -271,7 +272,10 @@ Typbestimmung automatisch aus der ersten Zuweisung.)_
 <p>Da <strong>R</strong> eine Programmiersprache ist, sehen wir uns zunächst ein paar klassische Dinge an, die jede Programmiersprache können sollte. Hilfe dazu erhältst Du durch <code>help(&quot;Control&quot;, package = &quot;base&quot;)</code>.</p>
 <div id="bedingte-anweisungen" class="section level2">
 <h2><span class="header-section-number">3.1</span> Bedingte Anweisungen</h2>
-<p>Ich benutze hauptsächlich das gewöhnliche If-else, habe aber der Vollständigkeit halber noch zwei weitere bedingte Anweisungen aufgeführt. Lies im Zweifelsfall nur den ersten Abschnitt. ### If-else … prüft eine Kondition und führt, abhängig vom Ausgang der Prüfung, den konsekutiven Codeblock oder einen alternativen Codeblock aus:</p>
+<p>Ich benutze hauptsächlich das gewöhnliche If-else, habe aber der Vollständigkeit halber noch zwei weitere bedingte Anweisungen aufgeführt. Lies im Zweifelsfall nur den ersten Abschnitt.</p>
+<div id="if-else" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> If-else</h3>
+<p>… prüft eine Kondition und führt, abhängig vom Ausgang der Prüfung, den konsekutiven Codeblock oder einen alternativen Codeblock aus:</p>
 <pre class="r"><code>condition &lt;- a_number &lt;= 3
 if (condition) {
   print(&quot;Consecution&quot;)
@@ -280,18 +284,19 @@ if (condition) {
 }</code></pre>
 <pre><code>## [1] &quot;Alternative&quot;</code></pre>
 <div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
-<p><strong>Aufgabe:</strong> Die <strong>R</strong>-Funktion <code>readline()</code> liest eine Eingabe vom <strong>R</strong>-Prompt. Lies Dir ihre Hilfeseite durch und schreibe ein Programm, das mich auffordert, Deinen Namen zu raten und meine Eingabe in einem Objekt speichert. Den Wert dieses Objektes soll es dann mit Deinem Namen vergleichen und, je nach Ergebnis, entweder <em>You win!</em> oder <em>You loose!</em> ausgeben.</p>
+<p><strong>Aufgabe:</strong> Die <strong>R</strong>-Funktion <code>readline()</code> liest eine Eingabe vom <strong>R</strong>-Prompt. Lies Dir ihre Hilfeseite durch und schreibe ein Programm, das mich auffordert, Deinen Namen zu raten und meine Eingabe einem Objekt des Namens <code>guess</code> zuweist. Den Wert dieses Objektes soll es dann mit Deinem Namen vergleichen und, je nach Ergebnis, entweder <em>You win!</em> oder <em>You loose!</em> ausgeben.</p>
 <a href="answers/guess_my_name.r">Hier findest Du meine Lösung.</a>
 </div>
+</div>
 <div id="ifelse" class="section level3">
-<h3><span class="header-section-number">3.1.1</span> <code>ifelse()</code></h3>
+<h3><span class="header-section-number">3.1.2</span> <code>ifelse()</code></h3>
 <p>Es gibt eine weitere Version dieser Answeisung, die Funktion <code>ifelse()</code>. Sie arbeitet mit Vektoren:</p>
 <pre class="r"><code>randomly_true &lt;- sample(x = c(TRUE, FALSE), size = 10, replace = TRUE)
 print(randomly_true)</code></pre>
-<pre><code>##  [1] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE</code></pre>
+<pre><code>##  [1] FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
 <pre class="r"><code>ifelse(randomly_true, &quot;Consecution&quot;, &quot;Alternative&quot;)</code></pre>
-<pre><code>##  [1] &quot;Alternative&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Consecution&quot;
-##  [6] &quot;Consecution&quot; &quot;Consecution&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Alternative&quot;</code></pre>
+<pre><code>##  [1] &quot;Alternative&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Alternative&quot;
+##  [6] &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot;</code></pre>
 <p><code>randomly_true</code> is bei jeder Ausführung pontentiell anders.</p>
 <p>Um eine Zufallsziehung reproduzierbar - also <code>nicht</code> zufällig - zu machen, nutze ich etwas wie:</p>
 <pre class="r"><code>set.seed(456432346)
@@ -299,7 +304,7 @@ not_randomly_true &lt;- sample(x = c(TRUE, FALSE), size = 10, replace = TRUE)
 print(not_randomly_true)</code></pre>
 </div>
 <div id="switch" class="section level3">
-<h3><span class="header-section-number">3.1.2</span> <code>switch()</code></h3>
+<h3><span class="header-section-number">3.1.3</span> <code>switch()</code></h3>
 <p>… ist eine <em>Funktion</em>, die aus einer Liste das passende Element ausgibt:</p>
 <pre class="r"><code>abbreviation &lt;- &quot;sALN&quot;
 switch(abbreviation, 
@@ -510,23 +515,24 @@ if (file.exists(file)) {
 ## [11] &quot;get_species_group_text.r&quot;                                                
 ## [12] &quot;graphics.r&quot;                                                              
 ## [13] &quot;hello_world.r&quot;                                                           
-## [14] &quot;levels.r&quot;                                                                
-## [15] &quot;microsoft_access.r&quot;                                                      
-## [16] &quot;microsoft_excel.r&quot;                                                       
-## [17] &quot;personal_directories.r&quot;                                                  
-## [18] &quot;repeat_loop.r&quot;                                                           
-## [19] &quot;replace_species_groups.r&quot;                                                
-## [20] &quot;show_function.r&quot;                                                         
-## [21] &quot;sink.r&quot;                                                                  
-## [22] &quot;source.r&quot;                                                                
-## [23] &quot;sum_loop_along.r&quot;                                                        
-## [24] &quot;sum_loop_index.r&quot;                                                        
-## [25] &quot;sum_loop.r&quot;                                                              
-## [26] &quot;switch_abbreviation.r&quot;                                                   
-## [27] &quot;switch_block_of_code.r&quot;                                                  
-## [28] &quot;vapply.r&quot;                                                                
-## [29] &quot;while_loop.r&quot;                                                            
-## [30] &quot;write_readme.r&quot;</code></pre>
+## [14] &quot;index.html&quot;                                                              
+## [15] &quot;levels.r&quot;                                                                
+## [16] &quot;microsoft_access.r&quot;                                                      
+## [17] &quot;microsoft_excel.r&quot;                                                       
+## [18] &quot;personal_directories.r&quot;                                                  
+## [19] &quot;repeat_loop.r&quot;                                                           
+## [20] &quot;replace_species_groups.r&quot;                                                
+## [21] &quot;show_function.r&quot;                                                         
+## [22] &quot;sink.r&quot;                                                                  
+## [23] &quot;source.r&quot;                                                                
+## [24] &quot;sum_loop_along.r&quot;                                                        
+## [25] &quot;sum_loop_index.r&quot;                                                        
+## [26] &quot;sum_loop.r&quot;                                                              
+## [27] &quot;switch_abbreviation.r&quot;                                                   
+## [28] &quot;switch_block_of_code.r&quot;                                                  
+## [29] &quot;vapply.r&quot;                                                                
+## [30] &quot;while_loop.r&quot;                                                            
+## [31] &quot;write_readme.r&quot;</code></pre>
 <p><strong>R</strong> kann auch Verzeichnisse erstellen und Dateien kopieren, umbennenen oder löschen:</p>
 <pre class="r"><code>not_so_temporary_directory &lt;- file.path(dirname(tempdir()) , &quot;R_intro&quot;)
 dir.create(not_so_temporary_directory, showWarnings = FALSE)
@@ -594,39 +600,40 @@ Zugegeben, das dauert erstmal länger. Aber nachdem auch die Bundesaußen-, Bund
 <h1><span class="header-section-number">5</span> Daten</h1>
 <p>Du kannst Dir die Daten <a href="data/input">hier</a> herunterladen, oder sie durch folgendes Skript in das <code>input_directory</code> laden. <em>Falls Du nicht auf die Dateien zugreifen kannst, könnte das an Deiner Version von <strong>R</strong> liegen, ich habe es mit der 32-bit Version von <strong>R</strong> 3.2.2 erfolgreich getestet. Du kannst Dir in jedem Fall mit dem Code <a href="#baumarten-daten">im Anhang</a> die Daten erstellen.</em></p>
 <p>Im Weiteren werde ich jedenfalls davon ausgehen, dass sie im <code>input_directory</code> liegen.</p>
-<pre class="r"><code>input_directory &lt;- file.path(not_so_temporary_directory, &quot;data&quot;, &quot;input&quot;)
+<pre class="r"><code>not_so_temporary_directory &lt;- file.path(dirname(tempdir()) , &quot;R_intro&quot;)
+dir.create(not_so_temporary_directory, showWarnings = FALSE)
+input_directory &lt;- file.path(not_so_temporary_directory, &quot;data&quot;, &quot;input&quot;)
 dir.create(input_directory, recursive = TRUE)
-if (Sys.info()[[&quot;nodename&quot;]] %in% c(&quot;foobar&quot;, &quot;h5&quot;)) {
-    # local machines only
-    file.copy(from = &quot;data/input&quot;, to = dirname(input_directory),
-              recursive = TRUE)
-
-} else {
-    dependencies &lt;- c(&quot;XML&quot;, &quot;RCurl&quot;, &quot;httr&quot;)
-    for (dependency in dependencies) {
-        if (! require(dependency, character.only = TRUE)) {
-            install.packages(dependency)
-        }
-        library(dependency, character.only = TRUE)
+dependencies &lt;- c(&quot;XML&quot;, &quot;RCurl&quot;, &quot;httr&quot;)
+for (dependency in dependencies) {
+    if (! require(dependency, character.only = TRUE)) {
+        install.packages(dependency)
     }
-    input_url &lt;- &quot;http://10.33.50.43/R_Intro/data/input/&quot;
-    proxy &lt;- Sys.getenv(&quot;http_proxy&quot;)
-    Sys.setenv(&quot;http_proxy&quot; = &quot;&quot;)
-    content &lt;- getURLContent(input_url, verbose = TRUE)
-    files &lt;- readHTMLTable(content, skip.rows = 1, 
-                           stringsAsFactors = FALSE)[[1]][[&quot;Name&quot;]]
-    for (file in files) {
-        file_url &lt;- file.path(input_url, file)
-        file_path &lt;- file.path(input_directory, file)
-        if (Sys.info()[&quot;sysname&quot;] == &quot;Windows&quot;) {
-            download.file(file_url, file_path, method = &quot;wininet&quot;, mode = &quot;wb&quot;)  
-        } else {
-            download.file(file_url, file_path, method = &quot;curl&quot;)  
-        }
+    library(dependency, character.only = TRUE)
+}
+input_url &lt;- &quot;http://fvafrcu.github.io/programmieren_in_r/data/input/&quot;
+proxy &lt;- Sys.getenv(&quot;http_proxy&quot;)
+Sys.setenv(&quot;http_proxy&quot; = &quot;&quot;)
+content &lt;- getURLContent(input_url, verbose = TRUE)
+hrefs &lt;- grep(&quot;/&quot;, 
+              grep(&quot;href&quot;, 
+                   strsplit(as.character(content), &quot;&lt;&quot;)[[1]]
+                   , value = TRUE
+                   )
+              , value = TRUE, invert = TRUE
+              )
+files  &lt;- sapply( strsplit(hrefs, &quot;\\\&quot;&quot;) ,&quot;[[&quot;, 2)  
+for (file in files) {
+    file_url &lt;- file.path(input_url, file)
+    file_path &lt;- file.path(input_directory, file)
+    if (Sys.info()[&quot;sysname&quot;] == &quot;Windows&quot;) {
+        download.file(file_url, file_path, method = &quot;wininet&quot;, mode = &quot;wb&quot;)  
+    } else {
+        download.file(file_url, file_path, method = &quot;curl&quot;)  
     }
+}
 
-    Sys.setenv(&quot;http_proxy&quot; = proxy)
-}</code></pre>
+Sys.setenv(&quot;http_proxy&quot; = proxy)</code></pre>
 <div id="daten-lesen-und-schreiben" class="section level2">
 <h2><span class="header-section-number">5.1</span> Daten lesen und schreiben</h2>
 <div id="textdateien" class="section level3">
@@ -658,15 +665,16 @@ Schreibe die obigen drei Daten-Import-Anweisungen mit Hilfe einer Schleife. <a h
 ##  [5] &quot;dollar.r&quot;                   &quot;for_loop.r&quot;                
 ##  [7] &quot;get_input_data.r&quot;           &quot;get_species_group_factor.r&quot;
 ##  [9] &quot;get_species_group_text.r&quot;   &quot;graphics.r&quot;                
-## [11] &quot;hello_world.r&quot;              &quot;levels.r&quot;                  
-## [13] &quot;microsoft_access.r&quot;         &quot;microsoft_excel.r&quot;         
-## [15] &quot;personal_directories.r&quot;     &quot;repeat_loop.r&quot;             
-## [17] &quot;replace_species_groups.r&quot;   &quot;show_function.r&quot;           
-## [19] &quot;sink.r&quot;                     &quot;source.r&quot;                  
-## [21] &quot;sum_loop_along.r&quot;           &quot;sum_loop_index.r&quot;          
-## [23] &quot;sum_loop.r&quot;                 &quot;switch_abbreviation.r&quot;     
-## [25] &quot;switch_block_of_code.r&quot;     &quot;vapply.r&quot;                  
-## [27] &quot;while_loop.r&quot;               &quot;write_readme.r&quot;</code></pre>
+## [11] &quot;hello_world.r&quot;              &quot;index.html&quot;                
+## [13] &quot;levels.r&quot;                   &quot;microsoft_access.r&quot;        
+## [15] &quot;microsoft_excel.r&quot;          &quot;personal_directories.r&quot;    
+## [17] &quot;repeat_loop.r&quot;              &quot;replace_species_groups.r&quot;  
+## [19] &quot;show_function.r&quot;            &quot;sink.r&quot;                    
+## [21] &quot;source.r&quot;                   &quot;sum_loop_along.r&quot;          
+## [23] &quot;sum_loop_index.r&quot;           &quot;sum_loop.r&quot;                
+## [25] &quot;switch_abbreviation.r&quot;      &quot;switch_block_of_code.r&quot;    
+## [27] &quot;vapply.r&quot;                   &quot;while_loop.r&quot;              
+## [29] &quot;write_readme.r&quot;</code></pre>
 <pre class="r"><code>list.files(path = &quot;./src&quot;, pattern = &quot;^s.*\\.r$&quot;)</code></pre>
 <pre><code>## [1] &quot;show_function.r&quot;        &quot;sink.r&quot;                
 ## [3] &quot;source.r&quot;               &quot;sum_loop_along.r&quot;      
@@ -769,11 +777,11 @@ species_shares_2012 &lt;- read.xlsx(xlsx_file, sheetName = &quot;2012&quot;)</co
 <h4><span class="header-section-number">5.2.1.3</span> Logischer Index</h4>
 <pre class="r"><code>(random_logical_index &lt;- sample(c(TRUE, FALSE), nrow(species_shares_2002),
 replace = TRUE))</code></pre>
-<pre><code>##  [1]  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE
-## [12]  TRUE  TRUE FALSE  TRUE FALSE  TRUE</code></pre>
+<pre><code>##  [1] FALSE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE
+## [12] FALSE FALSE FALSE  TRUE  TRUE  TRUE</code></pre>
 <pre class="r"><code>species_shares_2002[random_logical_index, &quot;prediction&quot;]</code></pre>
-<pre><code>## [1] 37.6541738  6.5087183  1.8964687  2.8378479  1.1803450  1.9299563
-## [7]  0.9831887  1.6135079</code></pre>
+<pre><code>## [1]  7.7972024  6.5087183  0.4452127 21.2065514  2.8378479  0.9831887
+## [7]  0.7057045  1.6135079</code></pre>
 <p>Einen logischen Index nutze ich oft, um Datenbereiche auszuwählen, wie Du gleich sehen wirst.</p>
 </div>
 <div id="bereiche" class="section level4">
@@ -1269,7 +1277,7 @@ species_areas_2012 &lt;-
 To the extent possible under law, Forstliche Versuchs- und Forschungsanstalt Baden-Württemberg has waived all copyright and related or neighboring rights to Programmieren in <strong>R</strong>. This work is published from: Germany. To view a copy of this license, visit <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode"><a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode">https://creativecommons.org/publicdomain/zero/1.0/legalcode</a></a> .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-<strong>Last modified:</strong> 2016-01-11, 21:58
+<strong>Last modified:</strong> 2016-01-13, 17:06
 </p>
 
 

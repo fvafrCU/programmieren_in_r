@@ -231,7 +231,7 @@ Funktionen spielen in **R** eine gro&szlig;e Rolle, weitaus die meisten
 **Aufgabe:**
 Die **R**-Funktion `readline()` liest eine Eingabe vom **R**-Prompt.
 Lies Dir ihre Hilfeseite durch und schreibe ein Programm, das mich auffordert, 
-Deinen Namen zu raten und meine Eingabe im Objekt `guess` speichert.
+Deinen Namen zu raten und meine Eingabe einem Objekt des Namens `guess` zuweist.
 Dann soll es meine Eingabe drucken.
 
 [Hier findest Du meine L&ouml;sung.](answers/readline.r)
@@ -280,7 +280,7 @@ a_number != 4 || a_number == 4
 **Aufgabe:**
 Die **R**-Funktion `readline()` liest eine Eingabe vom **R**-Prompt.
 Lies Dir ihre Hilfeseite durch und schreibe ein Programm, das mich auffordert, 
-Deinen Namen zu raten und meine Eingabe im Objekt `guess` speichert.
+Deinen Namen zu raten und meine Eingabe einem Objekt des Namens `guess` zuweist.
 Weise dem Objekt `my_name` Deinen Namen und la&szlig; Dein Programm
 pr&uuml;fen, ob ich richtig geraten habe.
 
@@ -322,6 +322,7 @@ Ich benutze haupts&auml;chlich das gew&ouml;hnliche If-else, habe aber der
 Vollst&auml;ndigkeit halber noch zwei weitere bedingte Anweisungen
 aufgef&uuml;hrt. 
 Lies im Zweifelsfall nur den ersten Abschnitt.
+
 ### If-else
 ... pr&uuml;ft eine Kondition und f&uuml;hrt, abh&auml;ngig vom Ausgang der
 Pr&uuml;fung, den konsekutiven Codeblock oder einen alternativen Codeblock aus:
@@ -337,7 +338,7 @@ if (condition) {
 **Aufgabe:**
 Die **R**-Funktion `readline()` liest eine Eingabe vom **R**-Prompt.
 Lies Dir ihre Hilfeseite durch und schreibe ein Programm, das mich auffordert, 
-Deinen Namen zu raten und meine Eingabe in einem Objekt speichert.
+Deinen Namen zu raten und meine Eingabe einem Objekt des Namens `guess` zuweist.
 Den Wert dieses Objektes soll es dann mit Deinem Namen vergleichen und, je nach
 Ergebnis, entweder *You win!* oder *You loose!* ausgeben.
 
@@ -852,39 +853,40 @@ Du kannst Dir in jedem Fall mit dem Code
 Im Weiteren werde ich jedenfalls davon ausgehen, dass sie im `input_directory` 
 liegen.
 ``` {r, results = "hide", warning = FALSE, message = FALSE}
+not_so_temporary_directory <- file.path(dirname(tempdir()) , "R_intro")
+dir.create(not_so_temporary_directory, showWarnings = FALSE)
 input_directory <- file.path(not_so_temporary_directory, "data", "input")
 dir.create(input_directory, recursive = TRUE)
-if (Sys.info()[["nodename"]] %in% c("foobar", "h5")) {
-    # local machines only
-    file.copy(from = "data/input", to = dirname(input_directory),
-              recursive = TRUE)
-
-} else {
-    dependencies <- c("XML", "RCurl", "httr")
-    for (dependency in dependencies) {
-        if (! require(dependency, character.only = TRUE)) {
-            install.packages(dependency)
-        }
-        library(dependency, character.only = TRUE)
+dependencies <- c("XML", "RCurl", "httr")
+for (dependency in dependencies) {
+    if (! require(dependency, character.only = TRUE)) {
+        install.packages(dependency)
     }
-    input_url <- "http://10.33.50.43/R_Intro/data/input/"
-    proxy <- Sys.getenv("http_proxy")
-    Sys.setenv("http_proxy" = "")
-    content <- getURLContent(input_url, verbose = TRUE)
-    files <- readHTMLTable(content, skip.rows = 1, 
-                           stringsAsFactors = FALSE)[[1]][["Name"]]
-    for (file in files) {
-        file_url <- file.path(input_url, file)
-        file_path <- file.path(input_directory, file)
-        if (Sys.info()["sysname"] == "Windows") {
-            download.file(file_url, file_path, method = "wininet", mode = "wb")  
-        } else {
-            download.file(file_url, file_path, method = "curl")  
-        }
-    }
-
-    Sys.setenv("http_proxy" = proxy)
+    library(dependency, character.only = TRUE)
 }
+input_url <- "http://fvafrcu.github.io/programmieren_in_r/data/input/"
+proxy <- Sys.getenv("http_proxy")
+Sys.setenv("http_proxy" = "")
+content <- getURLContent(input_url, verbose = TRUE)
+hrefs <- grep("/", 
+              grep("href", 
+                   strsplit(as.character(content), "<")[[1]]
+                   , value = TRUE
+                   )
+              , value = TRUE, invert = TRUE
+              )
+files  <- sapply( strsplit(hrefs, "\\\"") ,"[[", 2)  
+for (file in files) {
+    file_url <- file.path(input_url, file)
+    file_path <- file.path(input_directory, file)
+    if (Sys.info()["sysname"] == "Windows") {
+        download.file(file_url, file_path, method = "wininet", mode = "wb")  
+    } else {
+        download.file(file_url, file_path, method = "curl")  
+    }
+}
+
+Sys.setenv("http_proxy" = proxy)
 
 
 ``` 
@@ -1649,7 +1651,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:**          2016-01-11, 21:58
+**Last modified:**            2016-01-13, 17:06
 </p>
 
 ``` {r, echo = FALSE}
