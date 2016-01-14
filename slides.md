@@ -25,8 +25,6 @@
 
 ### Kontrollstrukturen
     * Bedingte Anweisungen
-    * If-else
-    * switch
     * Schleifen 
 ##  Inhalt II
 ### R und das Dateisystem
