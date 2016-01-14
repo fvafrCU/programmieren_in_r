@@ -1005,6 +1005,21 @@ Wenn Du anf&auml;ngst, einen Code-Block mehrfach zu kopieren, solltest Du aus
 ihm eine Funktion basteln 
 (in Rstudio kannst Du markierte Codezeilen über die 
 Menüs “Code”/“Extract Function” in eine Funktion umwandeln).
+Erinnere Dich an das Beispiel mit den pers&ouml;nlichen Verzeichnissen: falls Du
+&ouml;fter Dateien mit Namen von Teilnehmenden erhieltest, k&ouml;nntest Du den
+Code des Beispiels immer kopieren und den Namen der Datei anpassen. Oder Du
+k&ouml;nntest folgende Funktion schreiben:
+``` {r}
+<#include "src/f_personal_directories.r">
+
+``` 
+und sie dann mit 
+``` {r}
+create_personal_directories("files/names.txt")
+
+``` 
+aufrufen. Mit dem zweiten Funktionsargument, `path`, kannst Du den
+voreingestellten Pfad &auml;ndern.
 
 Im `data.frame` `species_shares_1987` enth&auml;lt die Spalte
 `species_group_label` eine kryptische Abk&uuml;rzung. 
@@ -1146,7 +1161,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2016-01-13, 20:55
+**Last modified:** 2016-01-14, 11:06
 </p>
 
 ``` {r, echo = FALSE}
