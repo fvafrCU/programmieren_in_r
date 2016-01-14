@@ -789,15 +789,9 @@ erstellen, oder Dir die M&uuml;he machen, das folgende **R**-Programm zu
 entwickeln:
 ``` {r}
 #% set the root directory and read the file containing the names
-root <- file.path(dirname(tempdir()), "personal_directories")
+path <- file.path(dirname(tempdir()), "personal_directories")
 lines <- readLines("files/names.txt")
 
-#% make sure root does not exist
-if(file.exists(root) && file.info(root)$isdir) {
-    unlink(root, recursive = TRUE, force = TRUE)
-}
-#% create root directory
-dir.create(root)
 #% extract names, order them in FIRSTNAME_LASTNAME
 non_empty_lines <- lines[which(lines != "")]
 tmp <- sub("^ *", "", non_empty_lines)
@@ -811,12 +805,20 @@ first_names <-  gsub(" ", "_",
                          )
 )
 directories <- paste(first_names, last_names, sep = "_")
+#% create path 
+dir.create(path, showWarnings = FALSE, recursive = TRUE)
 #% create those personal directories
 for (directory in directories) {
-    path <- file.path(root, directory)
-    dir.create(path)
+    directory_path <- file.path(path, directory)
+    dir.create(directory_path)
 }
 
+
+``` 
+``` {r, echo = FALSE}
+# need to get rid of the directory to avoid warnings -- for html only, usually,
+# the warnings should be there.
+unlink(file.path(dirname(tempdir()), "personal_directories"), recursive = TRUE)
 
 ``` 
 Zugegeben, das dauert erstmal l&auml;nger. Aber nachdem auch die
@@ -853,6 +855,12 @@ Du kannst Dir in jedem Fall mit dem Code
 Im Weiteren werde ich jedenfalls davon ausgehen, dass sie im `input_directory` 
 liegen.
 ``` {r, results = "hide", warning = FALSE, message = FALSE}
+probably_at_fva <- function() {
+    at_fva <- grepl("FVAFR-PC",  Sys.info()["nodename"]) || 
+    grepl("fvafr",  Sys.info()["nodename"]) ||
+    "f060" == Sys.info()["nodename"]
+    return(at_fva)
+}
 not_so_temporary_directory <- file.path(dirname(tempdir()) , "R_intro")
 dir.create(not_so_temporary_directory, showWarnings = FALSE)
 input_directory <- file.path(not_so_temporary_directory, "data", "input")
@@ -865,6 +873,12 @@ for (dependency in dependencies) {
     library(dependency, character.only = TRUE)
 }
 input_url <- "http://fvafrcu.github.io/programmieren_in_r/data/input/"
+if (probably_at_fva()) {
+    if (Sys.getenv("http_proxy") == "") {
+        old_proxy <- Sys.getenv("http_proxy")
+        Sys.setenv("http_proxy" = "10.127.255.17:8080")
+    }
+}
 proxy <- Sys.getenv("http_proxy")
 Sys.setenv("http_proxy" = "")
 content <- getURLContent(input_url, verbose = TRUE)
@@ -885,8 +899,12 @@ for (file in files) {
         download.file(file_url, file_path, method = "curl")  
     }
 }
+if (probably_at_fva()) {
+    if (Sys.getenv("http_proxy") == "") {
+        Sys.setenv("http_proxy" = old_proxy)
+    }
+}
 
-Sys.setenv("http_proxy" = proxy)
 
 
 ``` 
@@ -1249,12 +1267,11 @@ Erinnere Dich an das Beispiel mit den pers&ouml;nlichen Verzeichnissen: falls Du
 Code des Beispiels immer kopieren und den Namen der Datei anpassen. Oder Du
 k&ouml;nntest folgende Funktion schreiben:
 ``` {r}
-create_personal_directories <- function(file, 
-                                        path = file.path(dirname(tempdir()), 
-                                                         "personal_directories")
-                                        ){
+create_personal_directories <- function(file) {
+    #% set to path to write to
+    path  <- file.path(dirname(tempdir()), "personal_directories")
     #% read the file containing the names
-    lines <- readLines("files/names.txt")
+    lines <- readLines(file)
     #% extract names, order them in FIRSTNAME_LASTNAME
     non_empty_lines <- lines[which(lines != "")]
     tmp <- sub("^ *", "", non_empty_lines)
@@ -1272,8 +1289,8 @@ create_personal_directories <- function(file,
     dir.create(path, showWarnings = FALSE, recursive = TRUE)
     #% create those personal directories
     for (directory in directories) {
-        path <- file.path(path, directory)
-        dir.create(path)
+        directory_path <- file.path(path, directory)
+        dir.create(directory_path)
     }
 }
 
@@ -1284,9 +1301,64 @@ und sie dann mit
 create_personal_directories("files/names.txt")
 
 ``` 
-aufrufen. Mit dem zweiten Funktionsargument, `path`, kannst Du den
-voreingestellten Pfad &auml;ndern.
+``` {r, echo = FALSE}
+# need to get rid of the directory to avoid warnings -- for html only, usually,
+# the warnings should be there.
+unlink(file.path(dirname(tempdir()), "personal_directories"), recursive = TRUE)
 
+``` 
+aufrufen. 
+Falls Du findest, dass Du den Pfad, unter dem die Verzeichnisse angelegt werden
+sollen, w&auml;hlen k&ouml;nnen m&ouml;chtest, kannst Du die Funktion um ein
+Argument erweitern:
+``` {r}
+create_personal_directories <- function(file, 
+                                        path = file.path(dirname(tempdir()), 
+                                                         "personal_directories")
+                                        ) {
+    #% read the file containing the names
+    lines <- readLines(file)
+    #% extract names, order them in FIRSTNAME_LASTNAME
+    non_empty_lines <- lines[which(lines != "")]
+    tmp <- sub("^ *", "", non_empty_lines)
+    names <- sub(" *", "", tmp)
+    last_names <- sapply(strsplit(names, ","), "[", 1)
+    first_names <-  gsub(" ", "_", 
+                         sub(" *$", "", 
+                             sub("^ *", "", 
+                                 sapply(strsplit(names, ","), "[", 2)
+                                 )
+                             )
+                         )
+    directories <- paste(first_names, last_names, sep = "_")
+    #% create path 
+    dir.create(path, showWarnings = FALSE, recursive = TRUE)
+    #% create those personal directories
+    for (directory in directories) {
+        directory_path <- file.path(path, directory)
+        dir.create(directory_path)
+    }
+}
+
+
+``` 
+
+Das zweite Funktionsargument, `path`, kennt nun eine Voreinstellung, die Du beim
+Funktionsaufruf &auml;ndern &uuml;berschreiben kannst:
+``` {r}
+create_personal_directories("files/names.txt", 
+                            path = file.path(tempdir(), "personal_directories"))
+
+``` 
+``` {r, echo = FALSE}
+# need to get rid of the directory to avoid warnings -- for html only, usually,
+# the warnings should be there.
+unlink(file.path(tempdir(), "personal_directories"), recursive = TRUE)
+
+``` 
+
+
+Zur&uuml;ck zu unseren Baumartenanteilen:
 Im `data.frame` `species_shares_1987` enth&auml;lt die Spalte
 `species_group_label` eine kryptische Abk&uuml;rzung. 
 Ihre Werte k&ouml;nnen wir mit der [uns bekannten
@@ -1693,7 +1765,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2016-01-14, 11:06
+**Last modified:** 2016-01-14, 21:52
 </p>
 
 ``` {r, echo = FALSE}

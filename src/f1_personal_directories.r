@@ -1,6 +1,7 @@
-create_personal_directories <- function(file) {
-    #% set to path to write to
-    path  <- file.path(dirname(tempdir()), "personal_directories")
+create_personal_directories <- function(file, 
+                                        path = file.path(dirname(tempdir()), 
+                                                         "personal_directories")
+                                        ) {
     #% read the file containing the names
     lines <- readLines(file)
     #% extract names, order them in FIRSTNAME_LASTNAME

@@ -649,6 +649,12 @@ entwickeln:
 ``` {r}
 <#include "src/personal_directories.r">
 ``` 
+``` {r, echo = FALSE}
+# need to get rid of the directory to avoid warnings -- for html only, usually,
+# the warnings should be there.
+unlink(file.path(dirname(tempdir()), "personal_directories"), recursive = TRUE)
+
+``` 
 Zugegeben, das dauert erstmal l&auml;nger. Aber nachdem auch die
 Bundesau&szlig;en-, Bundesinnen- und Bundesverteidigungsminister und
 -ministerinnen Deinen Kurs besucht haben, hast Du die Zeit allemal wieder raus.
@@ -1018,9 +1024,37 @@ und sie dann mit
 create_personal_directories("files/names.txt")
 
 ``` 
-aufrufen. Mit dem zweiten Funktionsargument, `path`, kannst Du den
-voreingestellten Pfad &auml;ndern.
+``` {r, echo = FALSE}
+# need to get rid of the directory to avoid warnings -- for html only, usually,
+# the warnings should be there.
+unlink(file.path(dirname(tempdir()), "personal_directories"), recursive = TRUE)
 
+``` 
+aufrufen. 
+Falls Du findest, dass Du den Pfad, unter dem die Verzeichnisse angelegt werden
+sollen, w&auml;hlen k&ouml;nnen m&ouml;chtest, kannst Du die Funktion um ein
+Argument erweitern:
+``` {r}
+<#include "src/f1_personal_directories.r">
+
+``` 
+
+Das zweite Funktionsargument, `path`, kennt nun eine Voreinstellung, die Du beim
+Funktionsaufruf &auml;ndern &uuml;berschreiben kannst:
+``` {r}
+create_personal_directories("files/names.txt", 
+                            path = file.path(tempdir(), "personal_directories"))
+
+``` 
+``` {r, echo = FALSE}
+# need to get rid of the directory to avoid warnings -- for html only, usually,
+# the warnings should be there.
+unlink(file.path(tempdir(), "personal_directories"), recursive = TRUE)
+
+``` 
+
+
+Zur&uuml;ck zu unseren Baumartenanteilen:
 Im `data.frame` `species_shares_1987` enth&auml;lt die Spalte
 `species_group_label` eine kryptische Abk&uuml;rzung. 
 Ihre Werte k&ouml;nnen wir mit der [uns bekannten
@@ -1161,7 +1195,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2016-01-14, 11:06
+**Last modified:** 2016-01-14, 21:52
 </p>
 
 ``` {r, echo = FALSE}

@@ -205,15 +205,9 @@ cat("This is a directory created by 'Programmieren in R' .",
 ?files
 ?basename
 #% set the root directory and read the file containing the names
-root <- file.path(dirname(tempdir()), "personal_directories")
+path <- file.path(dirname(tempdir()), "personal_directories")
 lines <- readLines("files/names.txt")
 
-#% make sure root does not exist
-if(file.exists(root) && file.info(root)$isdir) {
-    unlink(root, recursive = TRUE, force = TRUE)
-}
-#% create root directory
-dir.create(root)
 #% extract names, order them in FIRSTNAME_LASTNAME
 non_empty_lines <- lines[which(lines != "")]
 tmp <- sub("^ *", "", non_empty_lines)
@@ -227,13 +221,25 @@ first_names <-  gsub(" ", "_",
                          )
 )
 directories <- paste(first_names, last_names, sep = "_")
+#% create path 
+dir.create(path, showWarnings = FALSE, recursive = TRUE)
 #% create those personal directories
 for (directory in directories) {
-    path <- file.path(root, directory)
-    dir.create(path)
+    directory_path <- file.path(path, directory)
+    dir.create(directory_path)
 }
 
 
+# need to get rid of the directory to avoid warnings -- for html only, usually,
+# the warnings should be there.
+unlink(file.path(dirname(tempdir()), "personal_directories"), recursive = TRUE)
+
+probably_at_fva <- function() {
+    at_fva <- grepl("FVAFR-PC",  Sys.info()["nodename"]) || 
+    grepl("fvafr",  Sys.info()["nodename"]) ||
+    "f060" == Sys.info()["nodename"]
+    return(at_fva)
+}
 not_so_temporary_directory <- file.path(dirname(tempdir()) , "R_intro")
 dir.create(not_so_temporary_directory, showWarnings = FALSE)
 input_directory <- file.path(not_so_temporary_directory, "data", "input")
@@ -246,6 +252,12 @@ for (dependency in dependencies) {
     library(dependency, character.only = TRUE)
 }
 input_url <- "http://fvafrcu.github.io/programmieren_in_r/data/input/"
+if (probably_at_fva()) {
+    if (Sys.getenv("http_proxy") == "") {
+        old_proxy <- Sys.getenv("http_proxy")
+        Sys.setenv("http_proxy" = "10.127.255.17:8080")
+    }
+}
 proxy <- Sys.getenv("http_proxy")
 Sys.setenv("http_proxy" = "")
 content <- getURLContent(input_url, verbose = TRUE)
@@ -266,8 +278,12 @@ for (file in files) {
         download.file(file_url, file_path, method = "curl")  
     }
 }
+if (probably_at_fva()) {
+    if (Sys.getenv("http_proxy") == "") {
+        Sys.setenv("http_proxy" = old_proxy)
+    }
+}
 
-Sys.setenv("http_proxy" = proxy)
 
 
 species_shares_1987 <- read.csv2(file.path(input_directory, 
@@ -367,12 +383,11 @@ v3[c("FI", "DGL")]
 species_shares_1987[["species_group_label"]] 
 mode(species_shares_1987[["species_group_label"]])
 class(species_shares_1987[["species_group_label"]])
-create_personal_directories <- function(file, 
-                                        path = file.path(dirname(tempdir()), 
-                                                         "personal_directories")
-                                        ){
+create_personal_directories <- function(file) {
+    #% set to path to write to
+    path  <- file.path(dirname(tempdir()), "personal_directories")
     #% read the file containing the names
-    lines <- readLines("files/names.txt")
+    lines <- readLines(file)
     #% extract names, order them in FIRSTNAME_LASTNAME
     non_empty_lines <- lines[which(lines != "")]
     tmp <- sub("^ *", "", non_empty_lines)
@@ -390,13 +405,53 @@ create_personal_directories <- function(file,
     dir.create(path, showWarnings = FALSE, recursive = TRUE)
     #% create those personal directories
     for (directory in directories) {
-        path <- file.path(path, directory)
-        dir.create(path)
+        directory_path <- file.path(path, directory)
+        dir.create(directory_path)
     }
 }
 
 
 create_personal_directories("files/names.txt")
+
+# need to get rid of the directory to avoid warnings -- for html only, usually,
+# the warnings should be there.
+unlink(file.path(dirname(tempdir()), "personal_directories"), recursive = TRUE)
+
+create_personal_directories <- function(file, 
+                                        path = file.path(dirname(tempdir()), 
+                                                         "personal_directories")
+                                        ) {
+    #% read the file containing the names
+    lines <- readLines(file)
+    #% extract names, order them in FIRSTNAME_LASTNAME
+    non_empty_lines <- lines[which(lines != "")]
+    tmp <- sub("^ *", "", non_empty_lines)
+    names <- sub(" *", "", tmp)
+    last_names <- sapply(strsplit(names, ","), "[", 1)
+    first_names <-  gsub(" ", "_", 
+                         sub(" *$", "", 
+                             sub("^ *", "", 
+                                 sapply(strsplit(names, ","), "[", 2)
+                                 )
+                             )
+                         )
+    directories <- paste(first_names, last_names, sep = "_")
+    #% create path 
+    dir.create(path, showWarnings = FALSE, recursive = TRUE)
+    #% create those personal directories
+    for (directory in directories) {
+        directory_path <- file.path(path, directory)
+        dir.create(directory_path)
+    }
+}
+
+
+create_personal_directories("files/names.txt", 
+                            path = file.path(tempdir(), "personal_directories"))
+
+# need to get rid of the directory to avoid warnings -- for html only, usually,
+# the warnings should be there.
+unlink(file.path(tempdir(), "personal_directories"), recursive = TRUE)
 
 # we need to convert the factor's values to character!
 (abbreviation <- as.character(species_shares_1987["1", "species_group_label"]))

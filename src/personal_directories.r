@@ -1,13 +1,7 @@
 #% set the root directory and read the file containing the names
-root <- file.path(dirname(tempdir()), "personal_directories")
+path <- file.path(dirname(tempdir()), "personal_directories")
 lines <- readLines("files/names.txt")
 
-#% make sure root does not exist
-if(file.exists(root) && file.info(root)$isdir) {
-    unlink(root, recursive = TRUE, force = TRUE)
-}
-#% create root directory
-dir.create(root)
 #% extract names, order them in FIRSTNAME_LASTNAME
 non_empty_lines <- lines[which(lines != "")]
 tmp <- sub("^ *", "", non_empty_lines)
@@ -21,9 +15,11 @@ first_names <-  gsub(" ", "_",
                          )
 )
 directories <- paste(first_names, last_names, sep = "_")
+#% create path 
+dir.create(path, showWarnings = FALSE, recursive = TRUE)
 #% create those personal directories
 for (directory in directories) {
-    path <- file.path(root, directory)
-    dir.create(path)
+    directory_path <- file.path(path, directory)
+    dir.create(directory_path)
 }
 
