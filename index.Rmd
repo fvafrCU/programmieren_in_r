@@ -879,8 +879,6 @@ if (probably_at_fva()) {
         Sys.setenv("http_proxy" = "10.127.255.17:8080")
     }
 }
-proxy <- Sys.getenv("http_proxy")
-Sys.setenv("http_proxy" = "")
 content <- getURLContent(input_url, verbose = TRUE)
 hrefs <- grep("/", 
               grep("href", 
