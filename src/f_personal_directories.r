@@ -19,8 +19,11 @@ create_personal_directories <- function(file) {
     #% create path 
     dir.create(path, showWarnings = FALSE, recursive = TRUE)
     #% create those personal directories
-    for (directory in directories) {
-        directory_path <- file.path(path, directory)
-        dir.create(directory_path)
+    status <- logical(length(directories))
+    for (i in seq(along = directories)) {
+         directory  <- directories[i]
+         directory_path <- file.path(path, directory)
+         status[i] <- dir.create(directory_path)
     }
+    return(invisible(status))
 }

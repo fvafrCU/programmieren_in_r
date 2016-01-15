@@ -302,10 +302,10 @@ if (condition) {
 <p>Es gibt eine weitere Version dieser Answeisung, die Funktion <code>ifelse()</code>. Sie arbeitet mit Vektoren:</p>
 <pre class="r"><code>randomly_true &lt;- sample(x = c(TRUE, FALSE), size = 10, replace = TRUE)
 print(randomly_true)</code></pre>
-<pre><code>##  [1]  TRUE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE</code></pre>
+<pre><code>##  [1]  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE</code></pre>
 <pre class="r"><code>ifelse(randomly_true, &quot;Consecution&quot;, &quot;Alternative&quot;)</code></pre>
-<pre><code>##  [1] &quot;Consecution&quot; &quot;Consecution&quot; &quot;Alternative&quot; &quot;Consecution&quot; &quot;Alternative&quot;
-##  [6] &quot;Consecution&quot; &quot;Consecution&quot; &quot;Alternative&quot; &quot;Consecution&quot; &quot;Consecution&quot;</code></pre>
+<pre><code>##  [1] &quot;Consecution&quot; &quot;Consecution&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Alternative&quot;
+##  [6] &quot;Consecution&quot; &quot;Alternative&quot; &quot;Consecution&quot; &quot;Alternative&quot; &quot;Alternative&quot;</code></pre>
 <p><code>randomly_true</code> is bei jeder Ausführung pontentiell anders.</p>
 <p>Um eine Zufallsziehung reproduzierbar - also <code>nicht</code> zufällig - zu machen, nutze ich etwas wie:</p>
 <pre class="r"><code>set.seed(456432346)
@@ -802,11 +802,11 @@ Die Zeilen und Spalten eines <code>data.frame</code>s kann ich über ihren numer
 <h4><span class="header-section-number">5.2.1.3</span> Logischer Index</h4>
 <pre class="r"><code>(random_logical_index &lt;- sample(c(TRUE, FALSE), nrow(species_shares_2002),
 replace = TRUE))</code></pre>
-<pre><code>##  [1]  TRUE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE  TRUE  TRUE FALSE
-## [12] FALSE FALSE FALSE  TRUE  TRUE  TRUE</code></pre>
+<pre><code>##  [1]  TRUE FALSE  TRUE FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE  TRUE
+## [12] FALSE  TRUE FALSE  TRUE FALSE FALSE</code></pre>
 <pre class="r"><code>species_shares_2002[random_logical_index, &quot;prediction&quot;]</code></pre>
-<pre><code>##  [1] 37.6541738  7.7972024  6.5087183  0.4452127  6.9194770  0.4277738
-##  [7]  4.2117337  0.9831887  0.7057045  1.6135079</code></pre>
+<pre><code>## [1] 37.6541738  2.8441620  1.8964687  0.4452127 21.2065514  4.2117337
+## [7]  2.8378479  1.9299563  0.9831887</code></pre>
 <p>Einen logischen Index nutze ich oft, um Datenbereiche auszuwählen, wie Du gleich sehen wirst.</p>
 </div>
 <div id="bereiche" class="section level4">
@@ -1006,10 +1006,13 @@ v3[c(&quot;FI&quot;, &quot;DGL&quot;)]</code></pre>
     #% create path 
     dir.create(path, showWarnings = FALSE, recursive = TRUE)
     #% create those personal directories
-    for (directory in directories) {
-        directory_path &lt;- file.path(path, directory)
-        dir.create(directory_path)
+    status &lt;- logical(length(directories))
+    for (i in seq(along = directories)) {
+         directory  &lt;- directories[i]
+         directory_path &lt;- file.path(path, directory)
+         status[i] &lt;- dir.create(directory_path)
     }
+    return(invisible(status))
 }</code></pre>
 <p>und sie dann mit</p>
 <pre class="r"><code>create_personal_directories(&quot;files/names.txt&quot;)</code></pre>
@@ -1036,10 +1039,13 @@ v3[c(&quot;FI&quot;, &quot;DGL&quot;)]</code></pre>
     #% create path 
     dir.create(path, showWarnings = FALSE, recursive = TRUE)
     #% create those personal directories
-    for (directory in directories) {
-        directory_path &lt;- file.path(path, directory)
-        dir.create(directory_path)
+    status &lt;- logical(length(directories))
+    for (i in seq(along = directories)) {
+         directory  &lt;- directories[i]
+         directory_path &lt;- file.path(path, directory)
+         status[i] &lt;- dir.create(directory_path)
     }
+    return(invisible(status))
 }</code></pre>
 <p>Das zweite Funktionsargument, <code>path</code>, kennt nun eine Voreinstellung, die Du beim Funktionsaufruf ändern überschreiben kannst:</p>
 <pre class="r"><code>create_personal_directories(&quot;files/names.txt&quot;, 
