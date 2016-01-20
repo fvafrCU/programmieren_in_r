@@ -1,4 +1,4 @@
-species_areas_1987 <-
+species_shares_1987 <-
     structure(list(species_group_label = structure(c(8L, 17L, 4L, 
                                                      10L, 11L, 16L, 3L, 5L, 13L,
                                                      7L, 1L, 9L, 14L, 2L, 6L, 
@@ -39,7 +39,7 @@ species_areas_1987 <-
               class = "data.frame", row.names = c(NA, -17L)
               )
 
-species_areas_2002 <-
+species_shares_2002 <-
     structure(list(species_group_label = structure(c(8L, 17L, 4L, 10L, 11L, 16L,
                                                      3L, 5L, 13L, 7L, 1L, 9L, 
                                                      14L, 2L, 6L, 12L, 15L), 
@@ -80,7 +80,7 @@ species_areas_2002 <-
               )
 
 
-species_areas_2012 <-
+species_shares_2012 <-
     structure(list(species_group_label = structure(c(8L, 17L, 4L, 10L, 11L, 16L,
                                                      3L, 5L, 13L, 7L, 1L, 9L, 
                                                      14L, 2L, 6L, 12L, 15L),

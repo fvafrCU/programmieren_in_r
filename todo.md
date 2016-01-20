@@ -1,0 +1,1 @@
+- row.names()-example, subset() sets old row.names, adding row.names
