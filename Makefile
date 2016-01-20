@@ -4,7 +4,7 @@ make html: data_types.html index.html
 make pdf: eval.pdf notes.pdf slides.pdf
 	
 eval.pdf:
-	texi2pdf --clean maintenance/eval.tex
+	texi2pdf --clean notes/eval.tex
 notes.pdf:
 	pandoc -t beamer notes/notes.md -o notes.pdf
 slides.pdf: 
