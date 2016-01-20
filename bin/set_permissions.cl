@@ -1,5 +1,6 @@
 chmod 644 index.*
 chmod 744 index.R
+chmod 700 bin/*
 find . -type d -exec chmod 755 {} \;
 for dir in src data answers examples 
 do 
