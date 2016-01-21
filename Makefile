@@ -11,8 +11,10 @@ slides.pdf:
 	pandoc -t beamer notes/slides.md -o slides.pdf
 data_types.html: 
 	./bin/render.r -k data_types.rmd
+
+.PHONY: index.html
 index.html: 
-	if [ -n "$(ip -o link show | grep 'state UP')" ]; then ./bin/render.r -k index.rmd; else echo "offline? skip rendering of index.rmd"; fi
+	./bin/render_index.cl
 indices: set_permissions
 	./bin/update_directory_listings.cl
 check: set_permissions

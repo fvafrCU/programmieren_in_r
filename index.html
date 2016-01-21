@@ -302,10 +302,10 @@ if (condition) {
 <p>Es gibt eine weitere Version dieser Answeisung, die Funktion <code>ifelse()</code>. Sie arbeitet mit Vektoren:</p>
 <pre class="r"><code>randomly_true &lt;- sample(x = c(TRUE, FALSE), size = 10, replace = TRUE)
 print(randomly_true)</code></pre>
-<pre><code>##  [1]  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE</code></pre>
+<pre><code>##  [1]  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE</code></pre>
 <pre class="r"><code>ifelse(randomly_true, &quot;Consecution&quot;, &quot;Alternative&quot;)</code></pre>
-<pre><code>##  [1] &quot;Consecution&quot; &quot;Consecution&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Alternative&quot;
-##  [6] &quot;Consecution&quot; &quot;Alternative&quot; &quot;Consecution&quot; &quot;Alternative&quot; &quot;Alternative&quot;</code></pre>
+<pre><code>##  [1] &quot;Consecution&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Consecution&quot;
+##  [6] &quot;Alternative&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot;</code></pre>
 <p><code>randomly_true</code> is bei jeder Ausführung pontentiell anders.</p>
 <p>Um eine Zufallsziehung reproduzierbar - also <code>nicht</code> zufällig - zu machen, nutze ich etwas wie:</p>
 <pre class="r"><code>set.seed(456432346)
@@ -537,14 +537,15 @@ if (file.exists(file)) {
 ## [23] &quot;show_function.r&quot;                                                         
 ## [24] &quot;sink.r&quot;                                                                  
 ## [25] &quot;source.r&quot;                                                                
-## [26] &quot;sum_loop_along.r&quot;                                                        
-## [27] &quot;sum_loop_index.r&quot;                                                        
-## [28] &quot;sum_loop.r&quot;                                                              
-## [29] &quot;switch_abbreviation.r&quot;                                                   
-## [30] &quot;switch_block_of_code.r&quot;                                                  
-## [31] &quot;vapply.r&quot;                                                                
-## [32] &quot;while_loop.r&quot;                                                            
-## [33] &quot;write_readme.r&quot;</code></pre>
+## [26] &quot;structures.r&quot;                                                            
+## [27] &quot;sum_loop_along.r&quot;                                                        
+## [28] &quot;sum_loop_index.r&quot;                                                        
+## [29] &quot;sum_loop.r&quot;                                                              
+## [30] &quot;switch_abbreviation.r&quot;                                                   
+## [31] &quot;switch_block_of_code.r&quot;                                                  
+## [32] &quot;vapply.r&quot;                                                                
+## [33] &quot;while_loop.r&quot;                                                            
+## [34] &quot;write_readme.r&quot;</code></pre>
 <p><strong>R</strong> kann auch Verzeichnisse erstellen und Dateien kopieren, umbennenen oder löschen:</p>
 <pre class="r"><code>not_so_temporary_directory &lt;- file.path(dirname(tempdir()) , &quot;R_intro&quot;)
 dir.create(not_so_temporary_directory, showWarnings = FALSE)
@@ -692,16 +693,17 @@ ls(pattern = &quot;v_.&quot;)</code></pre>
 ## [17] &quot;microsoft_excel.r&quot;          &quot;personal_directories.r&quot;    
 ## [19] &quot;repeat_loop.r&quot;              &quot;replace_species_groups.r&quot;  
 ## [21] &quot;show_function.r&quot;            &quot;sink.r&quot;                    
-## [23] &quot;source.r&quot;                   &quot;sum_loop_along.r&quot;          
-## [25] &quot;sum_loop_index.r&quot;           &quot;sum_loop.r&quot;                
-## [27] &quot;switch_abbreviation.r&quot;      &quot;switch_block_of_code.r&quot;    
-## [29] &quot;vapply.r&quot;                   &quot;while_loop.r&quot;              
-## [31] &quot;write_readme.r&quot;</code></pre>
+## [23] &quot;source.r&quot;                   &quot;structures.r&quot;              
+## [25] &quot;sum_loop_along.r&quot;           &quot;sum_loop_index.r&quot;          
+## [27] &quot;sum_loop.r&quot;                 &quot;switch_abbreviation.r&quot;     
+## [29] &quot;switch_block_of_code.r&quot;     &quot;vapply.r&quot;                  
+## [31] &quot;while_loop.r&quot;               &quot;write_readme.r&quot;</code></pre>
 <pre class="r"><code>list.files(path = &quot;./src&quot;, pattern = &quot;^s.*\\.r$&quot;)</code></pre>
 <pre><code>## [1] &quot;show_function.r&quot;        &quot;sink.r&quot;                
-## [3] &quot;source.r&quot;               &quot;sum_loop_along.r&quot;      
-## [5] &quot;sum_loop_index.r&quot;       &quot;sum_loop.r&quot;            
-## [7] &quot;switch_abbreviation.r&quot;  &quot;switch_block_of_code.r&quot;</code></pre>
+## [3] &quot;source.r&quot;               &quot;structures.r&quot;          
+## [5] &quot;sum_loop_along.r&quot;       &quot;sum_loop_index.r&quot;      
+## [7] &quot;sum_loop.r&quot;             &quot;switch_abbreviation.r&quot; 
+## [9] &quot;switch_block_of_code.r&quot;</code></pre>
 <p>Die zweite Version filtern auf alle Dateinamen, die mit “s” anfangen (^s), dann beliebige Zeichen haben (.*) und auf “.r” enden (\.r$).)</p>
 <p>Schreibe Deine Schleife aus der letzten Aufgabe so um, dass Du Dateinamen mit <code>list.files</code> ermittelst. <a href="answers/csv_input_pattern.r">Hier findest Du meine Lösung.</a></p>
 <p>Jetzt stelle Dir vor, es wären nicht nur die Jahre 1987, 2002 und 2012, sondern alle Jahre seit 1960, für die Du eine csv-Datei einlesen wolltest.</p>
@@ -802,11 +804,11 @@ Die Zeilen und Spalten eines <code>data.frame</code>s kann ich über ihren numer
 <h4><span class="header-section-number">5.2.1.3</span> Logischer Index</h4>
 <pre class="r"><code>(random_logical_index &lt;- sample(c(TRUE, FALSE), nrow(species_shares_2002),
 replace = TRUE))</code></pre>
-<pre><code>##  [1]  TRUE FALSE  TRUE FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE  TRUE
-## [12] FALSE  TRUE FALSE  TRUE FALSE FALSE</code></pre>
+<pre><code>##  [1]  TRUE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE
+## [12] FALSE FALSE FALSE  TRUE  TRUE FALSE</code></pre>
 <pre class="r"><code>species_shares_2002[random_logical_index, &quot;prediction&quot;]</code></pre>
-<pre><code>## [1] 37.6541738  2.8441620  1.8964687  0.4452127 21.2065514  4.2117337
-## [7]  2.8378479  1.9299563  0.9831887</code></pre>
+<pre><code>##  [1] 37.6541738  6.5087183  1.8964687  0.4452127 21.2065514  6.9194770
+##  [7]  4.2117337  2.8378479  0.9831887  0.7057045</code></pre>
 <p>Einen logischen Index nutze ich oft, um Datenbereiche auszuwählen, wie Du gleich sehen wirst.</p>
 </div>
 <div id="bereiche" class="section level4">
@@ -1244,7 +1246,7 @@ Funktionieren tut sie so:</p>
 <h1><span class="header-section-number">9</span> Anhang</h1>
 <div id="baumarten-daten" class="section level2">
 <h2><span class="header-section-number">9.1</span> Baumarten-Daten</h2>
-<pre class="r"><code>species_areas_1987 &lt;-
+<pre class="r"><code>species_shares_1987 &lt;-
     structure(list(species_group_label = structure(c(8L, 17L, 4L, 
                                                      10L, 11L, 16L, 3L, 5L, 13L,
                                                      7L, 1L, 9L, 14L, 2L, 6L, 
@@ -1285,7 +1287,7 @@ Funktionieren tut sie so:</p>
               class = &quot;data.frame&quot;, row.names = c(NA, -17L)
               )
 
-species_areas_2002 &lt;-
+species_shares_2002 &lt;-
     structure(list(species_group_label = structure(c(8L, 17L, 4L, 10L, 11L, 16L,
                                                      3L, 5L, 13L, 7L, 1L, 9L, 
                                                      14L, 2L, 6L, 12L, 15L), 
@@ -1326,7 +1328,7 @@ species_areas_2002 &lt;-
               )
 
 
-species_areas_2012 &lt;-
+species_shares_2012 &lt;-
     structure(list(species_group_label = structure(c(8L, 17L, 4L, 10L, 11L, 16L,
                                                      3L, 5L, 13L, 7L, 1L, 9L, 
                                                      14L, 2L, 6L, 12L, 15L),
@@ -1372,7 +1374,7 @@ species_areas_2012 &lt;-
 To the extent possible under law, Forstliche Versuchs- und Forschungsanstalt Baden-Württemberg has waived all copyright and related or neighboring rights to Programmieren in <strong>R</strong>. This work is published from: Germany. To view a copy of this license, visit <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode"><a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode" class="uri">https://creativecommons.org/publicdomain/zero/1.0/legalcode</a></a> .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-<strong>Last modified:</strong> 2016-01-14, 21:52
+<strong>Last modified:</strong> 2016-01-20, 21:07
 </p>
 </div>
 </div>
