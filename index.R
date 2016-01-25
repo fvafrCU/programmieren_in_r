@@ -346,6 +346,9 @@ species_shares_2002[nrow(species_shares_1987), ncol(species_shares_1987)]
 dimnames(species_shares_2002)
 species_shares_2002["3", "prediction"]
 species_shares_2002[3, "error"]
+rownames(species_shares_2002)
+rownames(species_shares_2002) <- species_shares_2002[, "species_group_label"]
+species_shares_2002["DGL", "prediction"]
 (random_logical_index <- sample(c(TRUE, FALSE), nrow(species_shares_2002),
 replace = TRUE))
 species_shares_2002[random_logical_index, "prediction"]

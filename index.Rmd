@@ -1090,6 +1090,27 @@ Ich halte Namensindices f&uuml;r deutlich besser als numerische, da sich die
 Namen nicht &auml;ndern, falls ich die Reihenfolge der Elemente des Objektes 
 &auml;ndere!
 
+##### Zeilennamen
+Wie wir gerade gesehen haben, kennt **R** f&uuml;r `data.frame`s nicht nur
+Variablen- oder Spaltennamen sondern auch Zeilennamen. Wenn wir **R** bei der
+Erzeugung eines `data.frame`s nicht explizit Zeilennamen angeben, erzeugt **R**
+sie durch Nummerierung der Zeilen. Diese Namen sind allerdings selbst keine
+Zahlen sondern Zeichenketten.
+Wir k&ouml;nnen diese Namen mit der Funktion `rownames()` abfragen:
+``` {r}
+rownames(species_shares_2002)
+``` 
+aber auch setzen. In unseren Daten bieten sich die Baumartengruppenk&uuml;rzel
+an:
+``` {r}
+rownames(species_shares_2002) <- species_shares_2002[, "species_group_label"]
+``` 
+Jetzt k&ouml;nnen wir die Namensindices auch sinnvoll auf Zeilen anwenden:
+``` {r}
+species_shares_2002["DGL", "prediction"]
+```
+
+
 #### Logischer Index
 ``` {r}
 (random_logical_index <- sample(c(TRUE, FALSE), nrow(species_shares_2002),
@@ -1769,7 +1790,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2016-01-20, 21:07
+**Last modified:** 2016-01-25, 09:20
 </p>
 
 ``` {r, echo = FALSE}

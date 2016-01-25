@@ -302,10 +302,10 @@ if (condition) {
 <p>Es gibt eine weitere Version dieser Answeisung, die Funktion <code>ifelse()</code>. Sie arbeitet mit Vektoren:</p>
 <pre class="r"><code>randomly_true &lt;- sample(x = c(TRUE, FALSE), size = 10, replace = TRUE)
 print(randomly_true)</code></pre>
-<pre><code>##  [1]  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE</code></pre>
+<pre><code>##  [1] FALSE  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE  TRUE FALSE</code></pre>
 <pre class="r"><code>ifelse(randomly_true, &quot;Consecution&quot;, &quot;Alternative&quot;)</code></pre>
-<pre><code>##  [1] &quot;Consecution&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Consecution&quot;
-##  [6] &quot;Alternative&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot;</code></pre>
+<pre><code>##  [1] &quot;Alternative&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Alternative&quot;
+##  [6] &quot;Consecution&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Consecution&quot; &quot;Alternative&quot;</code></pre>
 <p><code>randomly_true</code> is bei jeder Ausführung pontentiell anders.</p>
 <p>Um eine Zufallsziehung reproduzierbar - also <code>nicht</code> zufällig - zu machen, nutze ich etwas wie:</p>
 <pre class="r"><code>set.seed(456432346)
@@ -799,34 +799,46 @@ Die Zeilen und Spalten eines <code>data.frame</code>s kann ich über ihren numer
 <pre class="r"><code>species_shares_2002[3, &quot;error&quot;]</code></pre>
 <pre><code>## [1] 0.1486413</code></pre>
 <p>Ich halte Namensindices für deutlich besser als numerische, da sich die Namen nicht ändern, falls ich die Reihenfolge der Elemente des Objektes ändere!</p>
+<div id="zeilennamen" class="section level5">
+<h5><span class="header-section-number">5.2.1.2.1</span> Zeilennamen</h5>
+<p>Wie wir gerade gesehen haben, kennt <strong>R</strong> für <code>data.frame</code>s nicht nur Variablen- oder Spaltennamen sondern auch Zeilennamen. Wenn wir <strong>R</strong> bei der Erzeugung eines <code>data.frame</code>s nicht explizit Zeilennamen angeben, erzeugt <strong>R</strong> sie durch Nummerierung der Zeilen. Diese Namen sind allerdings selbst keine Zahlen sondern Zeichenketten. Wir können diese Namen mit der Funktion <code>rownames()</code> abfragen:</p>
+<pre class="r"><code>rownames(species_shares_2002)</code></pre>
+<pre><code>##  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot; &quot;11&quot; &quot;12&quot; &quot;13&quot; &quot;14&quot;
+## [15] &quot;15&quot; &quot;16&quot; &quot;17&quot;</code></pre>
+<p>aber auch setzen. In unseren Daten bieten sich die Baumartengruppenkürzel an:</p>
+<pre class="r"><code>rownames(species_shares_2002) &lt;- species_shares_2002[, &quot;species_group_label&quot;]</code></pre>
+<p>Jetzt können wir die Namensindices auch sinnvoll auf Zeilen anwenden:</p>
+<pre class="r"><code>species_shares_2002[&quot;DGL&quot;, &quot;prediction&quot;]</code></pre>
+<pre><code>## [1] 2.844162</code></pre>
+</div>
 </div>
 <div id="logischer-index" class="section level4">
 <h4><span class="header-section-number">5.2.1.3</span> Logischer Index</h4>
 <pre class="r"><code>(random_logical_index &lt;- sample(c(TRUE, FALSE), nrow(species_shares_2002),
 replace = TRUE))</code></pre>
-<pre><code>##  [1]  TRUE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE
-## [12] FALSE FALSE FALSE  TRUE  TRUE FALSE</code></pre>
+<pre><code>##  [1] FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE
+## [12]  TRUE FALSE  TRUE  TRUE FALSE FALSE</code></pre>
 <pre class="r"><code>species_shares_2002[random_logical_index, &quot;prediction&quot;]</code></pre>
-<pre><code>##  [1] 37.6541738  6.5087183  1.8964687  0.4452127 21.2065514  6.9194770
-##  [7]  4.2117337  2.8378479  0.9831887  0.7057045</code></pre>
+<pre><code>##  [1]  7.7972024  2.8441620  6.5087183  1.8964687 21.2065514  0.4277738
+##  [7]  2.8378479  1.1803450  0.8379760  0.9831887</code></pre>
 <p>Einen logischen Index nutze ich oft, um Datenbereiche auszuwählen, wie Du gleich sehen wirst.</p>
 </div>
 <div id="bereiche" class="section level4">
 <h4><span class="header-section-number">5.2.1.4</span> Bereiche</h4>
 <p>Wir können über die Indices auch Bereiche des <code>data.frame</code>s ausschneiden:</p>
 <pre class="r"><code>species_shares_2002[3:6, c(&quot;prediction&quot;, &quot;error&quot;)]</code></pre>
-<pre><code>##   prediction      error
-## 3  2.8441620 0.14864131
-## 4  6.5087183 0.24019310
-## 5  1.8964687 0.09230207
-## 6  0.4452127 0.05962186</code></pre>
+<pre><code>##     prediction      error
+## DGL  2.8441620 0.14864131
+## KIE  6.5087183 0.24019310
+## LAE  1.8964687 0.09230207
+## sNB  0.4452127 0.05962186</code></pre>
 <p>Wenn Du den Index in einer Dimension nicht angibst, gilt er als komplett <code>TRUE</code>:</p>
 <pre class="r"><code>species_shares_2002[3:6, ]</code></pre>
-<pre><code>##   species_group_label prediction      error grouping
-## 3                 DGL  2.8441620 0.14864131  conifer
-## 4                 KIE  6.5087183 0.24019310  conifer
-## 5                 LAE  1.8964687 0.09230207  conifer
-## 6                 sNB  0.4452127 0.05962186  conifer</code></pre>
+<pre><code>##     species_group_label prediction      error grouping
+## DGL                 DGL  2.8441620 0.14864131  conifer
+## KIE                 KIE  6.5087183 0.24019310  conifer
+## LAE                 LAE  1.8964687 0.09230207  conifer
+## sNB                 sNB  0.4452127 0.05962186  conifer</code></pre>
 <p>Einen logischen Index kann ich auch durch Operatorenanweisungen erstellen, um für mich interessante Datenbereiche ausschneiden.<br />
 Wenn ich mich für alle Laubbäume mit 5 oder mehr Anteilsprozenten oder 5% oder weniger relativem Fehler interessiere, und auf jeden Fall auch für Douglasie, … dann klappt das so:</p>
 <pre class="r"><code>logical_index &lt;- species_shares_2002[&quot;grouping&quot;] == &quot;deciduous&quot; &amp;
@@ -835,64 +847,64 @@ Wenn ich mich für alle Laubbäume mit 5 oder mehr Anteilsprozenten oder 5% oder
    &lt;= 0.05 ) | 
   species_shares_2002[&quot;species_group_label&quot;] == &quot;DGL&quot; 
 species_shares_2002[logical_index, ]</code></pre>
-<pre><code>##    species_group_label prediction     error  grouping
-## 3                  DGL   2.844162 0.1486413   conifer
-## 7                   BU  21.206551 0.3948771 deciduous
-## 8                   EI   6.919477 0.2316607 deciduous
-## 10                  ES   4.211734 0.1612298 deciduous
-## 11                  BA   2.837848 0.1220250 deciduous</code></pre>
+<pre><code>##     species_group_label prediction     error  grouping
+## DGL                 DGL   2.844162 0.1486413   conifer
+## BU                   BU  21.206551 0.3948771 deciduous
+## EI                   EI   6.919477 0.2316607 deciduous
+## ES                   ES   4.211734 0.1612298 deciduous
+## BA                   BA   2.837848 0.1220250 deciduous</code></pre>
 <p>(Beachte bitte, dass ich bei den logischen Operatoren die vektorwertigen Formen <code>&amp;</code> und <code>|</code> benutzen muss.) Ich gebe zu, dass das ist nicht sehr komfortabel ist, daher gibt es die Funktion <code>subset</code>:</p>
 <pre class="r"><code>subset(species_shares_2002, grouping == &quot;deciduous&quot; &amp; 
        (prediction &gt; 5 | error / prediction &lt; 0.05) | 
        species_group_label == &quot;DGL&quot; )</code></pre>
-<pre><code>##    species_group_label prediction     error  grouping
-## 3                  DGL   2.844162 0.1486413   conifer
-## 7                   BU  21.206551 0.3948771 deciduous
-## 8                   EI   6.919477 0.2316607 deciduous
-## 10                  ES   4.211734 0.1612298 deciduous
-## 11                  BA   2.837848 0.1220250 deciduous</code></pre>
+<pre><code>##     species_group_label prediction     error  grouping
+## DGL                 DGL   2.844162 0.1486413   conifer
+## BU                   BU  21.206551 0.3948771 deciduous
+## EI                   EI   6.919477 0.2316607 deciduous
+## ES                   ES   4.211734 0.1612298 deciduous
+## BA                   BA   2.837848 0.1220250 deciduous</code></pre>
 <p>Wenn wir Daten bedingt ändern wollen, brauchen wir meines Wissens allerdings die komplizierte Form mit der Indizierung:</p>
 <pre class="r"><code>species_shares_2002[logical_index, &quot;flag&quot;]  &lt;- TRUE
 print(species_shares_2002)</code></pre>
-<pre><code>##    species_group_label prediction      error  grouping flag
-## 1                   FI 37.6541738 0.51687273   conifer   NA
-## 2                   TA  7.7972024 0.25640727   conifer   NA
-## 3                  DGL  2.8441620 0.14864131   conifer TRUE
-## 4                  KIE  6.5087183 0.24019310   conifer   NA
-## 5                  LAE  1.8964687 0.09230207   conifer   NA
-## 6                  sNB  0.4452127 0.05962186   conifer   NA
-## 7                   BU 21.2065514 0.39487713 deciduous TRUE
-## 8                   EI  6.9194770 0.23166074 deciduous TRUE
-## 9                  REI  0.4277738 0.05421742 deciduous   NA
-## 10                  ES  4.2117337 0.16122978 deciduous TRUE
-## 11                  BA  2.8378479 0.12202505 deciduous TRUE
-## 12                  HB  1.1803450 0.07192402 deciduous   NA
-## 13                sALH  1.9299563 0.10519320 deciduous   NA
-## 14                  BI  0.8379760 0.06202043 deciduous   NA
-## 15                  ER  0.9831887 0.07987138 deciduous   NA
-## 16                  PA  0.7057045 0.07193710 deciduous   NA
-## 17                sALN  1.6135079 0.08861960 deciduous   NA</code></pre>
+<pre><code>##      species_group_label prediction      error  grouping flag
+## FI                    FI 37.6541738 0.51687273   conifer   NA
+## TA                    TA  7.7972024 0.25640727   conifer   NA
+## DGL                  DGL  2.8441620 0.14864131   conifer TRUE
+## KIE                  KIE  6.5087183 0.24019310   conifer   NA
+## LAE                  LAE  1.8964687 0.09230207   conifer   NA
+## sNB                  sNB  0.4452127 0.05962186   conifer   NA
+## BU                    BU 21.2065514 0.39487713 deciduous TRUE
+## EI                    EI  6.9194770 0.23166074 deciduous TRUE
+## REI                  REI  0.4277738 0.05421742 deciduous   NA
+## ES                    ES  4.2117337 0.16122978 deciduous TRUE
+## BA                    BA  2.8378479 0.12202505 deciduous TRUE
+## HB                    HB  1.1803450 0.07192402 deciduous   NA
+## sALH                sALH  1.9299563 0.10519320 deciduous   NA
+## BI                    BI  0.8379760 0.06202043 deciduous   NA
+## ER                    ER  0.9831887 0.07987138 deciduous   NA
+## PA                    PA  0.7057045 0.07193710 deciduous   NA
+## sALN                sALN  1.6135079 0.08861960 deciduous   NA</code></pre>
 <p>Das ist übrigens ein Fall, den ich oft habe: ich will Fehlwerte - hier: <code>NA</code> - durch etwas anderes ersetzen. Klappt so:</p>
 <pre class="r"><code>species_shares_2002[is.na(species_shares_2002[&quot;flag&quot;]), &quot;flag&quot;]  &lt;- FALSE
 species_shares_2002</code></pre>
-<pre><code>##    species_group_label prediction      error  grouping  flag
-## 1                   FI 37.6541738 0.51687273   conifer FALSE
-## 2                   TA  7.7972024 0.25640727   conifer FALSE
-## 3                  DGL  2.8441620 0.14864131   conifer  TRUE
-## 4                  KIE  6.5087183 0.24019310   conifer FALSE
-## 5                  LAE  1.8964687 0.09230207   conifer FALSE
-## 6                  sNB  0.4452127 0.05962186   conifer FALSE
-## 7                   BU 21.2065514 0.39487713 deciduous  TRUE
-## 8                   EI  6.9194770 0.23166074 deciduous  TRUE
-## 9                  REI  0.4277738 0.05421742 deciduous FALSE
-## 10                  ES  4.2117337 0.16122978 deciduous  TRUE
-## 11                  BA  2.8378479 0.12202505 deciduous  TRUE
-## 12                  HB  1.1803450 0.07192402 deciduous FALSE
-## 13                sALH  1.9299563 0.10519320 deciduous FALSE
-## 14                  BI  0.8379760 0.06202043 deciduous FALSE
-## 15                  ER  0.9831887 0.07987138 deciduous FALSE
-## 16                  PA  0.7057045 0.07193710 deciduous FALSE
-## 17                sALN  1.6135079 0.08861960 deciduous FALSE</code></pre>
+<pre><code>##      species_group_label prediction      error  grouping  flag
+## FI                    FI 37.6541738 0.51687273   conifer FALSE
+## TA                    TA  7.7972024 0.25640727   conifer FALSE
+## DGL                  DGL  2.8441620 0.14864131   conifer  TRUE
+## KIE                  KIE  6.5087183 0.24019310   conifer FALSE
+## LAE                  LAE  1.8964687 0.09230207   conifer FALSE
+## sNB                  sNB  0.4452127 0.05962186   conifer FALSE
+## BU                    BU 21.2065514 0.39487713 deciduous  TRUE
+## EI                    EI  6.9194770 0.23166074 deciduous  TRUE
+## REI                  REI  0.4277738 0.05421742 deciduous FALSE
+## ES                    ES  4.2117337 0.16122978 deciduous  TRUE
+## BA                    BA  2.8378479 0.12202505 deciduous  TRUE
+## HB                    HB  1.1803450 0.07192402 deciduous FALSE
+## sALH                sALH  1.9299563 0.10519320 deciduous FALSE
+## BI                    BI  0.8379760 0.06202043 deciduous FALSE
+## ER                    ER  0.9831887 0.07987138 deciduous FALSE
+## PA                    PA  0.7057045 0.07193710 deciduous FALSE
+## sALN                sALN  1.6135079 0.08861960 deciduous FALSE</code></pre>
 </div>
 <div id="weitere-formen" class="section level4">
 <h4><span class="header-section-number">5.2.1.5</span> Weitere Formen</h4>
@@ -1374,7 +1386,7 @@ species_shares_2012 &lt;-
 To the extent possible under law, Forstliche Versuchs- und Forschungsanstalt Baden-Württemberg has waived all copyright and related or neighboring rights to Programmieren in <strong>R</strong>. This work is published from: Germany. To view a copy of this license, visit <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode"><a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode" class="uri">https://creativecommons.org/publicdomain/zero/1.0/legalcode</a></a> .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-<strong>Last modified:</strong> 2016-01-20, 21:07
+<strong>Last modified:</strong> 2016-01-25, 09:20
 </p>
 </div>
 </div>
