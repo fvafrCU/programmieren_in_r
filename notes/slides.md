@@ -1,10 +1,9 @@
 ## Programmieren in R
+* Vorstellungsrunde
 * Wieso, Weshalb, Warum?
 * Meine Ziele
 * Meine Anforderungen
-* Worum geht's, und worum nicht?
-* Vorstellungsrunde
-* Eure W&uuml;nsche
+* Worum geht's und worum nicht?
 * Zur Form
 * Technische Vorbereitung
 
