@@ -869,7 +869,7 @@ dir.create(input_directory, recursive = TRUE)
 dependencies <- c("XML", "RCurl", "httr")
 for (dependency in dependencies) {
     if (! require(dependency, character.only = TRUE)) {
-        install.packages(dependency)
+        install.packages(dependency, repos =  "http://ftp5.gwdg.de/pub/misc/cran/")
     }
     library(dependency, character.only = TRUE)
 }
