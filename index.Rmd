@@ -295,21 +295,22 @@ Es gibt verschieden Stufen dieser Pakete:
    installiert.
 1. Empfohlene Pakete, **R**-recommended genannt. Sie werden auf den 
    **R**-Servern verwaltet und sind vorwiegend sehr guter Qualtit&auml;t.
-   Du kannst sie, bei funktionierender Internetverbindung, mit der Funktion
-   `install.packages` installieren und mit der Funktion 'library` laden.
+   Je nach Betriebssystem werden sie gleich mitinstalliert, sonst 
+   kannst Du sie, bei funktionierender Internetverbindung, mit der Funktion
+   `install.packages` installieren und mit der Funktion `library` laden.
 1. Von Nutzern beigesteuerte Pakete, **R**-contributed genannt. Sie werden
    ebenfalls auf den **R**-Servern verwaltet und sind sehr unterschiedlicher
    Qualtit&auml;t. Es gibt 
    [mehrere Tausend](https://cran.r-project.org/web/packages/index.html) von 
    ihnen.
-   Ihre Verwaltung ist identisch zu der der empfohlenen Pakete.
-
-Ein wenig Ordnung ins Chaos zu bringen versuchen die 
-[**R** Task Views](https://cran.r-project.org/web/views/), eine Art kommentierte
-Linkliste, die von Freiwilligen gepflegt wird.
-
-Daneben gibt es noch "wilde" **R**-Pakete. Das Netz ist voll davon. 
-La&szlig;' besser die Finger von ihnen. 
+   Ihre Verwaltung ist identisch zu der der empfohlenen Pakete.  
+   Ein wenig Ordnung ins Chaos zu bringen versuchen die 
+   [**R** Task Views](https://cran.r-project.org/web/views/), eine Art 
+   kommentierte Linkliste, die von Freiwilligen gepflegt wird.
+1. "Wilde" **R**-Pakete. Das Netz ist voll davon: auf 
+   [github](https://github.com), [r-forge](https://r-forge.r-project.org/), 
+   [bioconductor](https://www.bioconductor.org/) und etlichen privaten Sites. 
+   La&szlig;' vorerst besser die Finger von ihnen. 
 
 # Kontrollstrukturen
 Da **R** eine Programmiersprache ist, sehen wir uns zun&auml;chst ein paar
@@ -1790,7 +1791,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2016-01-25, 09:20
+**Last modified:** 2016-09-15, 10:25
 </p>
 
 ``` {r, echo = FALSE}
