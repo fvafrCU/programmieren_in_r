@@ -6,7 +6,7 @@ num_tries <- 2
 # "! identical(my_name, guess)" is better than "my_name != guess" but harder to
 # read, so I stick with the inferior "!=".
 while (my_name != guess && num_tries <= max_tries) {
-    print("You loose!")
+    print("You lose!")
     guess <- readline(prompt = "Try again: ")
     num_tries <- num_tries + 1
 }

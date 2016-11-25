@@ -341,7 +341,7 @@ Die **R**-Funktion `readline()` liest eine Eingabe vom **R**-Prompt.
 Lies Dir ihre Hilfeseite durch und schreibe ein Programm, das mich auffordert, 
 Deinen Namen zu raten und meine Eingabe einem Objekt des Namens `guess` zuweist.
 Den Wert dieses Objektes soll es dann mit Deinem Namen vergleichen und, je nach
-Ergebnis, entweder *You win!* oder *You loose!* ausgeben.
+Ergebnis, entweder *You win!* oder *You lose!* ausgeben.
 
 [Hier findest Du meine L&ouml;sung.](answers/guess_my_name.r)
 </div>
@@ -638,7 +638,7 @@ repeat {
         print("You win!")
         break
     } else {
-        print("You loose!")
+        print("You lose!")
         guess <- readline(prompt = "Try again: ")
     }
 }
@@ -1791,7 +1791,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2016-09-15, 10:25
+**Last modified:** 2016-11-25, 07:50
 </p>
 
 ``` {r, echo = FALSE}

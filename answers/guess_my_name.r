@@ -5,5 +5,5 @@ guess <- readline(prompt = "Guess my name: ")
 if (guess == my_name) {
     print("You win!")
 } else {
-    print("You loose!")
+    print("You lose!")
 }

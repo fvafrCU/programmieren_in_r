@@ -14,7 +14,7 @@ repeat {
         print("You win!")
         break
     } else {
-        print("You loose!")
+        print("You lose!")
         guess <- readline(prompt = "Try again: ")
     }
 }
