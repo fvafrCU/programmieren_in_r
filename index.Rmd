@@ -164,7 +164,7 @@ help("help", package = "utils")
 ``` 
 Sie liefert eine Hilfeseite die, je nach Konfiguration Deiner Arbeitsumgebung
 und Optionen f&uuml;r die Hilfefunktion, als Text, html oder pdf erscheint. 
-Sie kann beispielswiese 
+Sie kann beispielsweise 
 [so](files/r_help.html)
 aussehen.
 Ich finde die Hinweise in der Rubrik ``See Also:`` oft hilfreich.
@@ -198,6 +198,17 @@ a_number <- "this is no number, it's a string!"
 Ich kann also ein Objekt mit einem Objekt eines anderen Typs &uuml;berschreiben.
 
 
+Wenn Du ein Objekt l&ouml;schen m&ouml;chtest, vielleicht weil Du inzwischen so
+viele erstellt hast, dass Du den &Uuml;berblick verlierst, kannst Du das mit der
+Funktion `remove` oder ihrer Kurzform `rm` tun:
+``` {r}
+rm(a_number)
+``` 
+
+M&ouml;chtest Du alle von Dir erstellten Objekte l&ouml;schen, verwende die Form
+`rm(list = ls())`. Das musst Du jetzt noch nicht verstehen, aber merke es
+Dir bitte f&uuml;r sp&auml;ter.
+
 <!---_(Manche Programmiersprachen verlangen die Deklaration eines
 Objektes (mit einem bestimmten Typ), in **R** erfolgt die Deklaration und die
 Typbestimmung automatisch aus der ersten Zuweisung.)_
@@ -221,6 +232,10 @@ aus.
 
 [Hier findest Du meine L&ouml;sung.](answers/name.r)
 </div>
+
+``` 
+
+
 
 ## Funktionen 
 Funktionen spielen in **R** eine gro&szlig;e Rolle, weitaus die meisten
@@ -1791,7 +1806,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2016-11-25, 07:50
+**Last modified:** 2016-11-29, 09:16
 </p>
 
 ``` {r, echo = FALSE}

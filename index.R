@@ -18,6 +18,7 @@ help("Syntax", package = "base")
 ?Syntax
 a_number <- 3
 a_number <- "this is no number, it's a string!"
+rm(a_number)
 assign("a_number", 4)
 source("answers/name.r")
 for (pos in seq(along = searchpaths())) {
@@ -150,7 +151,7 @@ file.show(temporary_file)
 ##         print("You win!")
 ##         break
 ##     } else {
-##         print("You loose!")
+##         print("You lose!")
 ##         guess <- readline(prompt = "Try again: ")
 ##     }
 ## }
@@ -247,7 +248,7 @@ dir.create(input_directory, recursive = TRUE)
 dependencies <- c("XML", "RCurl", "httr")
 for (dependency in dependencies) {
     if (! require(dependency, character.only = TRUE)) {
-        install.packages(dependency)
+        install.packages(dependency, repos =  "http://ftp5.gwdg.de/pub/misc/cran/")
     }
     library(dependency, character.only = TRUE)
 }
