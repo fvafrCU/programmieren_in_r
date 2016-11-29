@@ -2,7 +2,7 @@
 title: Programmieren in **R**
 subtitle: Ein Einstieg an der 
   Forstlichen Versuchs- und Forschungsanstalt Baden-W&uuml;rttemberg.
-author: Dominik Cullmann, Elke Erhardt
+author: Dominik Cullmann, Elke Erhardt, Sebastian Schmack
 ---
 ``` {r, echo = FALSE}
 #!/usr/bin/Rscript --vanilla
@@ -1806,7 +1806,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2016-11-29, 09:16
+**Last modified:** 2016-11-29, 09:19
 </p>
 
 ``` {r, echo = FALSE}
