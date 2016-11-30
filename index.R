@@ -159,7 +159,7 @@ file.show(temporary_file)
 ## 
 ?source
 ?sink
-file <- "src/hello_world.r"
+file <- file.path("src", "hello_world.r")
 if (file.exists(file)) {
     source(file)
 } else {
@@ -175,7 +175,7 @@ temporary_file <- tempfile()
     # to parse an R/markdown file into this html file. 
     # So I need the braces here. 
     sink(temporary_file)
-    directory <- "./src/"
+    directory <- "src"
     warning("message()s, warning()s and stop()s are not sink()ed.")
     cat("I use cat() instead of print() here to get rid of the indeces",
         "print()ed.\n", sep = " ")
@@ -207,7 +207,7 @@ cat("This is a directory created by 'Programmieren in R' .",
 ?basename
 #% set the root directory and read the file containing the names
 path <- file.path(dirname(tempdir()), "personal_directories")
-lines <- readLines("files/names.txt")
+lines <- readLines(file.path("files", "names.txt"))
 
 #% extract names, order them in FIRSTNAME_LASTNAME
 non_empty_lines <- lines[which(lines != "")]

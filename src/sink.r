@@ -5,7 +5,7 @@ temporary_file <- tempfile()
     # to parse an R/markdown file into this html file. 
     # So I need the braces here. 
     sink(temporary_file)
-    directory <- "./src/"
+    directory <- "src"
     warning("message()s, warning()s and stop()s are not sink()ed.")
     cat("I use cat() instead of print() here to get rid of the indeces",
         "print()ed.\n", sep = " ")

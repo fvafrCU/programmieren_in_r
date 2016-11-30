@@ -1,4 +1,4 @@
-file <- "src/hello_world.r"
+file <- file.path("src", "hello_world.r")
 if (file.exists(file)) {
     source(file)
 } else {

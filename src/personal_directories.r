@@ -1,6 +1,6 @@
 #% set the root directory and read the file containing the names
 path <- file.path(dirname(tempdir()), "personal_directories")
-lines <- readLines("files/names.txt")
+lines <- readLines(file.path("files", "names.txt"))
 
 #% extract names, order them in FIRSTNAME_LASTNAME
 non_empty_lines <- lines[which(lines != "")]
