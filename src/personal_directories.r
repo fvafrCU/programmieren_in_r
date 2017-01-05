@@ -1,25 +1,20 @@
-#% set the root directory and read the file containing the names
-path <- file.path(dirname(tempdir()), "personal_directories")
-lines <- readLines(file.path("files", "names.txt"))
+#% set the root directory 
+root <- file.path(dirname(tempdir()), "personal_directories")
 
-#% extract names, order them in FIRSTNAME_LASTNAME
+#% read the file containing the names
+lines <- readLines(file.path("files", "names.txt"))
+#% extract names, order them in given_name surname.
 non_empty_lines <- lines[which(lines != "")]
-tmp <- sub("^ *", "", non_empty_lines)
-names <- sub(" *", "", tmp)
-last_names <- sapply(strsplit(names, ","), "[", 1)
-first_names <-  gsub(" ", "_", 
-                     sub(" *$", "", 
-                         sub("^ *", "", 
-                             sapply(strsplit(names, ","), "[", 2)
-                                   )
-                         )
-)
-directories <- paste(first_names, last_names, sep = "_")
+surnames <- trimws(sapply(strsplit(non_empty_lines, ","), "[", 1))
+given_names <- trimws(sapply(strsplit(non_empty_lines, ","), "[", 2))
+names <- paste(given_names, surnames)
 #% create path 
-dir.create(path, showWarnings = FALSE, recursive = TRUE)
+dir.create(root, showWarnings = FALSE, recursive = TRUE)
 #% create those personal directories
-for (directory in directories) {
-    directory_path <- file.path(path, directory)
-    dir.create(directory_path)
+directories <- gsub(" ", "_", names)
+paths <- file.path(root, directories)
+for (path in paths) {
+    dir.create(path)
 }
 
+list.files(root, full.names = TRUE)

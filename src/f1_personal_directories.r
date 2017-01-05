@@ -1,30 +1,22 @@
 create_personal_directories <- function(file, 
-                                        path = file.path(dirname(tempdir()), 
+                                        root = file.path(dirname(tempdir()), 
                                                          "personal_directories")
                                         ) {
-    #% read the file containing the names
-    lines <- readLines(file)
-    #% extract names, order them in FIRSTNAME_LASTNAME
-    non_empty_lines <- lines[which(lines != "")]
-    tmp <- sub("^ *", "", non_empty_lines)
-    names <- sub(" *", "", tmp)
-    last_names <- sapply(strsplit(names, ","), "[", 1)
-    first_names <-  gsub(" ", "_", 
-                         sub(" *$", "", 
-                             sub("^ *", "", 
-                                 sapply(strsplit(names, ","), "[", 2)
-                                 )
-                             )
-                         )
-    directories <- paste(first_names, last_names, sep = "_")
-    #% create path 
-    dir.create(path, showWarnings = FALSE, recursive = TRUE)
-    #% create those personal directories
     status <- logical(length(directories))
-    for (i in seq(along = directories)) {
-         directory  <- directories[i]
-         directory_path <- file.path(path, directory)
-         status[i] <- dir.create(directory_path)
+    #% read the file containing the names
+    lines <- readLines(file.path("files", "names.txt"))
+    #% extract names, order them in given_name surname.
+    non_empty_lines <- lines[which(lines != "")]
+    surnames <- trimws(sapply(strsplit(non_empty_lines, ","), "[", 1))
+    given_names <- trimws(sapply(strsplit(non_empty_lines, ","), "[", 2))
+    names <- paste(given_names, surnames)
+    #% create path 
+    dir.create(root, showWarnings = FALSE, recursive = TRUE)
+    #% create those personal directories
+    directories <- gsub(" ", "_", names)
+    paths <- file.path(root, directories)
+    for (i in seq(along = paths)) {
+         status[i] <- dir.create(paths[i])
     }
     return(invisible(status))
 }

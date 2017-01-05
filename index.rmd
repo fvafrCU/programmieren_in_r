@@ -1077,10 +1077,10 @@ Argument erweitern:
 ``` 
 
 Das zweite Funktionsargument, `path`, kennt nun eine Voreinstellung, die Du beim
-Funktionsaufruf &auml;ndern &uuml;berschreiben kannst:
+Funktionsaufruf &uuml;berschreiben kannst:
 ``` {r}
 create_personal_directories("files/names.txt", 
-                            path = file.path(tempdir(), "personal_directories"))
+                            root = file.path(tempdir(), "personal_directories"))
 
 ``` 
 ``` {r, echo = FALSE}
@@ -1165,10 +1165,8 @@ Wir werden uns aus den Baumarten-Daten Balkengraphiken erstellen. Da wir drei
 Diese Funktion ist kein gutes Beispiel einer Funktion. Sie hat zu viele Zeilen
 und ist nicht allgemein gehalten, sondern auf eine sehr spezielle Art von
 Baumarten-Daten-`data.frame`s angepa&szlig;t. 
-Sie dient nur dazu, dass ich den Code nicht dreimal tippen muss. 
-Und falls Du jetzt die Farbe f&uuml;r die Nadelbaum-Balken &auml;ndern willst, 
-musst Du das nur an einer Stelle statt drei Stellen im Code tun. 
-Ist einfach weniger fehleranf&auml;llig.  
+Sie dient nur dazu, dass ich den Code nicht dreimal tippen muss. Das
+hei&szlig;t: sie sollte eigentlich eine Schleife sein.
 Funktionieren tut sie so:
 ``` {r}
 
@@ -1232,7 +1230,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2016-11-29, 09:19
+**Last modified:** 2017-01-05, 10:56
 </p>
 
 ``` {r, echo = FALSE}
