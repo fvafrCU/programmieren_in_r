@@ -399,7 +399,9 @@ Schleifen und `if`, ein Sprachkonstrukt, in **R** hingegen ist fast alles eine
 Funktion...
 
 ## Schleifen 
-... f&uuml;hren Code wiederholt aus. Es gibt gute Schleifen und schlechte
+... f&uuml;hren Code wiederholt aus. Wenn Du einen Codeblock mehr als zweimal
+untereinander kopierst und nur minimale &Auml;nderungen vornimmst, ist er in Wirklichkeit eine Schleife.
+Es gibt gute Schleifen und schlechte
 Schleifen und, eine Besonderheit in **R**, `apply()`s.
 Ich nutze in **R** fast nur die `for`-Schleife und die `while`-Schleife.
 Lies im Zweifelsfall nur den ersten Abschnitt.
@@ -477,7 +479,7 @@ Wenn Du die Schleife nicht nur bis zum dritten, sondern &uuml;ber alle Elemente
 von 
 <math> <mstyle displaystyle="true"> <mi>a</mi> </math> </mstyle> 
 laufen lassen m&ouml;chtest (Entsprechendes will ich bei fast allen meiner
-Schleifen), dann ist
+Schleifen), dann <a name="sum"></a>ist
 ``` {r}
 <#include "src/sum_loop_along.r">
 ``` 
@@ -1044,9 +1046,11 @@ findest Du unter [hier](data_types.html).
 
 # Funktionen
 Funktionen in **R** selbst zu schreiben ist sehr einfach und oft hilfreich. 
-Wenn Du anf&auml;ngst, einen Code-Block mehrfach zu kopieren, solltest Du aus 
-ihm eine Funktion basteln 
-(in Rstudio kannst Du markierte Codezeilen über die 
+Wenn Du einen Codeblock mehr als zweimal untereinander kopierst und nur minimale 
+&Auml;nderungen vornimmst, ist er in Wirklichkeit eine Schleife.
+Wenn Du einen Code-Block mehr als zweimal an unterschiedliche Stellen kopierst
+und nur minimale &auml;nderungen vornimmst, solltest Du aus ihm eine Funktion 
+basteln (in Rstudio kannst Du markierte Codezeilen über die 
 Menüs “Code”/“Extract Function” in eine Funktion umwandeln).
 Erinnere Dich an das Beispiel mit den pers&ouml;nlichen Verzeichnissen: falls Du
 &ouml;fter Dateien mit Namen von Teilnehmenden erhieltest, k&ouml;nntest Du den
@@ -1089,6 +1093,21 @@ create_personal_directories("files/names.txt",
 unlink(file.path(tempdir(), "personal_directories"), recursive = TRUE)
 
 ``` 
+<div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
+**Aufgabe:**
+Schreibe eine Funktion, die die Element eines Vektors aufsummiert (diese
+Funktion gibt es in **R** schon, und sie ist schneller und stabiler als die, die
+wir schreiben werden, aber daf&uuml;r kannst Du [dieses Beispiel](#sum) einfach
+anpassen), die also so funktioniert:
+``` {r, echo = FALSE, print = FALSE}
+source("answers/sum.r")
+``` 
+``` {r}
+my_sum(c(2, 3, 4))
+``` 
+
+[Hier findest Du meine L&ouml;sung.](answers/sum.r)
+</div>
 
 
 Zur&uuml;ck zu unseren Baumartenanteilen:
@@ -1230,7 +1249,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2017-01-10, 13:35
+**Last modified:** 2017-01-10, 14:30
 </p>
 
 ``` {r, echo = FALSE}
