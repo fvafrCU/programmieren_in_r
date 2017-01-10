@@ -462,7 +462,7 @@ sei, dann ist
 <mrow><mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> 
 <mi>n</mi> </munderover>
 <mfenced separators=""><mi>i</mi><mo>-</mo> <mn>1</mn> </mfenced>
-<mo>=</mo> <mn>3</mn>
+<mo>=</mo> <mn>6</mn>
 </mstyle> </math>.
 Das Summenzeichen ist ein Speziallfall einer Schleife, wir k&ouml;nnen es in
 **R** nachbauen:
@@ -470,7 +470,7 @@ Das Summenzeichen ist ein Speziallfall einer Schleife, wir k&ouml;nnen es in
 value <- 0
 n <- 3
 for (i in seq(1, n)) {
-    value <- value + i - 1
+    value <- value + i 
 }
 print(value)
 
@@ -495,7 +495,7 @@ sei, dann ist
 <mrow> <mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>n</mi> </munderover>
 <mfenced separators=""> <msub><mi>a</mi><mi>i</mi></msub><mo>-</mo> <mn>1</mn> 
 </mfenced>
-<mo>=</mo> <mn>6</mn> 
+<mo>=</mo> <mn>9</mn> 
 </mstyle> </math>
 (<math> <mstyle displaystyle="true"> <mi>n</mi> </math> </mstyle> 
 ist ja immer noch gleich 
@@ -507,7 +507,7 @@ a  <- c(2, 3, 4, 10)
 value <- 0
 n <- 3
 for (i in seq(1, n)) {
-    value <- value + a[i] - 1
+    value <- value + a[i] 
 }
 print(value)
 
@@ -531,7 +531,7 @@ Schleifen), dann ist
 a  <- c(2, 3, 4, 10)
 value <- 0
 for (i in seq(along = a)) {
-    value <- value + a[i] - 1
+    value <- value + a[i] 
 }
 print(value)
 
@@ -1784,7 +1784,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2017-01-05, 10:56
+**Last modified:** 2017-01-10, 13:35
 </p>
 
 ``` {r, echo = FALSE}

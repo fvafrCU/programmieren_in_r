@@ -428,7 +428,7 @@ sei, dann ist
 <mrow><mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> 
 <mi>n</mi> </munderover>
 <mfenced separators=""><mi>i</mi><mo>-</mo> <mn>1</mn> </mfenced>
-<mo>=</mo> <mn>3</mn>
+<mo>=</mo> <mn>6</mn>
 </mstyle> </math>.
 Das Summenzeichen ist ein Speziallfall einer Schleife, wir k&ouml;nnen es in
 **R** nachbauen:
@@ -454,7 +454,7 @@ sei, dann ist
 <mrow> <mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>n</mi> </munderover>
 <mfenced separators=""> <msub><mi>a</mi><mi>i</mi></msub><mo>-</mo> <mn>1</mn> 
 </mfenced>
-<mo>=</mo> <mn>6</mn> 
+<mo>=</mo> <mn>9</mn> 
 </mstyle> </math>
 (<math> <mstyle displaystyle="true"> <mi>n</mi> </math> </mstyle> 
 ist ja immer noch gleich 
@@ -1230,7 +1230,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2017-01-05, 10:56
+**Last modified:** 2017-01-10, 13:35
 </p>
 
 ``` {r, echo = FALSE}
