@@ -313,9 +313,9 @@ Es gibt verschieden Stufen dieser Pakete:
    Je nach Betriebssystem werden sie gleich mitinstalliert, sonst 
    kannst Du sie, bei funktionierender Internetverbindung, mit der Funktion
    `install.packages` installieren und mit der Funktion `library` laden.
-1. Von Nutzern beigesteuerte Pakete, **R**-contributed genannt. Sie werden
-   ebenfalls auf den **R**-Servern verwaltet und sind sehr unterschiedlicher
-   Qualtit&auml;t. Es gibt 
+1. Von Nutzerinnen und Nutzern beigesteuerte Pakete, **R**-contributed genannt. 
+   Sie werden ebenfalls auf den **R**-Servern verwaltet und sind sehr 
+   unterschiedlicher Qualtit&auml;t. Es gibt 
    [mehrere Tausend](https://cran.r-project.org/web/packages/index.html) von 
    ihnen.
    Ihre Verwaltung ist identisch zu der der empfohlenen Pakete.  
@@ -847,8 +847,8 @@ unlink(file.path(dirname(tempdir()), "personal_directories"), recursive = TRUE)
 
 ``` 
 Zugegeben, das dauert erstmal l&auml;nger. Aber nachdem auch die
-Bundesau&szlig;en-, Bundesinnen- und Bundesverteidigungsminister und
--ministerinnen Deinen Kurs besucht haben, hast Du die Zeit allemal wieder raus.
+Bundesau&szlig;en-, Bundesinnen- und Bundesverteidigungsministerinnen und
+-minister Deinen Kurs besucht haben, hast Du die Zeit allemal wieder raus.
 </div>
 
 ## **R** im Batch
@@ -1815,7 +1815,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2017-01-20, 14:41
+**Last modified:** 2017-01-20, 22:09
 </p>
 
 ``` {r, echo = FALSE}
