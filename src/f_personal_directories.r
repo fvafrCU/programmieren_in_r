@@ -4,7 +4,7 @@ create_personal_directories <- function(file) {
     root <- file.path(dirname(tempdir()), "personal_directories")
 
     #% read the file containing the names
-    lines <- readLines(file.path("files", "names.txt"))
+    lines <- readLines(file)
     #% extract names, order them in given_name surname.
     non_empty_lines <- lines[which(lines != "")]
     surnames <- trimws(sapply(strsplit(non_empty_lines, ","), "[", 1))
