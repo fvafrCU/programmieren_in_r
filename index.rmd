@@ -429,7 +429,7 @@ sei, dann ist
 <munderover> <mo>&sum;</mo> 
 <mrow><mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> 
 <mi>n</mi> </munderover>
-<mfenced separators=""><mi>i</mi><mo>-</mo> <mn>1</mn> </mfenced>
+<mi>i</mi>
 <mo>=</mo> <mn>6</mn>
 </mstyle> </math>.
 Das Summenzeichen ist ein Speziallfall einer Schleife, wir k&ouml;nnen es in
@@ -454,8 +454,7 @@ sei, dann ist
 <math> <mstyle displaystyle="true">
 <munderover> <mo>&sum;</mo> 
 <mrow> <mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>n</mi> </munderover>
-<mfenced separators=""> <msub><mi>a</mi><mi>i</mi></msub><mo>-</mo> <mn>1</mn> 
-</mfenced>
+<msub><mi>a</mi><mi>i</mi></msub> 
 <mo>=</mo> <mn>9</mn> 
 </mstyle> </math>
 (<math> <mstyle displaystyle="true"> <mi>n</mi> </math> </mstyle> 
@@ -484,6 +483,12 @@ Schleifen), dann <a name="sum"></a>ist
 <#include "src/sum_loop_along.r">
 ``` 
 die am wenigsten fehleranf&auml;llige Variante.
+
+Da sie dauernd auftritt, gibt es neben dieser (mathematischen Form) noch die
+Kurzform f&uuml;r Programmierende:
+``` {r}
+<#include "src/sum_over.r">
+``` 
 
 
 Allgemein kannst Du das Verhalten einer Schleifen an diesem Code erkennen:
@@ -1249,7 +1254,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2017-01-10, 14:30
+**Last modified:** 2017-01-20, 14:41
 </p>
 
 ``` {r, echo = FALSE}

@@ -1,5 +1,4 @@
 create_personal_directories <- function(file) {
-    status <- logical(length(directories))
     #% set the root directory 
     root <- file.path(dirname(tempdir()), "personal_directories")
 
@@ -14,6 +13,7 @@ create_personal_directories <- function(file) {
     dir.create(root, showWarnings = FALSE, recursive = TRUE)
     #% create those personal directories
     directories <- gsub(" ", "_", names)
+    status <- logical(length(directories))
     paths <- file.path(root, directories)
     for (i in seq(along = paths)) {
          status[i] <- dir.create(paths[i])

@@ -463,7 +463,7 @@ sei, dann ist
 <munderover> <mo>&sum;</mo> 
 <mrow><mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> 
 <mi>n</mi> </munderover>
-<mfenced separators=""><mi>i</mi><mo>-</mo> <mn>1</mn> </mfenced>
+<mi>i</mi>
 <mo>=</mo> <mn>6</mn>
 </mstyle> </math>.
 Das Summenzeichen ist ein Speziallfall einer Schleife, wir k&ouml;nnen es in
@@ -495,8 +495,7 @@ sei, dann ist
 <math> <mstyle displaystyle="true">
 <munderover> <mo>&sum;</mo> 
 <mrow> <mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>n</mi> </munderover>
-<mfenced separators=""> <msub><mi>a</mi><mi>i</mi></msub><mo>-</mo> <mn>1</mn> 
-</mfenced>
+<msub><mi>a</mi><mi>i</mi></msub> 
 <mo>=</mo> <mn>9</mn> 
 </mstyle> </math>
 (<math> <mstyle displaystyle="true"> <mi>n</mi> </math> </mstyle> 
@@ -540,6 +539,19 @@ print(value)
 
 ``` 
 die am wenigsten fehleranf&auml;llige Variante.
+
+Da sie dauernd auftritt, gibt es neben dieser (mathematischen Form) noch die
+Kurzform f&uuml;r Programmierende:
+``` {r}
+a  <- c(2, 3, 4, 10)
+value <- 0
+for (a_i in a) {
+    value <- value + a_i 
+}
+print(value)
+
+
+``` 
 
 
 Allgemein kannst Du das Verhalten einer Schleifen an diesem Code erkennen:
@@ -1302,7 +1314,6 @@ Code des Beispiels immer kopieren und den Namen der Datei anpassen. Oder Du
 k&ouml;nntest folgende Funktion schreiben:
 ``` {r}
 create_personal_directories <- function(file) {
-    status <- logical(length(directories))
     #% set the root directory 
     root <- file.path(dirname(tempdir()), "personal_directories")
 
@@ -1317,6 +1328,7 @@ create_personal_directories <- function(file) {
     dir.create(root, showWarnings = FALSE, recursive = TRUE)
     #% create those personal directories
     directories <- gsub(" ", "_", names)
+    status <- logical(length(directories))
     paths <- file.path(root, directories)
     for (i in seq(along = paths)) {
          status[i] <- dir.create(paths[i])
@@ -1346,7 +1358,6 @@ create_personal_directories <- function(file,
                                         root = file.path(dirname(tempdir()), 
                                                          "personal_directories")
                                         ) {
-    status <- logical(length(directories))
     #% read the file containing the names
     lines <- readLines(file.path("files", "names.txt"))
     #% extract names, order them in given_name surname.
@@ -1358,6 +1369,7 @@ create_personal_directories <- function(file,
     dir.create(root, showWarnings = FALSE, recursive = TRUE)
     #% create those personal directories
     directories <- gsub(" ", "_", names)
+    status <- logical(length(directories))
     paths <- file.path(root, directories)
     for (i in seq(along = paths)) {
          status[i] <- dir.create(paths[i])
@@ -1803,7 +1815,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2017-01-10, 14:30
+**Last modified:** 2017-01-20, 14:41
 </p>
 
 ``` {r, echo = FALSE}
