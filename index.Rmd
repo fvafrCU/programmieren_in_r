@@ -806,11 +806,11 @@ Jetzt kannst Du entweder die Verzeichnisse (per copy & paste) von Hand
 erstellen, oder Dir die M&uuml;he machen, das folgende **R**-Programm zu
 entwickeln:
 ``` {r}
+#% read the file containing the names
+lines <- readLines(file.path("files", "names.txt"))
 #% set the root directory 
 root <- file.path(dirname(tempdir()), "personal_directories")
 
-#% read the file containing the names
-lines <- readLines(file.path("files", "names.txt"))
 #% extract names, order them in given_name surname.
 non_empty_lines <- lines[which(lines != "")]
 surnames <- trimws(sapply(strsplit(non_empty_lines, ","), "[", 1))
@@ -1307,7 +1307,7 @@ create_personal_directories <- function(file) {
     root <- file.path(dirname(tempdir()), "personal_directories")
 
     #% read the file containing the names
-    lines <- readLines(file.path("files", "names.txt"))
+    lines <- readLines(file)
     #% extract names, order them in given_name surname.
     non_empty_lines <- lines[which(lines != "")]
     surnames <- trimws(sapply(strsplit(non_empty_lines, ","), "[", 1))
