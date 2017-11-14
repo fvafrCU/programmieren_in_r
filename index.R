@@ -1,4 +1,5 @@
 #!/usr/bin/Rscript --vanilla
+rm(rmd_file) # FIXME: get rid of sibbling from bin/render.r ...
 print("hello, world")
 
 source("answers/example.r")
@@ -18,9 +19,17 @@ help("Syntax", package = "base")
 ?Syntax
 a_number <- 3
 a_number <- "this is no number, it's a string!"
+ls()
 rm(a_number)
+ls()
 assign("a_number", 4)
 source("answers/name.r")
+a_string = "This is a string."
+print(a_string)
+## print(a_string = "This is a string.")
+tryCatch(print(a_string = "This is a string."), error = function(e) print(e))
+## print(another_string <- "This is a string.")
+ls()
 for (pos in seq(along = searchpaths())) {
     print(lsf.str(pos))
 }
@@ -82,7 +91,7 @@ for (index in indices) {
 value <- 0
 n <- 3
 for (i in seq(1, n)) {
-    value <- value + i - 1
+    value <- value + i 
 }
 print(value)
 
@@ -91,7 +100,7 @@ a  <- c(2, 3, 4, 10)
 value <- 0
 n <- 3
 for (i in seq(1, n)) {
-    value <- value + a[i] - 1
+    value <- value + a[i] 
 }
 print(value)
 
@@ -99,7 +108,15 @@ print(value)
 a  <- c(2, 3, 4, 10)
 value <- 0
 for (i in seq(along = a)) {
-    value <- value + a[i] - 1
+    value <- value + a[i] 
+}
+print(value)
+
+
+a  <- c(2, 3, 4, 10)
+value <- 0
+for (a_i in a) {
+    value <- value + a_i 
 }
 print(value)
 
@@ -205,31 +222,26 @@ cat("This is a directory created by 'Programmieren in R' .",
 
 ?files
 ?basename
-#% set the root directory and read the file containing the names
-path <- file.path(dirname(tempdir()), "personal_directories")
+#% read the file containing the names
 lines <- readLines(file.path("files", "names.txt"))
+#% set the root directory 
+root <- file.path(dirname(tempdir()), "personal_directories")
 
-#% extract names, order them in FIRSTNAME_LASTNAME
+#% extract names, order them in given_name surname.
 non_empty_lines <- lines[which(lines != "")]
-tmp <- sub("^ *", "", non_empty_lines)
-names <- sub(" *", "", tmp)
-last_names <- sapply(strsplit(names, ","), "[", 1)
-first_names <-  gsub(" ", "_", 
-                     sub(" *$", "", 
-                         sub("^ *", "", 
-                             sapply(strsplit(names, ","), "[", 2)
-                                   )
-                         )
-)
-directories <- paste(first_names, last_names, sep = "_")
+surnames <- trimws(sapply(strsplit(non_empty_lines, ","), "[", 1))
+given_names <- trimws(sapply(strsplit(non_empty_lines, ","), "[", 2))
+names <- paste(given_names, surnames)
 #% create path 
-dir.create(path, showWarnings = FALSE, recursive = TRUE)
+dir.create(root, showWarnings = FALSE, recursive = TRUE)
 #% create those personal directories
-for (directory in directories) {
-    directory_path <- file.path(path, directory)
-    dir.create(directory_path)
+directories <- gsub(" ", "_", names)
+paths <- file.path(root, directories)
+for (path in paths) {
+    dir.create(path)
 }
 
+list.files(root, full.names = TRUE)
 
 # need to get rid of the directory to avoid warnings -- for html only, usually,
 # the warnings should be there.
@@ -386,31 +398,24 @@ species_shares_1987[["species_group_label"]]
 mode(species_shares_1987[["species_group_label"]])
 class(species_shares_1987[["species_group_label"]])
 create_personal_directories <- function(file) {
-    #% set to path to write to
-    path  <- file.path(dirname(tempdir()), "personal_directories")
+    #% set the root directory 
+    root <- file.path(dirname(tempdir()), "personal_directories")
+
     #% read the file containing the names
     lines <- readLines(file)
-    #% extract names, order them in FIRSTNAME_LASTNAME
+    #% extract names, order them in given_name surname.
     non_empty_lines <- lines[which(lines != "")]
-    tmp <- sub("^ *", "", non_empty_lines)
-    names <- sub(" *", "", tmp)
-    last_names <- sapply(strsplit(names, ","), "[", 1)
-    first_names <-  gsub(" ", "_", 
-                         sub(" *$", "", 
-                             sub("^ *", "", 
-                                 sapply(strsplit(names, ","), "[", 2)
-                                 )
-                             )
-                         )
-    directories <- paste(first_names, last_names, sep = "_")
+    surnames <- trimws(sapply(strsplit(non_empty_lines, ","), "[", 1))
+    given_names <- trimws(sapply(strsplit(non_empty_lines, ","), "[", 2))
+    names <- paste(given_names, surnames)
     #% create path 
-    dir.create(path, showWarnings = FALSE, recursive = TRUE)
+    dir.create(root, showWarnings = FALSE, recursive = TRUE)
     #% create those personal directories
+    directories <- gsub(" ", "_", names)
     status <- logical(length(directories))
-    for (i in seq(along = directories)) {
-         directory  <- directories[i]
-         directory_path <- file.path(path, directory)
-         status[i] <- dir.create(directory_path)
+    paths <- file.path(root, directories)
+    for (i in seq(along = paths)) {
+         status[i] <- dir.create(paths[i])
     }
     return(invisible(status))
 }
@@ -423,44 +428,38 @@ create_personal_directories("files/names.txt")
 unlink(file.path(dirname(tempdir()), "personal_directories"), recursive = TRUE)
 
 create_personal_directories <- function(file, 
-                                        path = file.path(dirname(tempdir()), 
+                                        root = file.path(dirname(tempdir()), 
                                                          "personal_directories")
                                         ) {
     #% read the file containing the names
-    lines <- readLines(file)
-    #% extract names, order them in FIRSTNAME_LASTNAME
+    lines <- readLines(file.path("files", "names.txt"))
+    #% extract names, order them in given_name surname.
     non_empty_lines <- lines[which(lines != "")]
-    tmp <- sub("^ *", "", non_empty_lines)
-    names <- sub(" *", "", tmp)
-    last_names <- sapply(strsplit(names, ","), "[", 1)
-    first_names <-  gsub(" ", "_", 
-                         sub(" *$", "", 
-                             sub("^ *", "", 
-                                 sapply(strsplit(names, ","), "[", 2)
-                                 )
-                             )
-                         )
-    directories <- paste(first_names, last_names, sep = "_")
+    surnames <- trimws(sapply(strsplit(non_empty_lines, ","), "[", 1))
+    given_names <- trimws(sapply(strsplit(non_empty_lines, ","), "[", 2))
+    names <- paste(given_names, surnames)
     #% create path 
-    dir.create(path, showWarnings = FALSE, recursive = TRUE)
+    dir.create(root, showWarnings = FALSE, recursive = TRUE)
     #% create those personal directories
+    directories <- gsub(" ", "_", names)
     status <- logical(length(directories))
-    for (i in seq(along = directories)) {
-         directory  <- directories[i]
-         directory_path <- file.path(path, directory)
-         status[i] <- dir.create(directory_path)
+    paths <- file.path(root, directories)
+    for (i in seq(along = paths)) {
+         status[i] <- dir.create(paths[i])
     }
     return(invisible(status))
 }
 
 
 create_personal_directories("files/names.txt", 
-                            path = file.path(tempdir(), "personal_directories"))
+                            root = file.path(tempdir(), "personal_directories"))
 
 # need to get rid of the directory to avoid warnings -- for html only, usually,
 # the warnings should be there.
 unlink(file.path(tempdir(), "personal_directories"), recursive = TRUE)
 
+source("answers/sum.r")
+my_sum(c(2, 3, 4))
 # we need to convert the factor's values to character!
 (abbreviation <- as.character(species_shares_1987["1", "species_group_label"]))
 (text  <- 

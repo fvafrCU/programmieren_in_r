@@ -4,8 +4,15 @@ subtitle: Ein Einstieg an der
   Forstlichen Versuchs- und Forschungsanstalt Baden-W&uuml;rttemberg.
 author: Dominik Cullmann, Elke Erhardt, Sebastian Schmack
 ---
+<!---
+# use 
+#    ./bin/render.r -k index.Rmd
+# to render!
+--->
+
 ``` {r, echo = FALSE}
 #!/usr/bin/Rscript --vanilla
+rm(rmd_file) # FIXME: get rid of sibbling from bin/render.r ...
 ``` 
 # Vorweg
 ## Du 
@@ -188,7 +195,7 @@ in **R** werden durch Zuweisungen definiert.
 ``` {r}
 a_number <- 3
 ``` 
-Das ist schon recht technisch, denn in anderen Sprachen werden Objekte
+Das ist schon recht technisch, denn in vielen anderen Sprachen werden Objekte
 zun&auml;chst definiert (oder zumindest deklariert) und erst dann wird ihnen ein
 Wert zugewiesen. Das ist etwas umst&auml;ndlich, aber daf&uuml;r funktioniert
 der folgende Code in **R** leider:
@@ -197,6 +204,11 @@ a_number <- "this is no number, it's a string!"
 ``` 
 Ich kann also ein Objekt mit einem Objekt eines anderen Typs &uuml;berschreiben.
 
+M&ouml;chtest Du alle von Dir erstellten Objekte auflisten, hilft Dir
+``` {r}
+ls()
+``` 
+
 
 Wenn Du ein Objekt l&ouml;schen m&ouml;chtest, vielleicht weil Du inzwischen so
 viele erstellt hast, dass Du den &Uuml;berblick verlierst, kannst Du das mit der
@@ -204,15 +216,18 @@ Funktion `remove` oder ihrer Kurzform `rm` tun:
 ``` {r}
 rm(a_number)
 ``` 
+Jetzt ist es weg:
+``` {r}
+ls()
+``` 
+M&ouml;chtest Du nur wissen, ob es ein bestimmtes Objekt gibt, kannst Du die 
+Funktion 
+`exists()` nutzen.
+
 
 M&ouml;chtest Du alle von Dir erstellten Objekte l&ouml;schen, verwende die Form
 `rm(list = ls())`. Das musst Du jetzt noch nicht verstehen, aber merke es
 Dir bitte f&uuml;r sp&auml;ter.
-
-<!---_(Manche Programmiersprachen verlangen die Deklaration eines
-Objektes (mit einem bestimmten Typ), in **R** erfolgt die Deklaration und die
-Typbestimmung automatisch aus der ersten Zuweisung.)_
--->
 
 Wie bei der Hilfe gibt es neben der Kurzform (bzw. den 5 verschiedenen
 Kurzformen, Genaueres findest Du mit `help("assignOps", package = "base")`)
@@ -233,14 +248,63 @@ aus.
 [Hier findest Du meine L&ouml;sung.](answers/name.r)
 </div>
 
+
+### Was soll der Pfeil, geht nicht auch ein Gleichheitszeichen?
+Das ist eine Frage, die ich immer wieder h&ouml;re. Ich beantworte sie daher 
+hier, obwohl ich Dir [erst gleich](#funktionen) die Funktionen vorstellen
+werde. 
+
+**Die kurze Anwort lautet:**
+    Ja, es geht auch ein Gleichheitszeichen, gew&ouml;hne Dir das aber nicht an.
+
+**Die lange Anwort lautet:**
+[Viele Programmiersprachen nutzen es als _den_ Zuweisungsoperator, viele aber auch nicht,](https://en.wikipedia.org/wiki/Assignment_(computer_science)#Notation) und das 
+[nicht ohne Grund](https://en.wikipedia.org/wiki/Assignment_(computer_science)#Assignment_versus_equality).
+In **R** geht auch
+``` {r}
+a_string = "This is a string."
+print(a_string)
 ``` 
+Guter Stil ist das aber nicht. Nicht nur, weil Du das aus Versehen mit einen 
+Gleichheitsoperator verwechseln k&ouml;nntest, sondern vor allem  weil das 
+Gleichheitszeichen f&uuml;r die Argumenten&uuml;bergabe in Funktionen benutzt 
+wird, und 
+``` {r, eval = FALSE}
+print(a_string = "This is a string.")
+``` 
+``` {r, echo = FALSE}
+tryCatch(print(a_string = "This is a string."), error = function(e) print(e))
+``` 
+daher nicht funktioniert (der output sieht bei Dir ein wenig anders aus, aber 
+                          der Fehler ist der selbe).
+
+Statt dessen funktioniert aber
+``` {r, eval = FALSE}
+print(another_string <- "This is a string.")
+``` 
+Und w&auml;hrend der &Uuml;bergabe des Funktionsargumentes `x`
+(hier `another_string <- "This is a string."`) erfolgt auch gleich die Zuweisung
+und wir sehen das neue Object:
+``` {r}
+ls()
+``` 
+Falls Du dem nicht gut folgen konntest: ist nicht schlimm. Aber falls Du Dich 
+sp&auml;ter mal fragst, warum Du immer die Pfeile tippen sollst, kannst Du hier 
+nochmal nachlesen. 
+
+_Du kannst in fast jedem Editor keyboard shortcuts festlegen. In **RStudio** ist
+der Zuweisungsoperator standarm&auml;&szlig;ig auf [Alt]+[-] gelegt. Du kannst 
+den shortcut "Insert Assignment Operator" unter 
+"Tools" > "Modify keyboard shortcuts..." &auml;ndern._ 
 
 
 
 ## Funktionen 
+Funktionen habe wir ja schon benutzt: `print()` und `help()`
+
 Funktionen spielen in **R** eine gro&szlig;e Rolle, weitaus die meisten
 [Anweisungen](https://de.wikipedia.org/wiki/Anweisung_%28Programmierung%29) in
-**R** sind Funktionsaufrufe. 
+**R** enthalten Funktionsaufrufe. 
 
 <div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
 **Aufgabe:**
@@ -1815,7 +1879,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2017-01-20, 22:09
+**Last modified:** 2017-11-14, 11:55
 </p>
 
 ``` {r, echo = FALSE}
