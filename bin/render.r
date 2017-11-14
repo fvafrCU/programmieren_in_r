@@ -1,4 +1,5 @@
-#!/usr/bin/Rscript --vanilla
+#!/usr/bin/env Rscript
+
 library("rmarkdown")
 #% helper functions
 render_html<- function(rmd_file) {
