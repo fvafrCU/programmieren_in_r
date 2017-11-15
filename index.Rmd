@@ -392,10 +392,16 @@ Es gibt verschieden Stufen dieser Pakete:
    La&szlig;' vorerst besser die Finger von ihnen. 
 
 # Kontrollstrukturen
+
 Da **R** eine Programmiersprache ist, sehen wir uns zun&auml;chst ein paar
 klassische Dinge an, die jede Programmiersprache k&ouml;nnen sollte.
 Hilfe dazu erh&auml;ltst Du durch `help("Control", package = "base")`.
 
+Dort liest Du unter **Description**, dass die Kontrollstrukturen in **R** in 
+etwa die 
+selben sind wie in allen anderen Programmiersprachen der ALGOL-Familie, und 
+unter **Usage** siehst Du, dass es sich nur um eine Handvoll Konstrukte 
+handelt.
 
 ## Bedingte Anweisungen
 Ich benutze haupts&auml;chlich das gew&ouml;hnliche If-else, habe aber der
@@ -1879,7 +1885,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2017-11-14, 11:55
+**Last modified:** 2017-11-15, 12:59
 </p>
 
 ``` {r, echo = FALSE}
