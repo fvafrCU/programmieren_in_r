@@ -387,10 +387,10 @@ if (condition) {
 <p>Es gibt eine weitere Version dieser Answeisung, die Funktion <code>ifelse()</code>. Sie arbeitet mit Vektoren:</p>
 <pre class="r"><code>randomly_true &lt;- sample(x = c(TRUE, FALSE), size = 10, replace = TRUE)
 print(randomly_true)</code></pre>
-<pre><code>##  [1] FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE FALSE</code></pre>
+<pre><code>##  [1]  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE</code></pre>
 <pre class="r"><code>ifelse(randomly_true, &quot;Consecution&quot;, &quot;Alternative&quot;)</code></pre>
-<pre><code>##  [1] &quot;Alternative&quot; &quot;Alternative&quot; &quot;Consecution&quot; &quot;Alternative&quot; &quot;Consecution&quot;
-##  [6] &quot;Consecution&quot; &quot;Alternative&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Alternative&quot;</code></pre>
+<pre><code>##  [1] &quot;Consecution&quot; &quot;Consecution&quot; &quot;Alternative&quot; &quot;Consecution&quot; &quot;Alternative&quot;
+##  [6] &quot;Alternative&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Consecution&quot; &quot;Consecution&quot;</code></pre>
 <p><code>randomly_true</code> is bei jeder Ausführung pontentiell anders.</p>
 <p>Um eine Zufallsziehung reproduzierbar - also <code>nicht</code> zufällig - zu machen, nutze ich etwas wie:</p>
 <pre class="r"><code>set.seed(456432346)
@@ -528,7 +528,7 @@ invisible(vapply(some_vector,
 <pre><code>## An Element contains a.
 ## An Element contains b.
 ## An Element contains c.</code></pre>
-<p>Ich musste eine <a href="Funktionen">Funktion</a> einbauen und ich verliere die Information über den Index. Vielleicht sollte ich in einer Einführung vektorwertiges Programmieren nicht erwähnen, aber dann findest Du irgendwo im Netz die Ausssage, das es viel besser und schneller sei als Schleifen. Schneller? Stimmt meist. Besser? Finde ich nicht. Falls Du Schleifen besser verstehst: programmiere Schleifen. Die Funktion <code>apply()</code> selbst ist in <strong>R</strong> geschrieben und führt in ihrem Kern (<a href="src/apply.r">den Zeilen 39 bis 53</a>) eine <code>for</code>-Schleife aus. Du kannst eine <strong>R</strong>-Funktionen betrachten, indem Du einfach ihren Namen ohne anschliessende Klammern aufruft (ich unterdrücke hier den output, der ist länglich):</p>
+<p>Ich musste eine <a href="Funktionen">Funktion</a> einbauen und ich verliere die Information über den Index. Vielleicht sollte ich in einer Einführung vektorwertiges Programmieren nicht erwähnen, aber dann findest Du irgendwo im Netz die Ausssage, das es viel besser und schneller sei als Schleifen. Schneller? Stimmt meist. Besser? Finde ich nicht. Falls Du Schleifen besser verstehst: programmiere Schleifen. Die Funktion <code>apply()</code> selbst ist in <strong>R</strong> geschrieben und führt in ihrem Kern (<a href="src/apply.r">den Zeilen 39 bis 53</a>) eine <code>for</code>-Schleife aus. Du kannst eine <strong>R</strong>-Funktionen betrachten, indem Du einfach ihren Namen ohne anschliessende Klammern aufrufst (ich unterdrücke hier den output, der ist länglich):</p>
 <pre class="r"><code>apply</code></pre>
 <p>Komfortabler wird’s so<a name="tempfile"></a>:</p>
 <pre class="r"><code>temporary_file &lt;- tempfile()
@@ -651,9 +651,9 @@ cat(&quot;My first readme file.&quot;, file = not_so_temporary_file, sep = &quot
 
 ## ... some days later
 if (file.exists(not_so_temporary_file)) {
-    file.rename(not_so_temporary_file, paste0(not_so_temporary_file, &quot;1&quot;))
+    file.rename(not_so_temporary_file, paste0(not_so_temporary_file, &quot;.bak&quot;))
 }
-cat(&quot;This is a directory created by 'Programmieren in R' .&quot;,
+cat(&quot;This is a directory created by 'Programmieren in R'.&quot;,
     file = not_so_temporary_file, sep = &quot;\n&quot;)</code></pre>
 <p>Du kannst das <code>not_so_temporary_directory</code> gerne andernorts anlegen, ich bin mir nur sicher, dass Du auf dem Rechner vor Dir unterhalb von <code>dirname(tempdir())</code> Schreibrechte hast. Mit</p>
 <pre class="r"><code>?files</code></pre>
@@ -661,7 +661,7 @@ cat(&quot;This is a directory created by 'Programmieren in R' .&quot;,
 <pre class="r"><code>?basename</code></pre>
 das Dir den Dateinamen eines Pfades zurückgibt.
 <div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
-<p><strong>Aufgabe:</strong> Schreibe ein Programm, dass Dir den <a href="src/hello_world.r">den “hello, world”-Code</a> in eine Datei schreibt.</p>
+<p><strong>Aufgabe:</strong> Schreibe ein Programm, dass Dir den <a href="src/hello_world.r">“hello, world”-Code</a> in eine Datei schreibt.</p>
 <p><a href="answers/create_hello_world.r">Hier findest Du meine Lösung.</a></p>
 </div>
 <div style="background-color:#98E2A9; border:3px #C4DCFB solid;">
@@ -915,11 +915,11 @@ Die Zeilen und Spalten eines <code>data.frame</code>s kann ich über ihren numer
 <h4><span class="header-section-number">5.2.1.3</span> Logischer Index</h4>
 <pre class="r"><code>(random_logical_index &lt;- sample(c(TRUE, FALSE), nrow(species_shares_2002),
 replace = TRUE))</code></pre>
-<pre><code>##  [1]  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE
-## [12]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE</code></pre>
+<pre><code>##  [1] FALSE  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE
+## [12]  TRUE FALSE  TRUE  TRUE  TRUE FALSE</code></pre>
 <pre class="r"><code>species_shares_2002[random_logical_index, &quot;prediction&quot;]</code></pre>
-<pre><code>##  [1] 37.6541738  2.8441620  1.8964687  0.4452127  6.9194770  0.4277738
-##  [7]  2.8378479  1.1803450  1.9299563  0.8379760  0.9831887  0.7057045</code></pre>
+<pre><code>## [1]  7.7972024  0.4452127 21.2065514  2.8378479  1.1803450  0.8379760
+## [7]  0.9831887  0.7057045</code></pre>
 <p>Einen logischen Index nutze ich oft, um Datenbereiche auszuwählen, wie Du gleich sehen wirst.</p>
 </div>
 <div id="bereiche" class="section level4">
@@ -1087,7 +1087,7 @@ v3[c(&quot;FI&quot;, &quot;DGL&quot;)]</code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <pre class="r"><code>class(species_shares_1987[[&quot;species_group_label&quot;]])</code></pre>
 <pre><code>## [1] &quot;factor&quot;</code></pre>
-<p><code>factor</code>s können nutzlich sein, da viele <strong>R</strong>-Funktionen sie erkennen und ihre Struktur berücksichtigen, aber ich stolpere oft über sie, weil ich bei einem <code>vector</code> vergesse, dass er <code>factor</code> ist und dann erstaunt bin, dass er sich im Zweifelsfall numerisch verhält. Falls Du Zahlen bekommst, wo Du Worte erwartest, könnte ein <code>factor</code> dahinterstecken: Wenn Du Daten mit <code>data.frame</code> erstellst, liest dieses die <strong>R</strong>-Option <em>stringsAsFactors</em>, deren Wert Du mit <code>getOption(&quot;stringsAsFactors&quot;)</code> abfragen und mit <code>options(stringsAsFactors = FALSE)</code> ändern kannst. Die meisten Funktionen zum Datenimport (z.B. <code>read.csv</code> und <code>read.xslx</code>) nutzen <code>data.frame</code>!</p>
+<p><code>factor</code>s können nutzlich sein, da viele <strong>R</strong>-Funktionen sie erkennen und ihre Struktur berücksichtigen, aber ich stolpere oft über sie, weil ich bei einem <code>vector</code> vergesse, dass er <code>factor</code> ist und dann erstaunt bin, dass er sich im Zweifelsfall numerisch verhält. Falls Du Zahlen bekommst, wo Du Wörter erwartest, könnte ein <code>factor</code> dahinterstecken: Wenn Du Daten mit <code>data.frame</code> erstellst, liest dieses die <strong>R</strong>-Option <em>stringsAsFactors</em>, deren Wert Du mit <code>getOption(&quot;stringsAsFactors&quot;)</code> abfragen und mit <code>options(stringsAsFactors = FALSE)</code> ändern kannst. Die meisten Funktionen zum Datenimport (z.B. <code>read.csv</code> und <code>read.xslx</code>) nutzen <code>data.frame</code>!</p>
 </div>
 </div>
 <div id="mehr-von-mir-zu-datentypen" class="section level2">
@@ -1475,7 +1475,7 @@ species_shares_2012 &lt;-
 To the extent possible under law, Forstliche Versuchs- und Forschungsanstalt Baden-Württemberg has waived all copyright and related or neighboring rights to Programmieren in <strong>R</strong>. This work is published from: Germany. To view a copy of this license, visit <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode" class="uri">https://creativecommons.org/publicdomain/zero/1.0/legalcode</a> .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-<strong>Last modified:</strong> 2017-11-15, 12:59
+<strong>Last modified:</strong> 2017-11-16, 11:10
 </p>
 </div>
 </div>

@@ -690,7 +690,7 @@ Die Funktion `apply()` selbst ist in **R** geschrieben
 und f&uuml;hrt in ihrem Kern ([den Zeilen 39 bis 53](src/apply.r)) eine
 `for`-Schleife aus.
 Du kannst eine **R**-Funktionen betrachten, indem Du einfach ihren Namen ohne
-anschliessende Klammern aufruft (ich unterdr&uuml;cke hier den output, der ist
+anschliessende Klammern aufrufst (ich unterdr&uuml;cke hier den output, der ist
 l&auml;nglich):
 ``` {r, results = "hide"}
 apply
@@ -848,9 +848,9 @@ cat("My first readme file.", file = not_so_temporary_file, sep = "\n")
 
 ## ... some days later
 if (file.exists(not_so_temporary_file)) {
-    file.rename(not_so_temporary_file, paste0(not_so_temporary_file, "1"))
+    file.rename(not_so_temporary_file, paste0(not_so_temporary_file, ".bak"))
 }
-cat("This is a directory created by 'Programmieren in R' .",
+cat("This is a directory created by 'Programmieren in R'.",
     file = not_so_temporary_file, sep = "\n")
 
 
@@ -871,7 +871,7 @@ erh&auml;ltst Du eine erste &Uuml;bersicht. Zu `dirname()` gibt es auch noch
 das Dir den Dateinamen eines Pfades zur&uuml;ckgibt.
 <div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
 **Aufgabe:**
-Schreibe ein Programm, dass Dir den [den "hello, world"-Code](src/hello_world.r)
+Schreibe ein Programm, dass Dir den ["hello, world"-Code](src/hello_world.r)
 in eine Datei schreibt.
 
 [Hier findest Du meine L&ouml;sung.](answers/create_hello_world.r)
@@ -1359,7 +1359,7 @@ class(species_shares_1987[["species_group_label"]])
 und ihre Struktur ber&uuml;cksichtigen, aber ich stolpere oft &uuml;ber sie,
 weil ich bei einem `vector` vergesse, dass er `factor` ist und dann erstaunt
 bin, dass er sich im Zweifelsfall numerisch verh&auml;lt.  Falls Du Zahlen
-bekommst, wo Du Worte erwartest, k&ouml;nnte ein `factor` dahinterstecken:
+bekommst, wo Du W&ouml;rter erwartest, k&ouml;nnte ein `factor` dahinterstecken:
 Wenn Du Daten mit `data.frame` erstellst, liest dieses die **R**-Option 
 _stringsAsFactors_, deren Wert Du mit `getOption("stringsAsFactors")`
 abfragen und mit `options(stringsAsFactors = FALSE)` &auml;ndern kannst.
@@ -1885,7 +1885,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2017-11-15, 12:59
+**Last modified:** 2017-11-16, 11:10
 </p>
 
 ``` {r, echo = FALSE}
