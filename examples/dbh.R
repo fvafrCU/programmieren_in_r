@@ -7,9 +7,9 @@ probable <- dbh <= 200
 
 
 m <- data.frame(dbh, possible, probable)
-print(possible[3:8] && probable[3:8])
+print(possible && probable)
 m[["okay"]] <- possible & probable
-m
+print(m)
 
 
 if (dbh >= cutoff) {
@@ -19,3 +19,5 @@ if (dbh >= cutoff) {
 }
 m[["entscheidung"]] <- ifelse(dbh >= cutoff, "abhacken", "stehenlassen")
 
+print(dbh == cutoff)
+print(identical(dbh, cutoff))
