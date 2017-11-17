@@ -1175,7 +1175,7 @@ dann die Werte oder Beobachtungen stehen):
 print(species_shares_2002)
 ```
 #### Numerischer Index
-Die Hilfeseite zur Indizierung findest Du unter help("Extract").  
+Die Hilfeseite zur Indizierung findest Du unter ```help("Extract")```.  
 Die Zeilen und Spalten eines `data.frame`s kann ich &uuml;ber ihren numerischen
 Index ansprechen, wobei die linke obere Zelle in Index [1,1], die rechte untere
 Zelle den Index [nrow(data\_frame), ncol(data\_frame)] besitzt:
@@ -1902,7 +1902,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2017-11-17, 09:06
+**Last modified:** 2017-11-17, 13:42
 </p>
 
 ``` {r, echo = FALSE}

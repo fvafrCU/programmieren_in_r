@@ -388,10 +388,10 @@ if (condition) {
 <p>Es gibt eine weitere Version dieser Answeisung, die Funktion <code>ifelse()</code>. Sie arbeitet mit Vektoren:</p>
 <pre class="r"><code>randomly_true &lt;- sample(x = c(TRUE, FALSE), size = 10, replace = TRUE)
 print(randomly_true)</code></pre>
-<pre><code>##  [1]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE FALSE</code></pre>
+<pre><code>##  [1] FALSE FALSE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE</code></pre>
 <pre class="r"><code>ifelse(randomly_true, &quot;Consecution&quot;, &quot;Alternative&quot;)</code></pre>
-<pre><code>##  [1] &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Alternative&quot;
-##  [6] &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Alternative&quot;</code></pre>
+<pre><code>##  [1] &quot;Alternative&quot; &quot;Alternative&quot; &quot;Consecution&quot; &quot;Alternative&quot; &quot;Consecution&quot;
+##  [6] &quot;Alternative&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Alternative&quot; &quot;Alternative&quot;</code></pre>
 <p><code>randomly_true</code> is bei jeder Ausführung pontentiell anders.</p>
 <p>Um eine Zufallsziehung reproduzierbar - also <code>nicht</code> zufällig - zu machen, nutze ich etwas wie:</p>
 <pre class="r"><code>set.seed(456432346)
@@ -880,7 +880,7 @@ species_shares_2012 &lt;- read.xlsx(xlsx_file, sheetName = &quot;2012&quot;)</co
 ## 17                sALN  1.6135079 0.08861960 deciduous</code></pre>
 <div id="numerischer-index" class="section level4">
 <h4><span class="header-section-number">5.2.1.1</span> Numerischer Index</h4>
-<p>Die Hilfeseite zur Indizierung findest Du unter help(“Extract”).<br />
+<p>Die Hilfeseite zur Indizierung findest Du unter <code>help(&quot;Extract&quot;)</code>.<br />
 Die Zeilen und Spalten eines <code>data.frame</code>s kann ich über ihren numerischen Index ansprechen, wobei die linke obere Zelle in Index [1,1], die rechte untere Zelle den Index [nrow(data_frame), ncol(data_frame)] besitzt:</p>
 <pre class="r"><code>species_shares_2002[3, 2]</code></pre>
 <pre><code>## [1] 2.844162</code></pre>
@@ -923,11 +923,11 @@ Die Zeilen und Spalten eines <code>data.frame</code>s kann ich über ihren numer
 <h4><span class="header-section-number">5.2.1.3</span> Logischer Index</h4>
 <pre class="r"><code>(random_logical_index &lt;- sample(c(TRUE, FALSE), nrow(species_shares_2002),
 replace = TRUE))</code></pre>
-<pre><code>##  [1]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE
-## [12]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE</code></pre>
+<pre><code>##  [1]  TRUE FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE  TRUE
+## [12]  TRUE FALSE  TRUE FALSE  TRUE  TRUE</code></pre>
 <pre class="r"><code>species_shares_2002[random_logical_index, &quot;prediction&quot;]</code></pre>
-<pre><code>##  [1] 37.6541738  7.7972024  2.8441620  6.5087183  0.4452127  6.9194770
-##  [7]  4.2117337  1.1803450  1.9299563  0.8379760  0.7057045  1.6135079</code></pre>
+<pre><code>##  [1] 37.6541738  2.8441620  6.5087183 21.2065514  0.4277738  2.8378479
+##  [7]  1.1803450  0.8379760  0.7057045  1.6135079</code></pre>
 <p>Einen logischen Index nutze ich oft, um Datenbereiche auszuwählen, wie Du gleich sehen wirst.</p>
 </div>
 <div id="bereiche" class="section level4">
@@ -1483,7 +1483,7 @@ species_shares_2012 &lt;-
 To the extent possible under law, Forstliche Versuchs- und Forschungsanstalt Baden-Württemberg has waived all copyright and related or neighboring rights to Programmieren in <strong>R</strong>. This work is published from: Germany. To view a copy of this license, visit <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode" class="uri">https://creativecommons.org/publicdomain/zero/1.0/legalcode</a> .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-<strong>Last modified:</strong> 2017-11-17, 09:06
+<strong>Last modified:</strong> 2017-11-17, 13:42
 </p>
 </div>
 </div>
