@@ -336,6 +336,7 @@ print(a_string)</code></pre>
 </div>
 <div id="operatoren" class="section level2">
 <h2><span class="header-section-number">2.5</span> Operatoren</h2>
+<p><strong>R</strong> kennt die üblichen und ein paar andere arithmetische Operatoren, die Hilfe findest Du unter <code>help(&quot;Arithmetic&quot;, package = &quot;base&quot;)</code>Arithmetic.</p>
 <p>Wenn wir zwei Dinge miteinander vergleichen wollen, nutzen wir die Vergleichsoperatoren, die wir gerade schon durch <code>help(&quot;Comparison&quot;, package = &quot;base&quot;)</code> kennengelernt haben:</p>
 <pre class="r"><code>a_number != 4 </code></pre>
 <pre><code>## [1] FALSE</code></pre>
@@ -387,10 +388,10 @@ if (condition) {
 <p>Es gibt eine weitere Version dieser Answeisung, die Funktion <code>ifelse()</code>. Sie arbeitet mit Vektoren:</p>
 <pre class="r"><code>randomly_true &lt;- sample(x = c(TRUE, FALSE), size = 10, replace = TRUE)
 print(randomly_true)</code></pre>
-<pre><code>##  [1]  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE</code></pre>
+<pre><code>##  [1]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE FALSE</code></pre>
 <pre class="r"><code>ifelse(randomly_true, &quot;Consecution&quot;, &quot;Alternative&quot;)</code></pre>
-<pre><code>##  [1] &quot;Consecution&quot; &quot;Consecution&quot; &quot;Alternative&quot; &quot;Consecution&quot; &quot;Alternative&quot;
-##  [6] &quot;Alternative&quot; &quot;Alternative&quot; &quot;Alternative&quot; &quot;Consecution&quot; &quot;Consecution&quot;</code></pre>
+<pre><code>##  [1] &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Alternative&quot;
+##  [6] &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Consecution&quot; &quot;Alternative&quot;</code></pre>
 <p><code>randomly_true</code> is bei jeder Ausführung pontentiell anders.</p>
 <p>Um eine Zufallsziehung reproduzierbar - also <code>nicht</code> zufällig - zu machen, nutze ich etwas wie:</p>
 <pre class="r"><code>set.seed(456432346)
@@ -460,7 +461,8 @@ for (i in seq(1, n)) {
 }
 print(value)</code></pre>
 <pre><code>## [1] 6</code></pre>
-<p><code>for</code> verhält sich wie <math> <mstyle displaystyle="true"><mo>∑</mo></mstyle> </math>: in der runden Klammer nach <code>for</code> schreiben wir das “i gleich 1 bis n” auf, in der geschweiften das, was in der runden Klammer nach dem Summenzeichen kommt. Dazu brauchen wir allerdings ein Object, hier <code>value</code>, dem wir die Werte von i zuaddieren können. Da 0 neutral zur Addition ist, befüllen wir <code>value</code> mit dem Wert 0.</p>
+<p><code>for</code> verhält sich wie <math> <mstyle displaystyle="true"><mo>∑</mo></mstyle> </math>: in der runden Klammer nach <code>for</code> schreiben wir das “i gleich 1 bis n” auf, in der geschweiften das, was in der runden Klammer nach dem Summenzeichen kommt. Dazu brauchen wir allerdings ein Objekt, hier <code>value</code>, dem wir die Werte von i zuaddieren können. Da 0 neutral zur Addition ist, befüllen wir <code>value</code> mit dem Wert 0.</p>
+<p>Das “i gleich 1 bis n” hat die Form <code>i in seq(1, n)</code>, <code>seq()</code> ist eine Funktion, die Sequenzen, also Zahlenreihen, generiert. Die <code>for</code>-Schleife weist in jedem Durchlauf den aktuellen Wert auf der rechten Seite von <code>in</code> dem Objekt auf der linken Seite von <code>in</code> zu. Existiert dies Objekt (hier <code>i</code>) bereits, wird sein Inhalt überschrieben, sonst wird es durch die Zuweisung angelegt. In beiden Fällen existiert es nach Ablauf der Schleife und enthälte den letzten von der rechten Seite zugewiesenen Wert.</p>
 <p>Nehmen wir jetzt an, daß <math> <mstyle displaystyle="true"> <mi>a</mi> <mo>=</mo> <mfenced><mn>2</mn><mn>3</mn><mn>4</mn><mn>10</mn></mfenced> </mstyle> </math> sei, dann ist <math> <mstyle displaystyle="true"> <munderover> <mo>∑</mo> <mrow> <mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>n</mi> </munderover> <msub><mi>a</mi><mi>i</mi></msub> <mo>=</mo> <mn>9</mn> </mstyle> </math> (<math> <mstyle displaystyle="true"> <mi>n</mi> </math> </mstyle> ist ja immer noch gleich <math> <mstyle displaystyle="true"> <mn>3</mn> </math> </mstyle> ).</p>
 <p>Auch das ist eine Schleife:</p>
 <pre class="r"><code>a  &lt;- c(2, 3, 4, 10)
@@ -759,7 +761,9 @@ if (probably_at_fva()) {
 <div id="textdateien" class="section level3">
 <h3><span class="header-section-number">5.1.1</span> Textdateien</h3>
 <p>Um Dateien mit <a href="https://de.wikipedia.org/wiki/CSV_%28Dateiformat%29">Comma separated values</a> zu lesen und zu schreiben, nutze ich vor allem die beiden Funktionen <code>read.csv2()</code> und <code>write.csv2()</code>.</p>
-<pre class="r"><code>species_shares_1987 &lt;- read.csv2(file.path(input_directory, 
+<pre class="r"><code># not_so_temporary_directory &lt;- file.path(dirname(tempdir()) , &quot;r_intro&quot;)
+# input_directory &lt;- file.path(not_so_temporary_directory, &quot;data&quot;, &quot;input&quot;)
+species_shares_1987 &lt;- read.csv2(file.path(input_directory, 
                                            &quot;species_shares_1987.csv&quot;))
 species_shares_2002 &lt;- read.csv2(file.path(input_directory, 
                                            &quot;species_shares_2002.csv&quot;))
@@ -811,7 +815,9 @@ ls(pattern = &quot;v_.&quot;)</code></pre>
 <div id="microsoft-access-datenbanken" class="section level3">
 <h3><span class="header-section-number">5.1.2</span> Microsoft-Access-Datenbanken</h3>
 <p>Die selben Daten kann ich auch aus Tabellen in einer Microsoft-Access-Datenbank lesen:</p>
-<pre class="r"><code>if (! require(&quot;RODBC&quot;)) install.packages(&quot;RODBC&quot;)
+<pre class="r"><code># not_so_temporary_directory &lt;- file.path(dirname(tempdir()) , &quot;r_intro&quot;)
+# input_directory &lt;- file.path(not_so_temporary_directory, &quot;data&quot;, &quot;input&quot;)
+if (! require(&quot;RODBC&quot;)) install.packages(&quot;RODBC&quot;)
 library(&quot;RODBC&quot;)
 channel &lt;- odbcConnectAccess2007(file.path(input_directory, 
                                            &quot;species_shares.accdb&quot;))
@@ -830,7 +836,9 @@ C:\Program Files\R\R-3.1.2\bin\i386 oder so). Benutzt Du RStudio, so kannst Du �
 <div id="microsoft-excel-arbeitsmappen" class="section level3">
 <h3><span class="header-section-number">5.1.3</span> Microsoft-Excel-Arbeitsmappen</h3>
 <p>Die selben Daten lassen sich auch aus Tabellen einer Microsoft-Excel-Arbeitsmappe importieren:</p>
-<pre class="r"><code>if (! require(&quot;xlsx&quot;)) install.packages(&quot;xlsx&quot;)
+<pre class="r"><code># not_so_temporary_directory &lt;- file.path(dirname(tempdir()) , &quot;r_intro&quot;)
+# input_directory &lt;- file.path(not_so_temporary_directory, &quot;data&quot;, &quot;input&quot;)
+if (! require(&quot;xlsx&quot;)) install.packages(&quot;xlsx&quot;)
 library(&quot;xlsx&quot;)
 xlsx_file &lt;- file.path(input_directory, &quot;species_shares.xlsx&quot;)
 species_shares_1987 &lt;- read.xlsx(xlsx_file, sheetName = &quot;1987&quot;)
@@ -915,11 +923,11 @@ Die Zeilen und Spalten eines <code>data.frame</code>s kann ich über ihren numer
 <h4><span class="header-section-number">5.2.1.3</span> Logischer Index</h4>
 <pre class="r"><code>(random_logical_index &lt;- sample(c(TRUE, FALSE), nrow(species_shares_2002),
 replace = TRUE))</code></pre>
-<pre><code>##  [1] FALSE  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE
-## [12]  TRUE FALSE  TRUE  TRUE  TRUE FALSE</code></pre>
+<pre><code>##  [1]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE
+## [12]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE</code></pre>
 <pre class="r"><code>species_shares_2002[random_logical_index, &quot;prediction&quot;]</code></pre>
-<pre><code>## [1]  7.7972024  0.4452127 21.2065514  2.8378479  1.1803450  0.8379760
-## [7]  0.9831887  0.7057045</code></pre>
+<pre><code>##  [1] 37.6541738  7.7972024  2.8441620  6.5087183  0.4452127  6.9194770
+##  [7]  4.2117337  1.1803450  1.9299563  0.8379760  0.7057045  1.6135079</code></pre>
 <p>Einen logischen Index nutze ich oft, um Datenbereiche auszuwählen, wie Du gleich sehen wirst.</p>
 </div>
 <div id="bereiche" class="section level4">
@@ -1475,7 +1483,7 @@ species_shares_2012 &lt;-
 To the extent possible under law, Forstliche Versuchs- und Forschungsanstalt Baden-Württemberg has waived all copyright and related or neighboring rights to Programmieren in <strong>R</strong>. This work is published from: Germany. To view a copy of this license, visit <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode" class="uri">https://creativecommons.org/publicdomain/zero/1.0/legalcode</a> .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-<strong>Last modified:</strong> 2017-11-16, 11:10
+<strong>Last modified:</strong> 2017-11-17, 09:06
 </p>
 </div>
 </div>

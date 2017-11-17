@@ -297,6 +297,8 @@ if (probably_at_fva()) {
 
 
 
+# not_so_temporary_directory <- file.path(dirname(tempdir()) , "r_intro")
+# input_directory <- file.path(not_so_temporary_directory, "data", "input")
 species_shares_1987 <- read.csv2(file.path(input_directory, 
                                            "species_shares_1987.csv"))
 species_shares_2002 <- read.csv2(file.path(input_directory, 
@@ -325,6 +327,8 @@ species_shares_2012 <- sqlFetch(channel, "Species_shares_2012")
 odbcClose(channel)
 
 }
+## # not_so_temporary_directory <- file.path(dirname(tempdir()) , "r_intro")
+## # input_directory <- file.path(not_so_temporary_directory, "data", "input")
 ## if (! require("RODBC")) install.packages("RODBC")
 ## library("RODBC")
 ## channel <- odbcConnectAccess2007(file.path(input_directory,
@@ -344,6 +348,8 @@ species_shares_2002 <- read.xlsx(xlsx_file, sheetName = "2002")
 species_shares_2012 <- read.xlsx(xlsx_file, sheetName = "2012")
 
 }
+## # not_so_temporary_directory <- file.path(dirname(tempdir()) , "r_intro")
+## # input_directory <- file.path(not_so_temporary_directory, "data", "input")
 ## if (! require("xlsx")) install.packages("xlsx")
 ## library("xlsx")
 ## xlsx_file <- file.path(input_directory, "species_shares.xlsx")
