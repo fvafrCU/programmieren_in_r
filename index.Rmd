@@ -330,6 +330,9 @@ Allerdings h&auml;ngt diese Liste von den gerade geladenen [Pakete](#r-packages)
 ab.
 
 ## Operatoren
+**R** kennt die &uuml;blichen und ein paar andere arithmetische Operatoren, die 
+Hilfe findest Du unter `help("Arithmetic", package = "base")`Arithmetic.
+
 Wenn wir zwei Dinge miteinander vergleichen wollen, nutzen wir die
 Vergleichsoperatoren, die wir gerade schon durch 
 `help("Comparison", package = "base")` kennengelernt haben:
@@ -552,9 +555,17 @@ print(value)
 <math> <mstyle displaystyle="true"><mo>&sum;</mo></mstyle> </math>: in der
 runden Klammer nach `for` schreiben wir das "i gleich 1 bis n" auf, in der
 geschweiften das, was in der runden Klammer nach dem Summenzeichen kommt.
-Dazu brauchen wir allerdings ein Object, hier `value`, dem wir die
+Dazu brauchen wir allerdings ein Objekt, hier `value`, dem wir die
 Werte von i zuaddieren k&ouml;nnen. 
 Da 0 neutral zur Addition ist, bef&uuml;llen wir `value` mit dem Wert 0.
+
+Das "i gleich 1 bis n" hat die Form `i in seq(1, n)`, `seq()` ist eine Funktion, 
+die Sequenzen, also Zahlenreihen, generiert. Die `for`-Schleife weist in jedem 
+Durchlauf den aktuellen Wert auf der rechten Seite von `in` dem Objekt auf der 
+linken Seite von `in` zu. Existiert dies Objekt (hier `i`) bereits, wird sein 
+Inhalt &uuml;berschrieben, sonst wird es durch die Zuweisung angelegt. In beiden 
+F&auml;llen existiert es nach Ablauf der Schleife und enth&auml;lte den letzten 
+von der rechten Seite zugewiesenen Wert.
 
 Nehmen wir jetzt an, da&szlig;
 <math> <mstyle displaystyle="true"> 
@@ -1010,6 +1021,8 @@ values](https://de.wikipedia.org/wiki/CSV_%28Dateiformat%29) zu lesen und zu
 schreiben, nutze ich vor allem die beiden Funktionen `read.csv2()` und
 `write.csv2()`. 
 ``` {r}
+# not_so_temporary_directory <- file.path(dirname(tempdir()) , "r_intro")
+# input_directory <- file.path(not_so_temporary_directory, "data", "input")
 species_shares_1987 <- read.csv2(file.path(input_directory, 
                                            "species_shares_1987.csv"))
 species_shares_2002 <- read.csv2(file.path(input_directory, 
@@ -1073,6 +1086,8 @@ odbcClose(channel)
 }
 ``` 
 ``` {r, eval = FALSE}
+# not_so_temporary_directory <- file.path(dirname(tempdir()) , "r_intro")
+# input_directory <- file.path(not_so_temporary_directory, "data", "input")
 if (! require("RODBC")) install.packages("RODBC")
 library("RODBC")
 channel <- odbcConnectAccess2007(file.path(input_directory, 
@@ -1121,6 +1136,8 @@ species_shares_2012 <- read.xlsx(xlsx_file, sheetName = "2012")
 }
 ``` 
 ``` {r, eval = FALSE}
+# not_so_temporary_directory <- file.path(dirname(tempdir()) , "r_intro")
+# input_directory <- file.path(not_so_temporary_directory, "data", "input")
 if (! require("xlsx")) install.packages("xlsx")
 library("xlsx")
 xlsx_file <- file.path(input_directory, "species_shares.xlsx")
@@ -1885,7 +1902,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2017-11-16, 11:10
+**Last modified:** 2017-11-17, 09:06
 </p>
 
 ``` {r, echo = FALSE}
