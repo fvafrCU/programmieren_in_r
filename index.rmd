@@ -180,6 +180,18 @@ und
 , auf denen die Vergleichsoperatoren und die logischen Operatoren beschrieben
 werden.
 
+Wenn ich nicht eine bestimmt Hilfeseite aufrufen will (vielleicht, weil ich
+nicht wei&szlig;, welche ich suche), kann ich die Hilfeseiten auch
+durchsuchen:
+``` {r}
+??Kolomogorov
+``` 
+Durchsucht die Hilfeseiten nach dem Wort "Kolomogorov", und verweist mich dann
+(obwohl ich Kolmogorov falsch geschrieben habe)
+auf die Hilfeseite der Funktion `ks.test` aus dem Package *stats*, die den
+Kolmogorov-Smirnov-Test implementiert.
+
+
 ## Zuweisungen
 Alle Objekte ([Daten](#datentypen-und-indizierung) und 
 [Funktionen](#funktionen))
@@ -622,7 +634,7 @@ Es sei denn, Du hast Dir das Verzeichnis src/ samt Inhalt in Dein aktuelles
 <#include "src/sink.r">
 ``` 
 Das kann hilfreich sein, um Berechnungen dauerhaft zu speichern, 
-diese html-Seite wird beispielsweise durch das **R**-Pagacke `knitr` gesetzt, 
+diese html-Seite wird beispielsweise durch das **R**-Package `knitr` gesetzt, 
 indem es `sink()` einsetzt.
 
 Nur um zu zeigen, dass es funktioniert, 
@@ -1254,7 +1266,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2017-01-20, 22:09
+**Last modified:** 2017-12-07, 12:26
 </p>
 
 ``` {r, echo = FALSE}
