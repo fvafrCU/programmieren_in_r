@@ -1,5 +1,4 @@
 #!/usr/bin/Rscript --vanilla
-rm(rmd_file) # FIXME: get rid of sibbling from bin/render.r ...
 print("hello, world")
 
 source("answers/example.r")
@@ -17,19 +16,12 @@ help("help", package = "utils")
 ?help
 help("Syntax", package = "base")
 ?Syntax
+??Kolomogorov
 a_number <- 3
 a_number <- "this is no number, it's a string!"
-ls()
 rm(a_number)
-ls()
 assign("a_number", 4)
 source("answers/name.r")
-a_string = "This is a string."
-print(a_string)
-## print(a_string = "This is a string.")
-tryCatch(print(a_string = "This is a string."), error = function(e) print(e))
-## print(another_string <- "This is a string.")
-ls()
 for (pos in seq(along = searchpaths())) {
     print(lsf.str(pos))
 }
@@ -213,13 +205,14 @@ cat("My first readme file.", file = not_so_temporary_file, sep = "\n")
 
 ## ... some days later
 if (file.exists(not_so_temporary_file)) {
-    file.rename(not_so_temporary_file, paste0(not_so_temporary_file, ".bak"))
+    file.rename(not_so_temporary_file, paste0(not_so_temporary_file, "1"))
 }
-cat("This is a directory created by 'Programmieren in R'.",
+cat("This is a directory created by 'Programmieren in R' .",
     file = not_so_temporary_file, sep = "\n")
 
 
 
+## shell.exec(not_so_temporary_directory)
 ?files
 ?basename
 #% read the file containing the names
@@ -297,8 +290,6 @@ if (probably_at_fva()) {
 
 
 
-# not_so_temporary_directory <- file.path(dirname(tempdir()) , "r_intro")
-# input_directory <- file.path(not_so_temporary_directory, "data", "input")
 species_shares_1987 <- read.csv2(file.path(input_directory, 
                                            "species_shares_1987.csv"))
 species_shares_2002 <- read.csv2(file.path(input_directory, 
@@ -327,8 +318,6 @@ species_shares_2012 <- sqlFetch(channel, "Species_shares_2012")
 odbcClose(channel)
 
 }
-## # not_so_temporary_directory <- file.path(dirname(tempdir()) , "r_intro")
-## # input_directory <- file.path(not_so_temporary_directory, "data", "input")
 ## if (! require("RODBC")) install.packages("RODBC")
 ## library("RODBC")
 ## channel <- odbcConnectAccess2007(file.path(input_directory,
@@ -348,8 +337,6 @@ species_shares_2002 <- read.xlsx(xlsx_file, sheetName = "2002")
 species_shares_2012 <- read.xlsx(xlsx_file, sheetName = "2012")
 
 }
-## # not_so_temporary_directory <- file.path(dirname(tempdir()) , "r_intro")
-## # input_directory <- file.path(not_so_temporary_directory, "data", "input")
 ## if (! require("xlsx")) install.packages("xlsx")
 ## library("xlsx")
 ## xlsx_file <- file.path(input_directory, "species_shares.xlsx")

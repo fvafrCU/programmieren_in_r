@@ -180,7 +180,7 @@ und
 , auf denen die Vergleichsoperatoren und die logischen Operatoren beschrieben
 werden.
 
-Wenn ich nicht eine bestimmt Hilfeseite aufrufen will (vielleicht, weil ich
+Wenn ich nicht eine bestimmte Hilfeseite aufrufen will (vielleicht, weil ich
 nicht wei&szlig;, welche ich suche), kann ich die Hilfeseiten auch
 durchsuchen:
 ``` {r}
@@ -653,6 +653,18 @@ l&ouml;schen:
 Du kannst das `not_so_temporary_directory` gerne andernorts anlegen,
 ich bin mir nur sicher, dass Du auf dem Rechner vor Dir unterhalb von
 `dirname(tempdir())` Schreibrechte hast.
+
+Unter Windows kann `tempdir()` ein recht langwieriger Pfad sein, wenn Du den
+windows explorer an einem solchen Pfad ge&ouml;ffnet haben m&ouml;chtest, kannst
+Du das unter Windows mit `shell.exec()` tun:
+``` {r, eval = FALSE}
+shell.exec(not_so_temporary_directory)
+``` 
+
+Unter unixoiden Betriebssystemen hilft Dir 
+`system2("/path/to/file_browser", not_so_temporary_directory)`.
+
+
 Mit
 
 ``` {r}
@@ -1266,7 +1278,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2017-12-07, 12:26
+**Last modified:** 2017-12-07, 20:05
 </p>
 
 ``` {r, echo = FALSE}

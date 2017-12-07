@@ -4,15 +4,8 @@ subtitle: Ein Einstieg an der
   Forstlichen Versuchs- und Forschungsanstalt Baden-W&uuml;rttemberg.
 author: Dominik Cullmann, Elke Erhardt, Sebastian Schmack
 ---
-<!---
-# use 
-#    ./bin/render.r -k index.Rmd
-# to render!
---->
-
 ``` {r, echo = FALSE}
 #!/usr/bin/Rscript --vanilla
-rm(rmd_file) # FIXME: get rid of sibbling from bin/render.r ...
 ``` 
 # Vorweg
 ## Du 
@@ -188,6 +181,18 @@ und
 , auf denen die Vergleichsoperatoren und die logischen Operatoren beschrieben
 werden.
 
+Wenn ich nicht eine bestimmte Hilfeseite aufrufen will (vielleicht, weil ich
+nicht wei&szlig;, welche ich suche), kann ich die Hilfeseiten auch
+durchsuchen:
+``` {r}
+??Kolomogorov
+``` 
+Durchsucht die Hilfeseiten nach dem Wort "Kolomogorov", und verweist mich dann
+(obwohl ich Kolmogorov falsch geschrieben habe)
+auf die Hilfeseite der Funktion `ks.test` aus dem Package *stats*, die den
+Kolmogorov-Smirnov-Test implementiert.
+
+
 ## Zuweisungen
 Alle Objekte ([Daten](#datentypen-und-indizierung) und 
 [Funktionen](#funktionen))
@@ -195,7 +200,7 @@ in **R** werden durch Zuweisungen definiert.
 ``` {r}
 a_number <- 3
 ``` 
-Das ist schon recht technisch, denn in vielen anderen Sprachen werden Objekte
+Das ist schon recht technisch, denn in anderen Sprachen werden Objekte
 zun&auml;chst definiert (oder zumindest deklariert) und erst dann wird ihnen ein
 Wert zugewiesen. Das ist etwas umst&auml;ndlich, aber daf&uuml;r funktioniert
 der folgende Code in **R** leider:
@@ -204,11 +209,6 @@ a_number <- "this is no number, it's a string!"
 ``` 
 Ich kann also ein Objekt mit einem Objekt eines anderen Typs &uuml;berschreiben.
 
-M&ouml;chtest Du alle von Dir erstellten Objekte auflisten, hilft Dir
-``` {r}
-ls()
-``` 
-
 
 Wenn Du ein Objekt l&ouml;schen m&ouml;chtest, vielleicht weil Du inzwischen so
 viele erstellt hast, dass Du den &Uuml;berblick verlierst, kannst Du das mit der
@@ -216,18 +216,15 @@ Funktion `remove` oder ihrer Kurzform `rm` tun:
 ``` {r}
 rm(a_number)
 ``` 
-Jetzt ist es weg:
-``` {r}
-ls()
-``` 
-M&ouml;chtest Du nur wissen, ob es ein bestimmtes Objekt gibt, kannst Du die 
-Funktion 
-`exists()` nutzen.
-
 
 M&ouml;chtest Du alle von Dir erstellten Objekte l&ouml;schen, verwende die Form
 `rm(list = ls())`. Das musst Du jetzt noch nicht verstehen, aber merke es
 Dir bitte f&uuml;r sp&auml;ter.
+
+<!---_(Manche Programmiersprachen verlangen die Deklaration eines
+Objektes (mit einem bestimmten Typ), in **R** erfolgt die Deklaration und die
+Typbestimmung automatisch aus der ersten Zuweisung.)_
+-->
 
 Wie bei der Hilfe gibt es neben der Kurzform (bzw. den 5 verschiedenen
 Kurzformen, Genaueres findest Du mit `help("assignOps", package = "base")`)
@@ -248,63 +245,14 @@ aus.
 [Hier findest Du meine L&ouml;sung.](answers/name.r)
 </div>
 
-
-### Was soll der Pfeil, geht nicht auch ein Gleichheitszeichen?
-Das ist eine Frage, die ich immer wieder h&ouml;re. Ich beantworte sie daher 
-hier, obwohl ich Dir [erst gleich](#funktionen) die Funktionen vorstellen
-werde. 
-
-**Die kurze Anwort lautet:**
-    Ja, es geht auch ein Gleichheitszeichen, gew&ouml;hne Dir das aber nicht an.
-
-**Die lange Anwort lautet:**
-[Viele Programmiersprachen nutzen es als _den_ Zuweisungsoperator, viele aber auch nicht,](https://en.wikipedia.org/wiki/Assignment_(computer_science)#Notation) und das 
-[nicht ohne Grund](https://en.wikipedia.org/wiki/Assignment_(computer_science)#Assignment_versus_equality).
-In **R** geht auch
-``` {r}
-a_string = "This is a string."
-print(a_string)
 ``` 
-Guter Stil ist das aber nicht. Nicht nur, weil Du das aus Versehen mit einen 
-Gleichheitsoperator verwechseln k&ouml;nntest, sondern vor allem  weil das 
-Gleichheitszeichen f&uuml;r die Argumenten&uuml;bergabe in Funktionen benutzt 
-wird, und 
-``` {r, eval = FALSE}
-print(a_string = "This is a string.")
-``` 
-``` {r, echo = FALSE}
-tryCatch(print(a_string = "This is a string."), error = function(e) print(e))
-``` 
-daher nicht funktioniert (der output sieht bei Dir ein wenig anders aus, aber 
-                          der Fehler ist der selbe).
-
-Statt dessen funktioniert aber
-``` {r, eval = FALSE}
-print(another_string <- "This is a string.")
-``` 
-Und w&auml;hrend der &Uuml;bergabe des Funktionsargumentes `x`
-(hier `another_string <- "This is a string."`) erfolgt auch gleich die Zuweisung
-und wir sehen das neue Object:
-``` {r}
-ls()
-``` 
-Falls Du dem nicht gut folgen konntest: ist nicht schlimm. Aber falls Du Dich 
-sp&auml;ter mal fragst, warum Du immer die Pfeile tippen sollst, kannst Du hier 
-nochmal nachlesen. 
-
-_Du kannst in fast jedem Editor keyboard shortcuts festlegen. In **RStudio** ist
-der Zuweisungsoperator standarm&auml;&szlig;ig auf [Alt]+[-] gelegt. Du kannst 
-den shortcut "Insert Assignment Operator" unter 
-"Tools" > "Modify keyboard shortcuts..." &auml;ndern._ 
 
 
 
 ## Funktionen 
-Funktionen habe wir ja schon benutzt: `print()` und `help()`
-
 Funktionen spielen in **R** eine gro&szlig;e Rolle, weitaus die meisten
 [Anweisungen](https://de.wikipedia.org/wiki/Anweisung_%28Programmierung%29) in
-**R** enthalten Funktionsaufrufe. 
+**R** sind Funktionsaufrufe. 
 
 <div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
 **Aufgabe:**
@@ -330,9 +278,6 @@ Allerdings h&auml;ngt diese Liste von den gerade geladenen [Pakete](#r-packages)
 ab.
 
 ## Operatoren
-**R** kennt die &uuml;blichen und ein paar andere arithmetische Operatoren, die 
-Hilfe findest Du unter `help("Arithmetic", package = "base")`Arithmetic.
-
 Wenn wir zwei Dinge miteinander vergleichen wollen, nutzen wir die
 Vergleichsoperatoren, die wir gerade schon durch 
 `help("Comparison", package = "base")` kennengelernt haben:
@@ -395,16 +340,10 @@ Es gibt verschieden Stufen dieser Pakete:
    La&szlig;' vorerst besser die Finger von ihnen. 
 
 # Kontrollstrukturen
-
 Da **R** eine Programmiersprache ist, sehen wir uns zun&auml;chst ein paar
 klassische Dinge an, die jede Programmiersprache k&ouml;nnen sollte.
 Hilfe dazu erh&auml;ltst Du durch `help("Control", package = "base")`.
 
-Dort liest Du unter **Description**, dass die Kontrollstrukturen in **R** in 
-etwa die 
-selben sind wie in allen anderen Programmiersprachen der ALGOL-Familie, und 
-unter **Usage** siehst Du, dass es sich nur um eine Handvoll Konstrukte 
-handelt.
 
 ## Bedingte Anweisungen
 Ich benutze haupts&auml;chlich das gew&ouml;hnliche If-else, habe aber der
@@ -555,17 +494,9 @@ print(value)
 <math> <mstyle displaystyle="true"><mo>&sum;</mo></mstyle> </math>: in der
 runden Klammer nach `for` schreiben wir das "i gleich 1 bis n" auf, in der
 geschweiften das, was in der runden Klammer nach dem Summenzeichen kommt.
-Dazu brauchen wir allerdings ein Objekt, hier `value`, dem wir die
+Dazu brauchen wir allerdings ein Object, hier `value`, dem wir die
 Werte von i zuaddieren k&ouml;nnen. 
 Da 0 neutral zur Addition ist, bef&uuml;llen wir `value` mit dem Wert 0.
-
-Das "i gleich 1 bis n" hat die Form `i in seq(1, n)`, `seq()` ist eine Funktion, 
-die Sequenzen, also Zahlenreihen, generiert. Die `for`-Schleife weist in jedem 
-Durchlauf den aktuellen Wert auf der rechten Seite von `in` dem Objekt auf der 
-linken Seite von `in` zu. Existiert dies Objekt (hier `i`) bereits, wird sein 
-Inhalt &uuml;berschrieben, sonst wird es durch die Zuweisung angelegt. In beiden 
-F&auml;llen existiert es nach Ablauf der Schleife und enth&auml;lte den letzten 
-von der rechten Seite zugewiesenen Wert.
 
 Nehmen wir jetzt an, da&szlig;
 <math> <mstyle displaystyle="true"> 
@@ -701,7 +632,7 @@ Die Funktion `apply()` selbst ist in **R** geschrieben
 und f&uuml;hrt in ihrem Kern ([den Zeilen 39 bis 53](src/apply.r)) eine
 `for`-Schleife aus.
 Du kannst eine **R**-Funktionen betrachten, indem Du einfach ihren Namen ohne
-anschliessende Klammern aufrufst (ich unterdr&uuml;cke hier den output, der ist
+anschliessende Klammern aufruft (ich unterdr&uuml;cke hier den output, der ist
 l&auml;nglich):
 ``` {r, results = "hide"}
 apply
@@ -837,7 +768,7 @@ temporary_file <- tempfile()
 
 ``` 
 Das kann hilfreich sein, um Berechnungen dauerhaft zu speichern, 
-diese html-Seite wird beispielsweise durch das **R**-Pagacke `knitr` gesetzt, 
+diese html-Seite wird beispielsweise durch das **R**-Package `knitr` gesetzt, 
 indem es `sink()` einsetzt.
 
 Nur um zu zeigen, dass es funktioniert, 
@@ -859,9 +790,9 @@ cat("My first readme file.", file = not_so_temporary_file, sep = "\n")
 
 ## ... some days later
 if (file.exists(not_so_temporary_file)) {
-    file.rename(not_so_temporary_file, paste0(not_so_temporary_file, ".bak"))
+    file.rename(not_so_temporary_file, paste0(not_so_temporary_file, "1"))
 }
-cat("This is a directory created by 'Programmieren in R'.",
+cat("This is a directory created by 'Programmieren in R' .",
     file = not_so_temporary_file, sep = "\n")
 
 
@@ -870,6 +801,18 @@ cat("This is a directory created by 'Programmieren in R'.",
 Du kannst das `not_so_temporary_directory` gerne andernorts anlegen,
 ich bin mir nur sicher, dass Du auf dem Rechner vor Dir unterhalb von
 `dirname(tempdir())` Schreibrechte hast.
+
+Unter Windows kann `tempdir()` ein recht langwieriger Pfad sein, wenn Du den
+windows explorer an einem solchen Pfad ge&ouml;ffnet haben m&ouml;chtest, kannst
+Du das unter Windows mit `shell.exec()` tun:
+``` {r, eval = FALSE}
+shell.exec(not_so_temporary_directory)
+``` 
+
+Unter unixoiden Betriebssystemen hilft Dir 
+`system2("/path/to/file_browser", not_so_temporary_directory)`.
+
+
 Mit
 
 ``` {r}
@@ -882,7 +825,7 @@ erh&auml;ltst Du eine erste &Uuml;bersicht. Zu `dirname()` gibt es auch noch
 das Dir den Dateinamen eines Pfades zur&uuml;ckgibt.
 <div style="background-color:#FFE9E9; border:3px #C4DCFB solid;">
 **Aufgabe:**
-Schreibe ein Programm, dass Dir den ["hello, world"-Code](src/hello_world.r)
+Schreibe ein Programm, dass Dir den [den "hello, world"-Code](src/hello_world.r)
 in eine Datei schreibt.
 
 [Hier findest Du meine L&ouml;sung.](answers/create_hello_world.r)
@@ -1021,8 +964,6 @@ values](https://de.wikipedia.org/wiki/CSV_%28Dateiformat%29) zu lesen und zu
 schreiben, nutze ich vor allem die beiden Funktionen `read.csv2()` und
 `write.csv2()`. 
 ``` {r}
-# not_so_temporary_directory <- file.path(dirname(tempdir()) , "r_intro")
-# input_directory <- file.path(not_so_temporary_directory, "data", "input")
 species_shares_1987 <- read.csv2(file.path(input_directory, 
                                            "species_shares_1987.csv"))
 species_shares_2002 <- read.csv2(file.path(input_directory, 
@@ -1086,8 +1027,6 @@ odbcClose(channel)
 }
 ``` 
 ``` {r, eval = FALSE}
-# not_so_temporary_directory <- file.path(dirname(tempdir()) , "r_intro")
-# input_directory <- file.path(not_so_temporary_directory, "data", "input")
 if (! require("RODBC")) install.packages("RODBC")
 library("RODBC")
 channel <- odbcConnectAccess2007(file.path(input_directory, 
@@ -1136,8 +1075,6 @@ species_shares_2012 <- read.xlsx(xlsx_file, sheetName = "2012")
 }
 ``` 
 ``` {r, eval = FALSE}
-# not_so_temporary_directory <- file.path(dirname(tempdir()) , "r_intro")
-# input_directory <- file.path(not_so_temporary_directory, "data", "input")
 if (! require("xlsx")) install.packages("xlsx")
 library("xlsx")
 xlsx_file <- file.path(input_directory, "species_shares.xlsx")
@@ -1175,7 +1112,7 @@ dann die Werte oder Beobachtungen stehen):
 print(species_shares_2002)
 ```
 #### Numerischer Index
-Die Hilfeseite zur Indizierung findest Du unter ```help("Extract")```.  
+Die Hilfeseite zur Indizierung findest Du unter help("Extract").  
 Die Zeilen und Spalten eines `data.frame`s kann ich &uuml;ber ihren numerischen
 Index ansprechen, wobei die linke obere Zelle in Index [1,1], die rechte untere
 Zelle den Index [nrow(data\_frame), ncol(data\_frame)] besitzt:
@@ -1376,7 +1313,7 @@ class(species_shares_1987[["species_group_label"]])
 und ihre Struktur ber&uuml;cksichtigen, aber ich stolpere oft &uuml;ber sie,
 weil ich bei einem `vector` vergesse, dass er `factor` ist und dann erstaunt
 bin, dass er sich im Zweifelsfall numerisch verh&auml;lt.  Falls Du Zahlen
-bekommst, wo Du W&ouml;rter erwartest, k&ouml;nnte ein `factor` dahinterstecken:
+bekommst, wo Du Worte erwartest, k&ouml;nnte ein `factor` dahinterstecken:
 Wenn Du Daten mit `data.frame` erstellst, liest dieses die **R**-Option 
 _stringsAsFactors_, deren Wert Du mit `getOption("stringsAsFactors")`
 abfragen und mit `options(stringsAsFactors = FALSE)` &auml;ndern kannst.
@@ -1902,7 +1839,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2017-11-17, 13:42
+**Last modified:** 2017-12-07, 20:05
 </p>
 
 ``` {r, echo = FALSE}
