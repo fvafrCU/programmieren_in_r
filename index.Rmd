@@ -1324,7 +1324,7 @@ Die meisten Funktionen zum Datenimport (z.B. `read.csv` und `read.xslx`) nutzen
 ## Mehr von mir zu Datentypen 
 findest Du unter [hier](data_types.html).
 
-# Funktionen
+# Funktionen selbst schreiben
 Funktionen in **R** selbst zu schreiben ist sehr einfach und oft hilfreich. 
 Wenn Du einen Codeblock mehr als zweimal untereinander kopierst und nur minimale 
 &Auml;nderungen vornimmst, ist er in Wirklichkeit eine Schleife.
@@ -1561,6 +1561,9 @@ den Aufrufen von `get_species_group_factor()` verstecken. Falls ich die
 Funktionen richtig implementiert habe, interessieren mich ihre Details nur noch
 wenig und ich bin froh, wenn ich nur noch die drei Funktionsaufrufe sehe.
 
+## Mehr zu Funktionen 
+findest Du unter
+[https://fvafrcu.github.io/funktionen_in_r/](https://fvafrcu.github.io/funktionen_in_r/).
 
 # Von Daten zur Graphik
 Ich habe Dir bunte Bildchen versprochen, nun sollst Du sie haben.
@@ -1839,7 +1842,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2017-12-07, 20:05
+**Last modified:** 2018-04-18, 11:27
 </p>
 
 ``` {r, echo = FALSE}
