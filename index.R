@@ -257,7 +257,7 @@ for (dependency in dependencies) {
     }
     library(dependency, character.only = TRUE)
 }
-input_url <- "http://fvafrcu.github.io/programmieren_in_r/data/input/"
+input_url <- "http://fvafrcu.gitlab.io/programmieren_in_r/data/input/"
 if (probably_at_fva()) {
     if (Sys.getenv("http_proxy") == "") {
         old_proxy <- Sys.getenv("http_proxy")

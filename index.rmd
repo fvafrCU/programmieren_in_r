@@ -1202,7 +1202,7 @@ wenig und ich bin froh, wenn ich nur noch die drei Funktionsaufrufe sehe.
 
 ## Mehr zu Funktionen 
 findest Du unter
-[https://fvafrcu.github.io/funktionen_in_r/](https://fvafrcu.github.io/funktionen_in_r/).
+[https://fvafrcu.gitlab.io/funktionen_in_r/](https://fvafrcu.gitlab.io/funktionen_in_r/).
 
 # Von Daten zur Graphik
 Ich habe Dir bunte Bildchen versprochen, nun sollst Du sie haben.
@@ -1252,7 +1252,7 @@ zu **R**, die Dich jetzt vielleicht interessieren k&ouml;nnten.
 Falls Du obigen Link nicht &ouml;ffnen kannst, etwa weil Du ihn nicht mit dem 
 Internetexplorer eines Standard-FVA-PC zu &ouml;ffnen versuchst (das liegt an 
 den Passw&ouml;rtern auf der internen Homepage ...), findest Du
-[hier](https://raw.githubusercontent.com/fvafrCU/programmierleitfaden/master/programmierleitfaden.ps)
+[hier](hhttps://gitlab.com/fvafrcu/programmierleitfaden/raw/master/programmierleitfaden.ps)
 eine Version in [PostScript](http://de.wikipedia.org/wiki/PostScript). Lade sie
 herunter und konvertiere sie gegebenenfalls in pdf.
 
@@ -1281,7 +1281,7 @@ To view a copy of this license, visit
 .
 <hr style="height:3px;border:none;color:#333;background-color:#333;" />
 <p align="right">
-**Last modified:** 2018-04-18, 11:27
+**Last modified:** 2018-07-20, 08:01
 </p>
 
 ``` {r, echo = FALSE}
